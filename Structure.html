@@ -2,16 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.1.189">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>R Packages (2e) - 4&nbsp; Package structure and state</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -50,7 +55,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -63,7 +68,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -338,22 +343,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"> <span class="header-section-number">4.1</span> Introduction</a></li>
-  <li><a href="#sec-package-states" id="toc-sec-package-states" class="nav-link" data-scroll-target="#sec-package-states"> <span class="header-section-number">4.2</span> Package states</a></li>
-  <li><a href="#sec-source-package" id="toc-sec-source-package" class="nav-link" data-scroll-target="#sec-source-package"> <span class="header-section-number">4.3</span> Source package</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">4.1</span>  Introduction</a></li>
+  <li><a href="#sec-package-states" id="toc-sec-package-states" class="nav-link" data-scroll-target="#sec-package-states"><span class="toc-section-number">4.2</span>  Package states</a></li>
+  <li><a href="#sec-source-package" id="toc-sec-source-package" class="nav-link" data-scroll-target="#sec-source-package"><span class="toc-section-number">4.3</span>  Source package</a></li>
   <li>
-<a href="#bundled-package" id="toc-bundled-package" class="nav-link" data-scroll-target="#bundled-package"> <span class="header-section-number">4.4</span> Bundled package</a>
+<a href="#bundled-package" id="toc-bundled-package" class="nav-link" data-scroll-target="#bundled-package"><span class="toc-section-number">4.4</span>  Bundled package</a>
   <ul class="collapse">
-<li><a href="#sec-rbuildignore" id="toc-sec-rbuildignore" class="nav-link" data-scroll-target="#sec-rbuildignore"> <span class="header-section-number">4.4.1</span> <code>.Rbuildignore</code></a></li>
+<li><a href="#sec-rbuildignore" id="toc-sec-rbuildignore" class="nav-link" data-scroll-target="#sec-rbuildignore"><span class="toc-section-number">4.4.1</span>  <code>.Rbuildignore</code></a></li>
   </ul>
 </li>
-  <li><a href="#sec-structure-binary" id="toc-sec-structure-binary" class="nav-link" data-scroll-target="#sec-structure-binary"> <span class="header-section-number">4.5</span> Binary package</a></li>
-  <li><a href="#sec-installed-package" id="toc-sec-installed-package" class="nav-link" data-scroll-target="#sec-installed-package"> <span class="header-section-number">4.6</span> Installed package</a></li>
-  <li><a href="#in-memory-package" id="toc-in-memory-package" class="nav-link" data-scroll-target="#in-memory-package"> <span class="header-section-number">4.7</span> In-memory package</a></li>
-  <li><a href="#sec-library" id="toc-sec-library" class="nav-link" data-scroll-target="#sec-library"> <span class="header-section-number">4.8</span> Package libraries</a></li>
+  <li><a href="#sec-structure-binary" id="toc-sec-structure-binary" class="nav-link" data-scroll-target="#sec-structure-binary"><span class="toc-section-number">4.5</span>  Binary package</a></li>
+  <li><a href="#sec-installed-package" id="toc-sec-installed-package" class="nav-link" data-scroll-target="#sec-installed-package"><span class="toc-section-number">4.6</span>  Installed package</a></li>
+  <li><a href="#in-memory-package" id="toc-in-memory-package" class="nav-link" data-scroll-target="#in-memory-package"><span class="toc-section-number">4.7</span>  In-memory package</a></li>
+  <li><a href="#sec-library" id="toc-sec-library" class="nav-link" data-scroll-target="#sec-library"><span class="toc-section-number">4.8</span>  Package libraries</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r-pkgs/edit/main/Structure.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -386,7 +391,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>installed</li>
 <li>in-memory</li>
 </ul>
-<p>You already know some of the functions that put packages into these states. For example, <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> and <code><a href="https://remotes.r-lib.org/reference/install_github.html">devtools::install_github()</a></code> move a package from source, bundled, or binary states into the installed state. The <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function loads an installed package into memory, making it available for immediate and direct use.</p>
+<p>You already know some of the functions that put packages into these states. For example, <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> can move a package from the source, bundled, or binary states into the installed state. <code><a href="https://remotes.r-lib.org/reference/install_github.html">devtools::install_github()</a></code> takes a source package on GitHub and moves it into the installed state. The <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function loads an installed package into memory, making it available for immediate and direct use.</p>
 </section><section id="sec-source-package" class="level2" data-number="4.3"><h2 data-number="4.3" class="anchored" data-anchor-id="sec-source-package">
 <span class="header-section-number">4.3</span> Source package</h2>
 <p>A <strong>source</strong> package is just a directory of files with a specific structure. It includes particular components, such as a <code>DESCRIPTION</code> file, an <code>R/</code> directory containing <code>.R</code> files, and so on. Most of the remaining chapters in this book are dedicated to detailing these components.</p>
@@ -413,7 +418,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>car: <a href="https://github.com/cran/car" class="uri">https://github.com/cran/car</a>
 </li>
 </ul>
-<p>Note that this is not the same as exploring the package’s true development venue, because this source and its evolution is just reverse-engineered from the package’s CRAN releases. This presents a redacted view of the package and its history, but, by definition, it includes everything that is essential.</p>
+<p>Note that exploring a package’s source and history within the <code>cran</code> GitHub organisation is not the same as exploring the package’s true development venue, because this source and its evolution is just reverse-engineered from the package’s CRAN releases. This presents a redacted view of the package and its history, but, by definition, it includes everything that is essential.</p>
 </section><section id="bundled-package" class="level2" data-number="4.4"><h2 data-number="4.4" class="anchored" data-anchor-id="bundled-package">
 <span class="header-section-number">4.4</span> Bundled package</h2>
 <p>A <strong>bundled</strong> package is a package that’s been compressed into a single file. By convention (from Linux), package bundles in R use the extension <code>.tar.gz</code> and are sometimes referred to as “source tarballs”. This means that multiple files have been reduced to a single file (<code>.tar</code>) and then compressed using gzip (<code>.gz</code>). While a bundle is not that useful on its own, it’s a platform-agnostic, transportation-friendly intermediary between a source package and an installed package.</p>
@@ -427,7 +432,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output-display">
 <div id="fig-package-files" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/package-files.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 4.1: Side-by-side comparison of source, bundled, and binary package.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.1: Side-by-side comparison of source, bundled, and binary package.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -443,7 +448,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </h3>
 <p>You won’t need to contemplate the exact structure of package <code>.tar.gz</code> files very often, but you do need to understand the <code>.Rbuildignore</code> file. It controls which files from the source package make it into the downstream forms.</p>
 <p>Each line of <code>.Rbuildignore</code> is a Perl-compatible regular expression that is matched, without regard to case, against the path to each file in the source package <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. If the regular expression matches, that file or directory is excluded. Note there are some default exclusions implemented by R itself, mostly relating to classic version control systems and editors, such as SVN, Git, and Emacs.</p>
-<p>To exclude a specific file or directory (the most common use case), you <strong>MUST</strong> anchor the regular expression. For example, to exclude a directory called “notes”, use <code>^notes$</code>. The regular expression <code>notes</code> will match any file name containing notes, e.g. <code>R/notes.R</code>, <code>man/important-notes.R</code>, <code>data/endnotes.Rdata</code>, etc. The safest way to exclude a specific file or directory is to use <code>usethis::use_build_ignore("notes")</code>, which does the escaping for you.</p>
+<p>We usually modify <code>.Rbuildignore</code> with the <code><a href="https://usethis.r-lib.org/reference/use_build_ignore.html">usethis::use_build_ignore()</a></code> function, which takes care of easy-to-forget details, such as regular expression anchoring and escaping. To exclude a specific file or directory (the most common use case), you <strong>MUST</strong> anchor the regular expression. For example, to exclude a directory called “notes”, the <code>.Rbuildignore</code> entry must be <code>^notes$</code>, whereas the unanchored regular expression <code>notes</code> will match any file name containing “notes”, e.g. <code>R/notes.R</code>, <code>man/important-notes.R</code>, <code>data/endnotes.Rdata</code>, etc. We find that <code><a href="https://usethis.r-lib.org/reference/use_build_ignore.html">use_build_ignore()</a></code> helps us get more of our <code>.Rbuildignore</code> entries right the first time.</p>
 <p><code>.Rbuildignore</code> is a way to resolve some of the tension between the practices that support your development process and CRAN’s requirements for submission and distribution. Even if you aren’t planning to release on CRAN, following these conventions will allow you to make the best use of R’s built-in tooling for package checking and installation. The affected files fall into two broad, semi-overlapping classes:</p>
 <ul>
 <li>Files that help you generate package contents programmatically. Examples:
@@ -471,12 +476,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ^_pkgdown\.yml$     # Configuration info for the package website
 ^\.github$          # Contributing guidelines, CoC, issue templates, etc.</code></pre>
 <p>Note that the comments above must not appear in an actual <code>.Rbuildignore</code> file; they are included here only for exposition.</p>
-<p>We’ll mention when you need to add files to <code>.Rbuildignore</code> whenever it’s important. Remember that <code><a href="https://usethis.r-lib.org/reference/use_build_ignore.html">usethis::use_build_ignore()</a></code> is an attractive way to manage this file.</p>
+<p>We’ll mention when you need to add files to <code>.Rbuildignore</code> whenever it’s important. Remember that <code><a href="https://usethis.r-lib.org/reference/use_build_ignore.html">usethis::use_build_ignore()</a></code> is an attractive way to manage this file. Furthermore, many usethis functions that add a file that should be listed in <code>.Rbuildignore</code> take care of this automatically. For example, <code>use_read_rmd()</code> adds “^README\.Rmd$” to <code>.Rbuildignore</code>.</p>
 </section></section><section id="sec-structure-binary" class="level2" data-number="4.5"><h2 data-number="4.5" class="anchored" data-anchor-id="sec-structure-binary">
 <span class="header-section-number">4.5</span> Binary package</h2>
-<p>If you want to distribute your package to an R user who doesn’t have package development tools, you’ll need to provide a <strong>binary</strong> package. Like a package bundle, a binary package is a single file. Unlike a bundled package, a binary package is platform specific and there are two basic flavors: Windows and macOS. (Linux users are generally required to have the tools necessary to install from <code>.tar.gz</code> files.)</p>
+<p>If you want to distribute your package to an R user who doesn’t have package development tools, you’ll need to provide a <strong>binary</strong> package. The primary maker and distributor of binary packages is CRAN, not individual maintainers. But even if you delegate the responsibility of distributing your package to CRAN, it’s still important for a maintainer to understand the nature of a binary package.</p>
+<p>Like a package bundle, a binary package is a single file. Unlike a bundled package, a binary package is platform specific and there are two basic flavors: Windows and macOS. (Linux users are generally required to have the tools necessary to install from <code>.tar.gz</code> files, although the emergence of resources like <a href="https://packagemanager.rstudio.com">RStudio Public Package Manager</a> is giving Linux users the same access to binary packages as their colleagues on Windows and macOS.)</p>
 <p>Binary packages for macOS are stored as <code>.tgz</code>, whereas Windows binary packages end in <code>.zip</code>. If you need to make a binary package, use <code>devtools::build(binary = TRUE)</code> on the relevant operating system. Under the hood, this calls <code>pkgbuild::build(binary = TRUE)</code> and, ultimately, <code>R CMD INSTALL --build</code>, which is described further in the <a href="https://cran.r-project.org/doc/manuals/R-exts.html#Building-binary-packages">Building binary packages</a> section of <a href="https://cran.r-project.org/doc/manuals/R-exts.html">Writing R Extensions</a>.</p>
-<p>To be clear, the primary maker and distributor of binary packages is CRAN, not individual maintainers. If your package is intended for public use, the most effective way to make it broadly available is to release it on CRAN. You submit a package bundle and CRAN makes and distributes the package binaries.</p>
+<p>You submit a package bundle and CRAN makes and distributes the package binaries.</p>
 <p>CRAN packages are usually available in binary form, for both macOS and Windows, for the current, previous, and (possibly) development versions of R. Continuing our examples from above, you could download binary packages such as:</p>
 <ul>
 <li>forcats for macOS: <code>forcats_0.4.0.tgz</code>
@@ -497,17 +503,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></section><section id="sec-installed-package" class="level2" data-number="4.6"><h2 data-number="4.6" class="anchored" data-anchor-id="sec-installed-package">
 <span class="header-section-number">4.6</span> Installed package</h2>
 <p>An <strong>installed</strong> package is a binary package that’s been decompressed into a package library (described in <a href="#sec-library"><span>Section&nbsp;4.8</span></a>). The following diagram illustrates the many ways a package can be installed. This diagram is complicated! In an ideal world, installing a package would involve stringing together a set of simple steps: source -&gt; bundle, bundle -&gt; binary, binary -&gt; installed. In the real world, it’s not this simple because there are often (faster) shortcuts available.</p>
+<!-- TODO: update this figure.
+For example, hopefully we'll be ready to recommend pak over install_github() before publication. -->
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-installation" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="diagrams/installation.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 4.2: Many methods for converting between package states.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4.2: Many methods for converting between package states.</figcaption><p></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The built-in command line tool <code>R CMD INSTALL</code> powers all package installation. It can install a package from source files, a bundle (a.k.a. a source tarball), or a binary package. Details are available in the <a href="https://cran.r-project.org/doc/manuals/R-admin.html#Installing-packages">Installing packages section</a> of <a href="https://cran.r-project.org/doc/manuals/R-admin.html">R Installation and Administration</a>. Just like with <code><a href="https://devtools.r-lib.org/reference/build.html">devtools::build()</a></code>, devtools provides a wrapper function, <code><a href="https://devtools.r-lib.org/reference/install.html">devtools::install()</a></code>, that makes this tool available from within an R session.</p>
 <p>Most useRs understandably like to install packages from the comfort of an R session and directly from CRAN. The built-in function <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> meets this need. It can download the package, in various forms, install it, and optionally attend to the installation of dependencies.</p>
+<p>There is a price, however, for the convenience of installing R packages from within an R session. As you might expect, it can be a bit tricky to re-install a package that is already in use in the current session. This actually works most of the time, but sometimes it does not, especially when installing an R package with compiled code on Windows. Due to how file handles are locked on Windows, an attempt to install a new version of a package that’s in use can result in a corrupt installation where the package’s R code has been updated, but its compiled code has not. When troubleshooting, Windows users should strive to install packages in a clean R session, with as few packages loaded as possible.</p>
 <p>devtools exposes a family of <code>install_*()</code> functions to address some needs beyond the reach of <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages()</a></code> or to make existing capabilities easier to access. These functions are actually maintained in the <a href="https://remotes.r-lib.org">remotes package</a> and are re-exported by devtools.</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span></span>
@@ -521,8 +530,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span><span class="co">#&gt; [13] "install_version"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><code><a href="https://remotes.r-lib.org/reference/install_github.html">install_github()</a></code> is the flagship example of a sub-family of functions that can download a package from a remote location that is not CRAN and do whatever is necessary to install it. The rest of the devtools/remotes <code>install_*()</code> functions are aimed at making things that are technically possible with base tooling a bit easier or more explicit, such as <code><a href="https://remotes.r-lib.org/reference/install_version.html">install_version()</a></code> which installs a specific version of a CRAN package.</p>
+<p><em>2022-09-01 note: The pak package (<a href="https://pak.r-lib.org.">https://pak.r-lib.org)</a> is gradually becoming our recommended tool for package installation and, most especially, for installing packages directly from GitHub. I.e. it is replacing <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github()</a></code> It is likely that this recommendation will become official before the second edition of R Packages is published.</em></p>
+<!-- TODO: Revisit this section with respect to pak. -->
 <p>Analogous to <code>.Rbuildignore</code>, described in section <a href="#sec-rbuildignore"><span>Section&nbsp;4.4.1</span></a>, <code>.Rinstignore</code> lets you keep files present in a package bundle out of the installed package. However, in contrast to <code>.Rbuildignore</code>, this is rather obscure and rarely needed.</p>
-<p><em>TODO: Revisit this section later with respect to pak <a href="https://pak.r-lib.org" class="uri">https://pak.r-lib.org</a>.</em></p>
 </section><section id="in-memory-package" class="level2" data-number="4.7"><h2 data-number="4.7" class="anchored" data-anchor-id="in-memory-package">
 <span class="header-section-number">4.7</span> In-memory package</h2>
 <p>We finally arrive at a command familiar to everyone who uses R:</p>
@@ -537,7 +547,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><code><a href="https://rdrr.io/r/base/library.html">library()</a></code> is not a great way to iteratively tweak and test drive a package you’re developing, because it only works for an installed package. In <a href="Workflow101.html#sec-load-all"><span>Section&nbsp;5.5</span></a>, you’ll learn how <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> accelerates development by allowing you to load a source package directly into memory.</p>
 </section><section id="sec-library" class="level2" data-number="4.8"><h2 data-number="4.8" class="anchored" data-anchor-id="sec-library">
 <span class="header-section-number">4.8</span> Package libraries</h2>
-<p>We just discussed the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function, whose name is inspired by what it does. When you call <code><a href="https://rdrr.io/r/base/library.html">library(foo)</a></code>, R looks through the current <strong>libraries</strong> for an installed package named “foo” and, if successful, it makes foo available for use.</p>
+<p>We just discussed the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function, whose name is inspired by what it does. When you call <code><a href="https://rdrr.io/r/base/library.html">library(pkg)</a></code>, R looks through the current <strong>libraries</strong> for an installed package named “pkg” and, if successful, it makes foo available for use.</p>
 <p>In R, a <strong>library</strong> is a directory containing installed packages, sort of like a library for books. Unfortunately, in the R world, you will frequently encounter confused usage of the words “library” and “package”. It’s common for someone to refer to dplyr, for example, as a library when it is actually a package. There are a few reasons for the confusion. First, R’s terminology arguably runs counter to broader programming conventions, where the usual meaning of “library” is closer to what we mean by “package”. The name of the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function itself probably reinforces the wrong associations. Finally, this vocabulary error is often harmless, so it’s easy for R users to fall into the wrong habit and for people who point out this mistake to look like insufferable pedants. But here’s the bottom line:</p>
 <blockquote class="blockquote">
 <p>We use the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function to load <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> a <strong>package</strong>.</p>
@@ -608,11 +618,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Finally, it’s important to note that <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> should NEVER be used <em>inside a package</em>. Packages and scripts rely on different mechanisms for declaring their dependencies and this is one of the biggest adjustments you need to make in your mental model and habits. We explore this topic fully in <a href="Metadata.html#sec-namespace"><span>Section&nbsp;10.4</span></a>.</p>
 
 
-</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>To see the set of filepaths that should be on your radar, execute <code>dir(full.names = TRUE, recursive = TRUE, include.dirs = TRUE, all.files = TRUE)</code> in the package’s top-level directory.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Well, actually, <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> loads and attaches a package, but that’s a topic for <a href="dependencies.html#sec-search-path"><span>Section&nbsp;11.5.2</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>For more details, see the <a href="https://whattheyforgot.org/maintaining-r.html#how-to-transfer-your-library-when-updating-r">Maintaining R section</a> in <em>What They Forgot To Teach You About R</em>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>To see the set of filepaths that should be on your radar, execute <code>dir(full.names = TRUE, recursive = TRUE, include.dirs = TRUE, all.files = TRUE)</code> in the package’s top-level directory.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Well, actually, <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> loads and attaches a package, but that’s a topic for <a href="dependencies.html#sec-search-path"><span>Section&nbsp;11.5.2</span></a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>For more details, see the <a href="https://whattheyforgot.org/maintaining-r.html#how-to-transfer-your-library-when-updating-r">Maintaining R section</a> in <em>What They Forgot To Teach You About R</em>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -682,7 +692,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);

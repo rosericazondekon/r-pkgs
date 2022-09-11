@@ -2,16 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.1.189">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>R Packages (2e) - 7&nbsp; R code</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -50,7 +55,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -63,7 +68,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -338,32 +343,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </ul>
 </div>
 </nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc"><h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"> <span class="header-section-number">7.1</span> Introduction</a></li>
-  <li><a href="#sec-code-organising" id="toc-sec-code-organising" class="nav-link" data-scroll-target="#sec-code-organising"> <span class="header-section-number">7.2</span> Organise functions into files</a></li>
-  <li><a href="#sec-code-load-all" id="toc-sec-code-load-all" class="nav-link" data-scroll-target="#sec-code-load-all"> <span class="header-section-number">7.3</span> Fast feedback via <code>load_all()</code></a></li>
-  <li><a href="#code-style" id="toc-code-style" class="nav-link" data-scroll-target="#code-style"> <span class="header-section-number">7.4</span> Code style</a></li>
+<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">7.1</span>  Introduction</a></li>
+  <li><a href="#sec-code-organising" id="toc-sec-code-organising" class="nav-link" data-scroll-target="#sec-code-organising"><span class="toc-section-number">7.2</span>  Organise functions into files</a></li>
+  <li><a href="#sec-code-load-all" id="toc-sec-code-load-all" class="nav-link" data-scroll-target="#sec-code-load-all"><span class="toc-section-number">7.3</span>  Fast feedback via <code>load_all()</code></a></li>
+  <li><a href="#code-style" id="toc-code-style" class="nav-link" data-scroll-target="#code-style"><span class="toc-section-number">7.4</span>  Code style</a></li>
   <li>
-<a href="#understand-when-code-is-executed" id="toc-understand-when-code-is-executed" class="nav-link" data-scroll-target="#understand-when-code-is-executed"> <span class="header-section-number">7.5</span> Understand when code is executed</a>
+<a href="#understand-when-code-is-executed" id="toc-understand-when-code-is-executed" class="nav-link" data-scroll-target="#understand-when-code-is-executed"><span class="toc-section-number">7.5</span>  Understand when code is executed</a>
   <ul class="collapse">
-<li><a href="#a-path-returned-by-system.file" id="toc-a-path-returned-by-system.file" class="nav-link" data-scroll-target="#a-path-returned-by-system.file"> <span class="header-section-number">7.5.1</span> A path returned by <code>system.file()</code></a></li>
-  <li><a href="#available-colours" id="toc-available-colours" class="nav-link" data-scroll-target="#available-colours"> <span class="header-section-number">7.5.2</span> Available colours</a></li>
-  <li><a href="#aliasing-a-function" id="toc-aliasing-a-function" class="nav-link" data-scroll-target="#aliasing-a-function"> <span class="header-section-number">7.5.3</span> Aliasing a function</a></li>
+<li><a href="#example-a-path-returned-by-system.file" id="toc-example-a-path-returned-by-system.file" class="nav-link" data-scroll-target="#example-a-path-returned-by-system.file"><span class="toc-section-number">7.5.1</span>  Example: A path returned by <code>system.file()</code></a></li>
+  <li><a href="#example-available-colours" id="toc-example-available-colours" class="nav-link" data-scroll-target="#example-available-colours"><span class="toc-section-number">7.5.2</span>  Example: Available colours</a></li>
+  <li><a href="#example-aliasing-a-function" id="toc-example-aliasing-a-function" class="nav-link" data-scroll-target="#example-aliasing-a-function"><span class="toc-section-number">7.5.3</span>  Example: Aliasing a function</a></li>
   </ul>
 </li>
   <li>
-<a href="#sec-code-r-landscape" id="toc-sec-code-r-landscape" class="nav-link" data-scroll-target="#sec-code-r-landscape"> <span class="header-section-number">7.6</span> Respect the R landscape</a>
+<a href="#sec-code-r-landscape" id="toc-sec-code-r-landscape" class="nav-link" data-scroll-target="#sec-code-r-landscape"><span class="toc-section-number">7.6</span>  Respect the R landscape</a>
   <ul class="collapse">
-<li><a href="#manage-state-with-withr" id="toc-manage-state-with-withr" class="nav-link" data-scroll-target="#manage-state-with-withr"> <span class="header-section-number">7.6.1</span> Manage state with withr</a></li>
-  <li><a href="#restore-state-with-baseon.exit" id="toc-restore-state-with-baseon.exit" class="nav-link" data-scroll-target="#restore-state-with-baseon.exit"> <span class="header-section-number">7.6.2</span> Restore state with <code>base::on.exit()</code></a></li>
-  <li><a href="#isolate-side-effects" id="toc-isolate-side-effects" class="nav-link" data-scroll-target="#isolate-side-effects"> <span class="header-section-number">7.6.3</span> Isolate side effects</a></li>
-  <li><a href="#when-you-do-need-side-effects" id="toc-when-you-do-need-side-effects" class="nav-link" data-scroll-target="#when-you-do-need-side-effects"> <span class="header-section-number">7.6.4</span> When you <strong>do</strong> need side-effects</a></li>
+<li><a href="#manage-state-with-withr" id="toc-manage-state-with-withr" class="nav-link" data-scroll-target="#manage-state-with-withr"><span class="toc-section-number">7.6.1</span>  Manage state with withr</a></li>
+  <li><a href="#restore-state-with-baseon.exit" id="toc-restore-state-with-baseon.exit" class="nav-link" data-scroll-target="#restore-state-with-baseon.exit"><span class="toc-section-number">7.6.2</span>  Restore state with <code>base::on.exit()</code></a></li>
+  <li><a href="#isolate-side-effects" id="toc-isolate-side-effects" class="nav-link" data-scroll-target="#isolate-side-effects"><span class="toc-section-number">7.6.3</span>  Isolate side effects</a></li>
+  <li><a href="#when-you-do-need-side-effects" id="toc-when-you-do-need-side-effects" class="nav-link" data-scroll-target="#when-you-do-need-side-effects"><span class="toc-section-number">7.6.4</span>  When you <strong>do</strong> need side-effects</a></li>
   </ul>
 </li>
-  <li><a href="#constant-health-checks" id="toc-constant-health-checks" class="nav-link" data-scroll-target="#constant-health-checks"> <span class="header-section-number">7.7</span> Constant health checks</a></li>
-  <li><a href="#sec-code-cran" id="toc-sec-code-cran" class="nav-link" data-scroll-target="#sec-code-cran"> <span class="header-section-number">7.8</span> CRAN notes</a></li>
+  <li><a href="#constant-health-checks" id="toc-constant-health-checks" class="nav-link" data-scroll-target="#constant-health-checks"><span class="toc-section-number">7.7</span>  Constant health checks</a></li>
+  <li><a href="#sec-code-cran" id="toc-sec-code-cran" class="nav-link" data-scroll-target="#sec-code-cran"><span class="toc-section-number">7.8</span>  CRAN notes</a></li>
   </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r-pkgs/edit/main/Code.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
@@ -518,7 +523,7 @@ Warning
 <li><p>In a script, code is run … when you run it! The awkwardness of this statement reflects that it’s hard to even think about this issue with a script. However, we must, in order to appreciate that the code in a package is run <strong>when the package is built</strong>. This has big implications for how you write the code below <code>R/</code>: package code should only create objects, the vast majority of which will be functions.</p></li>
 <li><p>Functions in your package will be used in situations that you didn’t imagine. This means your functions need to be thoughtful in the way that they interact with the outside world.</p></li>
 </ul>
-<p>We expand on the first point here and the second in the next section.</p>
+<p>We expand on the first point here and the second in the next section. These topics are also illustrated concretely in <a href="Package-within.html#sec-package-within-build-time-run-time"><span>Section&nbsp;6.7</span></a>.</p>
 <p>When you <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> a script, every line of code is executed and the results are immediately made available. Things are different with package code, because it is loaded in two steps. When the binary package is built (often, by CRAN) all the code in <code>R/</code> is executed and the results are saved. When you attach a package with <code><a href="https://rdrr.io/r/base/library.html">library()</a></code>, these cached results are re-loaded and certain objects (mostly functions) are made available for your use. The full details on what it means for a package to be in binary form are given in <a href="Structure.html#sec-structure-binary"><span>Section&nbsp;4.5</span></a>. We refer to the creation of the binary package as (binary) “build time” and, specifically, we mean when <code>R CMD INSTALL --build</code> is run. (You might think that this is what <code>R CMD build</code> does, but that actually makes a bundled package, a.k.a. a “source tarball”.) For macOS and Windows users of CRAN packages, build time is whenever CRAN built the binary package for their OS. For those who install packages from source, build time is essentially when they (built and) installed the package.</p>
 <p>Consider the assignment <code>x &lt;- Sys.time()</code>. If you put this in a script, <code>x</code> tells you when the script was <code><a href="https://rdrr.io/r/base/source.html">source()</a></code>d. But if you put that same code in a package, <code>x</code> tells you when the package binary was <em>built</em>. In <a href="Package-within.html#sec-package-within-build-time-run-time"><span>Section&nbsp;6.7</span></a>, we show a complete example of this in the context of forming timestamps inside a package.</p>
 <p>The main takeaway is this:</p>
@@ -526,8 +531,8 @@ Warning
 <p>Any R code outside of a function is suspicious and should be carefully reviewed.</p>
 </blockquote>
 <p>We explore a few real-world examples below that show how easy it is to get burned by this “build time vs.&nbsp;load time” issue. Luckily, once you diagnose this problem, it is generally not difficult to fix.</p>
-<section id="a-path-returned-by-system.file" class="level3" data-number="7.5.1"><h3 data-number="7.5.1" class="anchored" data-anchor-id="a-path-returned-by-system.file">
-<span class="header-section-number">7.5.1</span> A path returned by <code>system.file()</code>
+<section id="example-a-path-returned-by-system.file" class="level3" data-number="7.5.1"><h3 data-number="7.5.1" class="anchored" data-anchor-id="example-a-path-returned-by-system.file">
+<span class="header-section-number">7.5.1</span> Example: A path returned by <code>system.file()</code>
 </h3>
 <p>The shinybootstrap2 package once had this code below <code>R/</code>:</p>
 <div class="cell">
@@ -545,13 +550,13 @@ Warning
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>So <code>dataTableDependency</code> was an object defined in top-level package code and it depends on some paths obtained via <code><a href="https://rdrr.io/r/base/system.file.html">system.file()</a></code>. As described in <a href="https://github.com/rstudio/htmltools/issues/22">a GitHub issue</a>,</p>
+<p>So <code>dataTableDependency</code> was a list object defined in top-level package code and its value was constructed from paths obtained via <code><a href="https://rdrr.io/r/base/system.file.html">system.file()</a></code>. As described in <a href="https://github.com/rstudio/htmltools/issues/22">a GitHub issue</a>,</p>
 <blockquote class="blockquote">
 <p>This works fine when the package is built and tested on the same machine. However, if the package is built on one machine and then used on another (as is the case with CRAN binary packages), then this will fail – the dependency will point to the wrong directory on the host.</p>
 </blockquote>
 <p>The heart of the solution is to make sure that <code><a href="https://rdrr.io/r/base/system.file.html">system.file()</a></code> is called from a function, at run time. Indeed, this fix was made here (in commit <a href="https://github.com/rstudio/shinybootstrap2/commit/138db47e6bef195f14f6a14f4289ca445e9b2efa#diff-fedcc5cc99f3d44a4caf06f8e6e0ae08">138db47</a>) and in a few other packages that had similar code and a related check was added in <code>htmlDependency()</code> itself. This particular problem would now be caught by <code>R CMD check</code>, due to changes that came with <a href="https://developer.r-project.org/Blog/public/2019/02/14/staged-install/index.html">staged installation</a> as of R 3.6.0.</p>
-</section><section id="available-colours" class="level3" data-number="7.5.2"><h3 data-number="7.5.2" class="anchored" data-anchor-id="available-colours">
-<span class="header-section-number">7.5.2</span> Available colours</h3>
+</section><section id="example-available-colours" class="level3" data-number="7.5.2"><h3 data-number="7.5.2" class="anchored" data-anchor-id="example-available-colours">
+<span class="header-section-number">7.5.2</span> Example: Available colours</h3>
 <p>The crayon package has a function, <code><a href="https://rdrr.io/pkg/crayon/man/show_ansi_colors.html">crayon::show_ansi_colors()</a></code>, that displays an ANSI colour table on your screen, basically to show what sort of styling is possible. In an early version, the function looked something like this:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>show_ansi_colors <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">colors =</span> <span class="fu">num_colors</span>()) {</span>
@@ -596,8 +601,8 @@ Warning
 </div>
 <p>Literally, the same code is used, it is simply pushed down into the body of a function taking no arguments (similar to the shinybootstrap2 example). Each reference to, e.g., the <code>ansi_colors_8</code> object is replaced by a call to the <code>ansi_colors_8()</code> function.</p>
 <p>The main takeaway is that functions that assess or expose the capabilities of your package on a user’s system must fully execute on your user’s system. It’s fairly easy to accidentally rely on results that were cached at build time, quite possibly on a different machine.</p>
-</section><section id="aliasing-a-function" class="level3" data-number="7.5.3"><h3 data-number="7.5.3" class="anchored" data-anchor-id="aliasing-a-function">
-<span class="header-section-number">7.5.3</span> Aliasing a function</h3>
+</section><section id="example-aliasing-a-function" class="level3" data-number="7.5.3"><h3 data-number="7.5.3" class="anchored" data-anchor-id="example-aliasing-a-function">
+<span class="header-section-number">7.5.3</span> Example: Aliasing a function</h3>
 <p>One last example shows that, even if you are careful to only define functions below <code>R/</code>, there are still some subtleties to consider. Imagine that you want the function <code>foo()</code> in your package to basically be an alias for the function <code>blah()</code> from some other package, e.g.&nbsp;pkgB. You might be tempted to do this:</p>
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">foo</span> <span class="op">&lt;-</span> <span class="fu">pkgB</span><span class="fu">::</span><span class="va">blah</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -625,25 +630,40 @@ Warning
 <li><code><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv()</a></code></li>
 <li><code><a href="https://rdrr.io/r/base/locales.html">Sys.setlocale()</a></code></li>
 <li>
-<code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> (or anything that changes the state of the random number generator) <em>TODO: maybe tell one or more of the scary stories in <a href="https://github.com/hadley/r-pkgs/issues/447" class="uri">https://github.com/hadley/r-pkgs/issues/447</a></em>
-</li>
+<code><a href="https://rdrr.io/r/base/Random.html">set.seed()</a></code> (or anything that changes the state of the random number generator)</li>
 </ul>
-<p>If you must use them, make sure to clean up after yourself. Below we show how to do this using functions from the withr package and in base R.</p>
-<p>The flip side of this coin is that you should avoid relying on the user’s landscape, which might be different to yours. For example, functions like <code><a href="https://rdrr.io/r/utils/read.table.html">read.csv()</a></code> are dangerous because the value of <code>stringsAsFactors</code> argument comes from the global option <code>stringsAsFactors</code>. If you expect it to be <code>TRUE</code> (the default), and the user has set it to be <code>FALSE</code>, your code might fail.</p>
-<p><em>TODO: update or replace this example in light of <code>stringsAsFactors</code> changes.</em></p>
+<!-- TODO: maybe tell one or more of the scary stories in <https://github.com/hadley/r-pkgs/issues/447> --><p>If you must use them, make sure to clean up after yourself. Below we show how to do this using functions from the withr package and in base R.</p>
+<p>The flip side of this coin is that you should avoid relying on the user’s landscape, which might be different to yours. For example, functions that rely on sorting strings are dangerous, because sort order depends on the system locale. Below we see that locales one might actually encounter in practice (C, English, French, etc.) differ in how they sort non-ASCII strings or uppercase versus lowercase letters.</p>
+<div class="cell">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"bernard"</span>, <span class="st">"bérénice"</span>, <span class="st">"béatrice"</span>, <span class="st">"boris"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_locale.html">with_locale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>LC_COLLATE <span class="op">=</span> <span class="st">"fr_FR"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "béatrice" "bérénice" "bernard"  "boris"</span></span>
+<span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_locale.html">with_locale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>LC_COLLATE <span class="op">=</span> <span class="st">"C"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "bernard"  "boris"    "béatrice" "bérénice"</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"b"</span>, <span class="st">"A"</span>, <span class="st">"b"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_locale.html">with_locale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>LC_COLLATE <span class="op">=</span> <span class="st">"en_CA"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "a" "A" "A" "b" "b" "B"</span></span>
+<span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_locale.html">with_locale</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>LC_COLLATE <span class="op">=</span> <span class="st">"C"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "A" "A" "B" "a" "b" "b"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you write your functions as if all users have the same system locale as you, your code might fail.</p>
 <section id="manage-state-with-withr" class="level3" data-number="7.6.1"><h3 data-number="7.6.1" class="anchored" data-anchor-id="manage-state-with-withr">
 <span class="header-section-number">7.6.1</span> Manage state with withr</h3>
-<p>The withr package is inspired by <code><a href="https://rdrr.io/r/base/on.exit.html">base::on.exit()</a></code> and provides a flexible <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code>-like toolkit (<code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code> itself is covered in the next section). <code><a href="https://withr.r-lib.org/reference/defer.html">withr::defer()</a></code> can be used as a drop-in replacement for <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code>, but the real reason to use it is to get its default “stack-like” behaviour and to use its <code>envir</code> argument (in more advanced usage).</p>
+<p>If you need to modify the R landscape inside a function, then it is important to ensure your change is reversed <em>on exit</em> of that function. This is exactly what <code><a href="https://rdrr.io/r/base/on.exit.html">base::on.exit()</a></code> is designed to do. You use <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code> inside a function to register code to run later, that restores the landscape to its original state. It is important to note that proper tools, such as <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code>, work even if we exit the function abnormally, i.e.&nbsp;due to an error. This is why it’s worth using the official methods described here over any do-it-yourself solution.</p>
+<p>We usually manage state using the <a href="https://withr.r-lib.org">withr package</a>, which provides a flexible, <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code>-like toolkit (<code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code> itself is covered in the next section). <code><a href="https://withr.r-lib.org/reference/defer.html">withr::defer()</a></code> can be used as a drop-in replacement for <code><a href="https://rdrr.io/r/base/on.exit.html">on.exit()</a></code>. Why do we like withr so much? First, it offers many pre-built convenience functions for state changes that come up often. We also appreciate withr’s default stack-like behaviour (LIFO = last in, first out), its usability in interactive sessions, and its <code>envir</code> argument (in more advanced usage).</p>
 <p>The general pattern is to capture the original state, schedule its eventual restoration “on exit”, then make the state change. Some setters, such as <code><a href="https://rdrr.io/r/base/options.html">options()</a></code> or <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>, return the old value when you provide a new value, leading to usage that looks like this:</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">...</span></span>
-<span>  <span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, pty <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span></span>
+<span>  <span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span>  <span class="fu">defer</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">old</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Certain state changes, such as modifying session options, come up so often that withr offers pre-made helpers. Here a few of the state change helpers in withr that you are most likely to find useful:</p>
+<p>Certain state changes, such as modifying session options, come up so often that withr offers pre-made helpers. Here are a few of the state change helpers in withr that you are most likely to find useful:</p>
 <table class="table">
 <thead><tr class="header">
 <th>Do / undo this</th>
@@ -681,7 +701,7 @@ Warning
 <li>
 <p><code>with_*()</code> functions are best for executing small snippets of code with a temporarily modified state. (These functions are inspired by how <code><a href="https://rdrr.io/r/base/with.html">base::with()</a></code> works.)</p>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">sig_digits</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">sig_digits</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># imagine lots of code here</span></span>
 <span>  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">with_options</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="va">sig_digits</span><span class="op">)</span>,</span>
@@ -694,7 +714,7 @@ Warning
 <li>
 <p><code>local_*()</code> functions are best for modifying state “from now until the function exits”.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">sig_digits</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">sig_digits</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">local_options</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="va">sig_digits</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>  <span class="co"># imagine lots of code here</span></span>
@@ -709,7 +729,7 @@ Warning
 </h3>
 <p>Here is how the general “save, schedule restoration, change” pattern looks when using <code><a href="https://rdrr.io/r/base/on.exit.html">base::on.exit()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">z</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">...</span></span>
 <span>  <span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, pty <span class="op">=</span> <span class="st">"s"</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">old</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -718,7 +738,7 @@ Warning
 </div>
 <p>Other state changes aren’t available with that sort of setter and you must implement it yourself.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">a</span>, <span class="va">b</span>, <span class="va">c</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">...</span></span>
 <span>  <span class="va">scratch_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html">tempfile</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html">on.exit</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlink.html">unlink</a></span><span class="op">(</span><span class="va">scratch_file</span><span class="op">)</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -736,39 +756,33 @@ Warning
 <p>Some common uses of <code>.onLoad()</code> and <code>.onAttach()</code> are:</p>
 <ul>
 <li>
-<p>To display an informative message when the package loads. This might make usage conditions clear or display package capabilities based on current system conditions. Startup messages are one place where you should use <code>.onAttach()</code> instead of <code>.onLoad()</code>. To display startup messages, always use <code><a href="https://rdrr.io/r/base/message.html">packageStartupMessage()</a></code>, and not <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>. (This allows <code><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages()</a></code> to selectively suppress package startup messages).</p>
-<div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">.onAttach</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">libname</span>, <span class="va">pkgname</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html">packageStartupMessage</a></span><span class="op">(</span><span class="st">"Welcome to my package"</span><span class="op">)</span></span>
-<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</li>
-<li>
-<p>To set custom options for your package with <code><a href="https://rdrr.io/r/base/options.html">options()</a></code>. To avoid conflicts with other packages, ensure that you prefix option names with the name of your package. Also be careful not to override options that the user has already set.</p>
-<p><em>TODO: update this to reflect current usethis options.</em> I use the following code in devtools to set up useful options:</p>
+<p>To set custom options for your package with <code><a href="https://rdrr.io/r/base/options.html">options()</a></code>. To avoid conflicts with other packages, ensure that you prefix option names with the name of your package. Also be careful not to override options that the user has already set. Here’s a (highly redacted) version of dplyr’s <code>.onLoad()</code> function which sets an option that controls progress reporting:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">.onLoad</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">libname</span>, <span class="va">pkgname</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">op</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="va">op.devtools</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
-<span>    devtools.path <span class="op">=</span> <span class="st">"~/R-dev"</span>,</span>
-<span>    devtools.install.args <span class="op">=</span> <span class="st">""</span>,</span>
-<span>    devtools.name <span class="op">=</span> <span class="st">"Your name goes here"</span>,</span>
-<span>    devtools.desc.author <span class="op">=</span> <span class="st">"First Last &lt;first.last@example.com&gt; [aut, cre]"</span>,</span>
-<span>    devtools.desc.license <span class="op">=</span> <span class="st">"What license is it under?"</span>,</span>
-<span>    devtools.desc.suggests <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>    devtools.desc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="va">op.dplyr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
+<span>    dplyr.show_progress <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span>  <span class="op">)</span></span>
-<span>  <span class="va">toset</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">op.devtools</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span><span class="op">)</span></span>
-<span>  <span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">toset</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">op.devtools</span><span class="op">[</span><span class="va">toset</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">toset</span> <span class="op">&lt;-</span> <span class="op">!</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">op.dplyr</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">op</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/any.html">any</a></span><span class="op">(</span><span class="va">toset</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span><span class="va">op.dplyr</span><span class="op">[</span><span class="va">toset</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/invisible.html">invisible</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then devtools functions can use e.g.&nbsp;<code>getOption("devtools.name")</code> to get the name of the package author, and know that a sensible default value has already been set.</p>
+<p>This allows functions in dplyr to use <code>getOption("dplyr.show_progress")</code> to determine whether to show progress bars, relying on the fact that a sensible default value has already been set.</p>
 </li>
-<li><p>To register vignette engines with <code><a href="https://rdrr.io/r/tools/vignetteEngine.html">tools::vignetteEngine()</a></code>. <em>TODO: update / remove this?</em></p></li>
 </ul>
-<!-- TODO: Other possible examples of `.onLoad()` usage: Register S3 methods. Detect capabilities of the system or of other packages. --><p>As you can see in the examples, <code>.onLoad()</code> and <code>.onAttach()</code> are called with two arguments: <code>libname</code> and <code>pkgname</code>. They’re rarely used (they’re a holdover from the days when you needed to use <code><a href="https://rdrr.io/r/base/library.dynam.html">library.dynam()</a></code> to load compiled code). They give the path where the package is installed (the “library”), and the name of the package.</p>
+<!-- TODO: I don't think the option setting example is so great anymore. I lean towards replacement. Other possible examples of `.onLoad()` usage: Register S3 methods. Detect capabilities of the system or of other packages. --><ul>
+<li>
+<p>To display an informative message when the package loads. This might make usage conditions clear or display package capabilities based on current system conditions. Startup messages are one place where you should use <code>.onAttach()</code> instead of <code>.onLoad()</code>. To display startup messages, always use <code><a href="https://rdrr.io/r/base/message.html">packageStartupMessage()</a></code>, and not <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>. (This allows <code><a href="https://rdrr.io/r/base/message.html">suppressPackageStartupMessages()</a></code> to selectively suppress package startup messages).</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">.onAttach</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">libname</span>, <span class="va">pkgname</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/message.html">packageStartupMessage</a></span><span class="op">(</span><span class="st">"Welcome to my package"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</li>
+</ul>
+<p>As you can see in the examples, <code>.onLoad()</code> and <code>.onAttach()</code> are called with two arguments: <code>libname</code> and <code>pkgname</code>. They’re rarely used (they’re a holdover from the days when you needed to use <code><a href="https://rdrr.io/r/base/library.dynam.html">library.dynam()</a></code> to load compiled code). They give the path where the package is installed (the “library”), and the name of the package.</p>
 <p>If you use <code>.onLoad()</code>, consider using <code>.onUnload()</code> to clean up any side effects. By convention, <code>.onLoad()</code> and friends are usually saved in a file called <code>R/zzz.R</code>. (Note that <code>.First.lib()</code> and <code>.Last.lib()</code> are old versions of <code>.onLoad()</code> and <code>.onUnload()</code> and should no longer be used.)</p>
 </section></section><section id="constant-health-checks" class="level2" data-number="7.7"><h2 data-number="7.7" class="anchored" data-anchor-id="constant-health-checks">
 <span class="header-section-number">7.7</span> Constant health checks</h2>
@@ -799,7 +813,7 @@ Warning
 <p>If you’re planning on submitting your package to CRAN, you must use only ASCII characters in your <code>.R</code> files. In practice, this means you are limited to the digits 0 to 9, lowercase letters ‘a’ to ‘z’, uppercase letters ‘A’ to ‘Z’, and common punctuation.</p>
 <p>But sometimes you need to inline a small bit of character data that includes, e.g., a Greek letter (µ), an accented character (ü), or a symbol (30°). You can use any Unicode character as long as you specify it in the special Unicode escape <code>"\u1234"</code> format. The easiest way to find the correct code point is to use <code><a href="https://rdrr.io/pkg/stringi/man/stri_escape_unicode.html">stringi::stri_escape_unicode()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"This is a bullet •"</span></span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"This is a bullet •"</span></span>
 <span><span class="va">y</span> <span class="op">&lt;-</span> <span class="st">"This is a bullet \u2022"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html">identical</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] TRUE</span></span>
@@ -815,16 +829,16 @@ Warning
    Use \uxxxx escapes for other characters.</code></pre>
 <p>The most common offenders are “curly” or “smart” single and double quotes that sneak in through copy/paste. The functions <code><a href="https://rdrr.io/r/tools/showNonASCII.html">tools::showNonASCII()</a></code> and <code>tools::showNonASCIIfile(file)</code> help you find the offending file(s) and line(s).</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/showNonASCII.html">showNonASCIIfile</a></span><span class="op">(</span><span class="st">"R/foo.R"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">tools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/tools/showNonASCII.html">showNonASCIIfile</a></span><span class="op">(</span><span class="st">"R/foo.R"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 666: #' If you&lt;e2&gt;&lt;80&gt;&lt;99&gt;ve copy/pasted quotes, watch out!</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
-<li id="fn1" role="doc-endnote"><p>Unfortunately you can’t use subdirectories inside <code>R/</code>. The next best thing is to use a common prefix, e.g., <code>abc-*.R</code>, to signal that a group of files are related.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>See the <a href="https://github.com/r-lib/actions/tree/master/examples#commands-workflow">Commands workflow</a> in the <a href="https://github.com/r-lib/actions">GitHub Actions for the R language</a> repository.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>The <a href="https://mikemcquaid.com/2018/06/05/robot-pedantry-human-empathy/">Robot Pedantry, Human Empathy</a> blog post by Mike McQuaid does an excellent job summarizing the benefit of automating tasks like code re-styling.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Unfortunately you can’t use subdirectories inside <code>R/</code>. The next best thing is to use a common prefix, e.g., <code>abc-*.R</code>, to signal that a group of files are related.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>See the <a href="https://github.com/r-lib/actions/tree/master/examples#commands-workflow">Commands workflow</a> in the <a href="https://github.com/r-lib/actions">GitHub Actions for the R language</a> repository.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>The <a href="https://mikemcquaid.com/2018/06/05/robot-pedantry-human-empathy/">Robot Pedantry, Human Empathy</a> blog post by Mike McQuaid does an excellent job summarizing the benefit of automating tasks like code re-styling.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -894,7 +908,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
