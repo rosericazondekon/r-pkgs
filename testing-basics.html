@@ -2,8 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.">
 <title>R Packages (2e) - 13&nbsp; Testing basics</title>
 <style>
 code{white-space: pre-wrap;}
@@ -14,11 +15,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,43 +45,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -91,6 +63,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="quarto:offset" content="./">
 <link href="./testing-design.html" rel="next">
 <link href="./license.html" rel="prev">
+<link href="./images/cover-2e-small.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,7 +78,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -114,28 +93,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><script defer="" data-domain="r-pkgs.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./testing-basics.html">Testing</a></li><li class="breadcrumb-item"><a href="./testing-basics.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R Packages (2e)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+    <a href="https://github.com/hadley/r-pkgs/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -143,235 +129,285 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Getting started</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Getting started</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Whole Game</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Whole-game.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The whole game</span></a>
+  <a href="./setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">System setup</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">System setup</span></a>
+  <a href="./structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Package structure and state</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Structure.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Package structure and state</span></a>
+  <a href="./workflow101.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fundamental development workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workflow101.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fundamental development workflows</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Package-within.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The package within</span></a>
+  <a href="./package-within.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The package within</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Package components</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Package components</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R code</span></a>
+  <a href="./code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R code</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data</span></a>
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./misc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other components</span></a>
+  <a href="./misc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Other components</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Package metadata</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Package metadata</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><code>DESCRIPTION</code> and <code>NAMESPACE</code></span></a>
+  <a href="./description.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><code>DESCRIPTION</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dependencies.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dependencies: What does your package need?</span></a>
+  <a href="./dependencies-mindset-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Dependencies: Mindset and Background</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./license.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Licensing</span></a>
+  <a href="./dependencies-in-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dependencies: In Practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Licensing</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Testing</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./testing-basics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></a>
+  <a href="./testing-basics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./testing-design.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Designing your test suite</span></a>
+  <a href="./testing-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Designing your test suite</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./testing-advanced.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></a>
+  <a href="./testing-advanced.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Documentation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Documentation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./man.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Function documentation</span></a>
+  <a href="./man.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Function documentation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  <a href="./vignettes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Vignettes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./other-markdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Other markdown files</span></a>
+  <a href="./other-markdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Other markdown files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./website.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Website</span></a>
+  <a href="./website.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Website</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Maintenance and distribution</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Maintenance and distribution</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./check.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title"><code>R CMD check</code></span></a>
+  <a href="./software-development-practices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Software development practices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./continuous-integration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Continuous integration</span></a>
+  <a href="./lifecycle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lifecycle</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./release.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Releasing to CRAN</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./lifecycle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Lifecycle</span></a>
+  <a href="./release.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Releasing to CRAN</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-CMD-check.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title"><code>R CMD check</code></span></span></a>
+  </div>
+</li>
+      </ul>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-<li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">13.1</span>  Introduction</a></li>
-  <li><a href="#why-is-formal-testing-worth-the-trouble" id="toc-why-is-formal-testing-worth-the-trouble" class="nav-link" data-scroll-target="#why-is-formal-testing-worth-the-trouble"><span class="toc-section-number">13.2</span>  Why is formal testing worth the trouble?</a></li>
-  <li><a href="#introducing-testthat" id="toc-introducing-testthat" class="nav-link" data-scroll-target="#introducing-testthat"><span class="toc-section-number">13.3</span>  Introducing testthat</a></li>
+<li><a href="#why-is-formal-testing-worth-the-trouble" id="toc-why-is-formal-testing-worth-the-trouble" class="nav-link active" data-scroll-target="#why-is-formal-testing-worth-the-trouble"><span class="header-section-number">13.1</span> Why is formal testing worth the trouble?</a></li>
+  <li><a href="#introducing-testthat" id="toc-introducing-testthat" class="nav-link" data-scroll-target="#introducing-testthat"><span class="header-section-number">13.2</span> Introducing testthat</a></li>
   <li>
-<a href="#sec-tests-mechanics-workflow" id="toc-sec-tests-mechanics-workflow" class="nav-link" data-scroll-target="#sec-tests-mechanics-workflow"><span class="toc-section-number">13.4</span>  Test mechanics and workflow</a>
+<a href="#sec-tests-mechanics-workflow" id="toc-sec-tests-mechanics-workflow" class="nav-link" data-scroll-target="#sec-tests-mechanics-workflow"><span class="header-section-number">13.3</span> Test mechanics and workflow</a>
   <ul class="collapse">
-<li><a href="#initial-setup" id="toc-initial-setup" class="nav-link" data-scroll-target="#initial-setup"><span class="toc-section-number">13.4.1</span>  Initial setup</a></li>
-  <li><a href="#create-a-test" id="toc-create-a-test" class="nav-link" data-scroll-target="#create-a-test"><span class="toc-section-number">13.4.2</span>  Create a test</a></li>
-  <li><a href="#run-tests" id="toc-run-tests" class="nav-link" data-scroll-target="#run-tests"><span class="toc-section-number">13.4.3</span>  Run tests</a></li>
+<li><a href="#initial-setup" id="toc-initial-setup" class="nav-link" data-scroll-target="#initial-setup"><span class="header-section-number">13.3.1</span> Initial setup</a></li>
+  <li><a href="#create-a-test" id="toc-create-a-test" class="nav-link" data-scroll-target="#create-a-test"><span class="header-section-number">13.3.2</span> Create a test</a></li>
+  <li><a href="#run-tests" id="toc-run-tests" class="nav-link" data-scroll-target="#run-tests"><span class="header-section-number">13.3.3</span> Run tests</a></li>
   </ul>
 </li>
-  <li><a href="#test-organisation" id="toc-test-organisation" class="nav-link" data-scroll-target="#test-organisation"><span class="toc-section-number">13.5</span>  Test organisation</a></li>
+  <li><a href="#test-organisation" id="toc-test-organisation" class="nav-link" data-scroll-target="#test-organisation"><span class="header-section-number">13.4</span> Test organisation</a></li>
   <li>
-<a href="#expectations" id="toc-expectations" class="nav-link" data-scroll-target="#expectations"><span class="toc-section-number">13.6</span>  Expectations</a>
+<a href="#expectations" id="toc-expectations" class="nav-link" data-scroll-target="#expectations"><span class="header-section-number">13.5</span> Expectations</a>
   <ul class="collapse">
-<li><a href="#testing-for-equality" id="toc-testing-for-equality" class="nav-link" data-scroll-target="#testing-for-equality"><span class="toc-section-number">13.6.1</span>  Testing for equality</a></li>
-  <li><a href="#testing-errors" id="toc-testing-errors" class="nav-link" data-scroll-target="#testing-errors"><span class="toc-section-number">13.6.2</span>  Testing errors</a></li>
-  <li><a href="#snapshot-tests" id="toc-snapshot-tests" class="nav-link" data-scroll-target="#snapshot-tests"><span class="toc-section-number">13.6.3</span>  Snapshot tests</a></li>
-  <li><a href="#shortcuts-for-other-common-patterns" id="toc-shortcuts-for-other-common-patterns" class="nav-link" data-scroll-target="#shortcuts-for-other-common-patterns"><span class="toc-section-number">13.6.4</span>  Shortcuts for other common patterns</a></li>
+<li><a href="#testing-for-equality" id="toc-testing-for-equality" class="nav-link" data-scroll-target="#testing-for-equality"><span class="header-section-number">13.5.1</span> Testing for equality</a></li>
+  <li><a href="#testing-errors" id="toc-testing-errors" class="nav-link" data-scroll-target="#testing-errors"><span class="header-section-number">13.5.2</span> Testing errors</a></li>
+  <li><a href="#sec-snapshot-tests" id="toc-sec-snapshot-tests" class="nav-link" data-scroll-target="#sec-snapshot-tests"><span class="header-section-number">13.5.3</span> Snapshot tests</a></li>
+  <li><a href="#shortcuts-for-other-common-patterns" id="toc-shortcuts-for-other-common-patterns" class="nav-link" data-scroll-target="#shortcuts-for-other-common-patterns"><span class="header-section-number">13.5.4</span> Shortcuts for other common patterns</a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r-pkgs/edit/main/testing-basics.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hadley/r-pkgs/edit/main/testing-basics.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-testing-basics" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./testing-basics.html">Testing</a></li><li class="breadcrumb-item"><a href="./testing-basics.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-testing-basics" class="quarto-section-identifier"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></span></h1>
 </div>
 
 
@@ -379,21 +415,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
 
-</header><div class="cell">
 
-</div>
-<section id="introduction" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="introduction">
-<span class="header-section-number">13.1</span> Introduction</h2>
-<p>Testing is a vital part of package development. It ensures that your code does what you want it to do. Testing, however, adds an additional step to your development workflow. The goal of this chapter is to show you how to make this task easier and more effective by doing formal automated testing using the testthat package.</p>
+</header><p>Testing is a vital part of package development: it ensures that your code does what you want. Testing, however, adds an additional step to your workflow. To make this task easier and more effective this chapter will show you how to do formal automated testing using the testthat package.</p>
 <p>The first stage of your testing journey is to become convinced that testing has enough benefits to justify the work. For some of us, this is easy to accept. Others must learn the hard way.</p>
 <p>Once you’ve decided to embrace automated testing, it’s time to learn some mechanics and figure out where testing fits into your development workflow.</p>
 <p>As you and your R packages evolve, you’ll start to encounter testing situations where it’s fruitful to use techniques that are somewhat specific to testing and differ from what we do below <code>R/</code>.</p>
-</section><section id="why-is-formal-testing-worth-the-trouble" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="why-is-formal-testing-worth-the-trouble">
-<span class="header-section-number">13.2</span> Why is formal testing worth the trouble?</h2>
+<section id="why-is-formal-testing-worth-the-trouble" class="level2" data-number="13.1"><h2 data-number="13.1" class="anchored" data-anchor-id="why-is-formal-testing-worth-the-trouble">
+<span class="header-section-number">13.1</span> Why is formal testing worth the trouble?</h2>
 <p>Up until now, your workflow probably looks like this:</p>
 <ol type="1">
 <li>Write a function.</li>
@@ -413,16 +446,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>Better code structure. Code that is well designed tends to be easy to test and you can turn this to your advantage. If you are struggling to write tests, consider if the problem is actually the design of your function(s). The process of writing tests is a great way to get free, private, and personalized feedback on how well-factored your code is. If you integrate testing into your development workflow (versus planning to slap tests on “later”), you’ll subject yourself to constant pressure to break complicated operations into separate functions that work in isolation. Functions that are easier to test are usually easier to understand and re-combine in new ways.</p></li>
 <li><p>Call to action. When we start to fix a bug, we first like to convert it into a (failing) test. This is wonderfully effective at making your goal very concrete: make this test pass. This is basically a special case of a general methodology known as test driven development.</p></li>
 <li><p>Robust code. If you know that all the major functionality of your package is well covered by the tests, you can confidently make big changes without worrying about accidentally breaking something. This provides a great reality check when you think you’ve discovered some brilliant new way to simplify your package. Sometimes such “simplifications” fail to account for some important use case and your tests will save you from yourself.</p></li>
-</ul></section><section id="introducing-testthat" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="introducing-testthat">
-<span class="header-section-number">13.3</span> Introducing testthat</h2>
+</ul></section><section id="introducing-testthat" class="level2" data-number="13.2"><h2 data-number="13.2" class="anchored" data-anchor-id="introducing-testthat">
+<span class="header-section-number">13.2</span> Introducing testthat</h2>
 <p>This chapter describes how to test your R package using the testthat package: <a href="https://testthat.r-lib.org" class="uri">https://testthat.r-lib.org</a></p>
-<p>If you’re familiar with frameworks for unit testing in other languages, you should note that there are some fundamental differences with testthat. This is because R is, at heart, more a functional programming language than an object-oriented programming language. For instance, because R’s main object-oriented systems (S3 and S4) are based on generic functions (i.e., methods belong to functions not classes), testing approaches built around objects and methods don’t make much sense.</p>
+<p>If you’re familiar with frameworks for unit testing in other languages, you should note that there are some fundamental differences with testthat. This is because R is, at heart, more a functional programming language than an object-oriented programming language. For instance, because R’s main object-oriented systems (S3 and S4) are based on generic functions (i.e., a method implements a generic function for a specific class), testing approaches built around objects and methods don’t make much sense.</p>
 <p>testthat 3.0.0 (released 2020-10-31) introduced the idea of an <strong>edition</strong> of testthat, specifically the third edition of testthat, which we refer to as testthat 3e. An edition is a bundle of behaviors that you have to explicitly choose to use, allowing us to make otherwise backward incompatible changes. This is particularly important for testthat since it has a very large number of packages that use it (almost 5,000 at last count). To use testthat 3e, you must have a version of testthat &gt;= 3.0.0 <strong>and</strong> explicitly opt-in to the third edition behaviors. This allows testthat to continue to evolve and improve without breaking historical packages that are in a rather passive maintenance phase. You can learn more in the <a href="https://testthat.r-lib.org/articles/third-edition.html">testthat 3e article</a> and the blog post <a href="https://www.tidyverse.org/blog/2022/02/upkeep-testthat-3/">Upgrading to testthat edition 3</a>.</p>
 <p>We recommend testthat 3e for all new packages and we recommend updating existing, actively maintained packages to use testthat 3e. Unless we say otherwise, this chapter describes testthat 3e.</p>
-</section><section id="sec-tests-mechanics-workflow" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="sec-tests-mechanics-workflow">
-<span class="header-section-number">13.4</span> Test mechanics and workflow</h2>
-<section id="initial-setup" class="level3" data-number="13.4.1"><h3 data-number="13.4.1" class="anchored" data-anchor-id="initial-setup">
-<span class="header-section-number">13.4.1</span> Initial setup</h3>
+</section><section id="sec-tests-mechanics-workflow" class="level2" data-number="13.3"><h2 data-number="13.3" class="anchored" data-anchor-id="sec-tests-mechanics-workflow">
+<span class="header-section-number">13.3</span> Test mechanics and workflow</h2>
+<section id="initial-setup" class="level3" data-number="13.3.1"><h3 data-number="13.3.1" class="anchored" data-anchor-id="initial-setup">
+<span class="header-section-number">13.3.1</span> Initial setup</h3>
 <p>To setup your package to use testthat, run:</p>
 <div class="cell">
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html">use_testthat</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -436,7 +469,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Config/testthat/edition: 3</code></pre>
 </li>
 <li>
-<p>Create a file <code>tests/testthat.R</code> that runs all your tests when <code>R CMD check</code> runs. (You’ll learn more about that in <a href="check.html"><span>Chapter&nbsp;20</span></a>.) For a package named “pkg”, the contents of this file will be something like:</p>
+<p>Create a file <code>tests/testthat.R</code> that runs all your tests when <code>R CMD check</code> runs (<a href="workflow101.html#sec-workflow101-r-cmd-check" class="quarto-xref"><span>Section 4.5</span></a>). For a package named “pkg”, the contents of this file will be something like:</p>
 <div class="cell">
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://testthat.r-lib.org">testthat</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">pkg</span><span class="op">)</span></span>
@@ -447,9 +480,9 @@ Config/testthat/edition: 3</code></pre>
 </ol>
 <p>This initial setup is usually something you do once per package. However, even in a package that already uses testthat, it is safe to run <code>use_testthat(3)</code>, when you’re ready to opt-in to testthat 3e.</p>
 <p>Do not edit <code>tests/testthat.R</code>! It is run during <code>R CMD check</code> (and, therefore, <code><a href="https://devtools.r-lib.org/reference/check.html">devtools::check()</a></code>), but is not used in most other test-running scenarios (such as <code><a href="https://devtools.r-lib.org/reference/test.html">devtools::test()</a></code> or <code><a href="https://devtools.r-lib.org/reference/test.html">devtools::test_active_file()</a></code>). If you want to do something that affects all of your tests, there is almost always a better way than modifying the boilerplate <code>tests/testthat.R</code> script. This chapter details many different ways to make objects and logic available during testing.</p>
-</section><section id="create-a-test" class="level3" data-number="13.4.2"><h3 data-number="13.4.2" class="anchored" data-anchor-id="create-a-test">
-<span class="header-section-number">13.4.2</span> Create a test</h3>
-<p>As you define functions in your package, in the files below <code>R/</code>, you add the corresponding tests to <code>.R</code> files in <code>tests/testthat/</code>. We strongly recommend that the organisation of test files match the organisation of <code>R/</code> files, discussed in <a href="Code.html#sec-code-organising"><span>Section&nbsp;7.2</span></a>: The <code>foofy()</code> function (and its friends and helpers) should be defined in <code>R/foofy.R</code> and their tests should live in <code>tests/testthat/test-foofy.R</code>.</p>
+</section><section id="create-a-test" class="level3" data-number="13.3.2"><h3 data-number="13.3.2" class="anchored" data-anchor-id="create-a-test">
+<span class="header-section-number">13.3.2</span> Create a test</h3>
+<p>As you define functions in your package, in the files below <code>R/</code>, you add the corresponding tests to <code>.R</code> files in <code>tests/testthat/</code>. We strongly recommend that the organisation of test files match the organisation of <code>R/</code> files, discussed in <a href="code.html#sec-code-organising" class="quarto-xref"><span>Section 6.1</span></a>: The <code>foofy()</code> function (and its friends and helpers) should be defined in <code>R/foofy.R</code> and their tests should live in <code>tests/testthat/test-foofy.R</code>.</p>
 <pre><code>R                                     tests/testthat
 └── foofy.R                           └── test-foofy.R
     foofy &lt;- function(...) {...}          test_that("foofy does this", {...})
@@ -478,12 +511,12 @@ Config/testthat/edition: 3</code></pre>
 </li>
 <li>If the target file already exists, it is opened for editing. Otherwise, the target is created and then opened for editing.</li>
 </ul>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 RStudio
 </div>
 </div>
@@ -505,8 +538,8 @@ RStudio
 <li>Each test has one or more expectations: e.g.&nbsp;<code>expect_equal(2 * 2, 4)</code>.</li>
 </ul>
 <p>Below we go into much more detail about how to test your own functions.</p>
-</section><section id="run-tests" class="level3" data-number="13.4.3"><h3 data-number="13.4.3" class="anchored" data-anchor-id="run-tests">
-<span class="header-section-number">13.4.3</span> Run tests</h3>
+</section><section id="run-tests" class="level3" data-number="13.3.3"><h3 data-number="13.3.3" class="anchored" data-anchor-id="run-tests">
+<span class="header-section-number">13.3.3</span> Run tests</h3>
 <p>Depending on where you are in the development cycle, you’ll run your tests at various scales. When you are rapidly iterating on a function, you might work at the level of individual tests. As the code settles down, you’ll run entire test files and eventually the entire test suite.</p>
 <p><strong>Micro-iteration</strong>: This is the interactive phase where you initiate and refine a function and its tests in tandem. Here you will run <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> often, and then execute individual expectations or whole tests interactively in the console. Note that <code>load_all()</code> attaches testthat, so it puts you in the perfect position to test drive your functions and to execute individual tests and expectations.</p>
 <div class="cell">
@@ -516,7 +549,7 @@ RStudio
 <span><span class="co"># interactively explore and refine expectations and tests</span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">foofy</span><span class="op">(</span><span class="va">...</span><span class="op">)</span>, <span class="va">EXPECTED_FOOFY_OUTPUT</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">testthat</span><span class="op">(</span><span class="st">"foofy does good things"</span>, <span class="op">{</span><span class="va">...</span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"foofy does good things"</span>, <span class="op">{</span><span class="va">...</span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Mezzo-iteration</strong>: As one file’s-worth of functions and their associated tests start to shape up, you will want to execute the entire file of associated tests, perhaps with <code><a href="https://testthat.r-lib.org/reference/test_file.html">testthat::test_file()</a></code>:</p>
 <!-- `devtools::test_file()` exists, but is deprecated, because of the collision.
@@ -525,12 +558,12 @@ Consider marking as defunct / removing before the book is published. -->
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_file.html">test_file</a></span><span class="op">(</span><span class="st">"tests/testthat/test-foofy.R"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 RStudio
 </div>
 </div>
@@ -549,12 +582,12 @@ RStudio
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html">check</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 RStudio
 </div>
 </div>
@@ -592,8 +625,8 @@ res$Version (`actual`) not equal to "0.0.0.9000" (`expected`).
 `expected`: "0.0.0.9000"</code></pre>
 <p>Each failure gives a description of the test (e.g., “get_release_data() works if no file found”), its location (e.g., “test-release.R:108:3”), and the reason for the failure (e.g., “res$Version (<code>actual</code>) not equal to”0.0.0.9000” (<code>expected</code>)“).</p>
 <p>The idea is that you’ll modify your code (either the functions defined below <code>R/</code> or the tests in <code>tests/testthat/</code>) until all tests are passing.</p>
-</section></section><section id="test-organisation" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="test-organisation">
-<span class="header-section-number">13.5</span> Test organisation</h2>
+</section></section><section id="test-organisation" class="level2" data-number="13.4"><h2 data-number="13.4" class="anchored" data-anchor-id="test-organisation">
+<span class="header-section-number">13.4</span> Test organisation</h2>
 <p>A test file lives in <code>tests/testthat/</code>. Its name must start with <code>test</code>. We will inspect and execute a test file from the stringr package.</p>
 <!-- https://github.com/hadley/r-pkgs/issues/778 -->
 <p>But first, for the purposes of rendering this book, we must attach stringr and testthat. Note that in real-life test-running situations, this is taken care of by your package development tooling:</p>
@@ -601,12 +634,12 @@ res$Version (`actual`) not equal to "0.0.0.9000" (`expected`).
 <li>During interactive development, <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code> makes testthat and the package-under-development available (both its exported and unexported functions).</li>
 <li>During arms-length test execution, this is taken care of by <code><a href="https://devtools.r-lib.org/reference/test.html">devtools::test_active_file()</a></code>, <code><a href="https://devtools.r-lib.org/reference/test.html">devtools::test()</a></code>, and <code>tests/testthat.R</code>.</li>
 </ul>
-<div class="callout-important callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Important
 </div>
 </div>
@@ -619,8 +652,7 @@ Important
 </div>
 </div>
 </div>
-<!-- TODO: check if stringr has released and, if so, remove this footnote and edit DESCRIPTION. -->
-<p>Here are the contents of <code>tests/testthat/test-dup.r</code> from stringr<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>:</p>
+<p>Here are the contents of <code>tests/testthat/test-dup.r</code> from stringr:</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"basic duplication works"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">"aaa"</span><span class="op">)</span></span>
@@ -628,18 +660,18 @@ Important
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aa"</span>, <span class="st">"bb"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"aa"</span>, <span class="st">"bbb"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Test passed 😀</span></span>
+<span><span class="co">#&gt; Test passed</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"0 duplicates equals empty string"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="fl">0</span><span class="op">)</span>, <span class="st">""</span><span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="st">""</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Test passed 🎉</span></span>
+<span><span class="co">#&gt; Test passed</span></span>
 <span></span>
 <span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"uses tidyverse recycling rules"</span>, <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_dup.html">str_dup</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"vctrs_error_incompatible_size"</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Test passed 🎊</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="co">#&gt; Test passed</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This file shows a typical mix of tests:</p>
 <ul>
@@ -657,8 +689,8 @@ Important
 <li><p>An <strong>expectation</strong> is the atom of testing. It describes the expected result of a computation: Does it have the right value and right class? Does it produce an error when it should? An expectation automates visual checking of results in the console. Expectations are functions that start with <code>expect_</code>.</p></li>
 </ul>
 <p>You want to arrange things such that, when a test fails, you’ll know what’s wrong and where in your code to look for the problem. This motivates all our recommendations regarding file organisation, file naming, and the test description. Finally, try to avoid putting too many expectations in one test - it’s better to have more smaller tests than fewer larger tests.</p>
-</section><section id="expectations" class="level2" data-number="13.6"><h2 data-number="13.6" class="anchored" data-anchor-id="expectations">
-<span class="header-section-number">13.6</span> Expectations</h2>
+</section><section id="expectations" class="level2" data-number="13.5"><h2 data-number="13.5" class="anchored" data-anchor-id="expectations">
+<span class="header-section-number">13.5</span> Expectations</h2>
 <p>An expectation is the finest level of testing. It makes a binary assertion about whether or not an object has the properties you expect. This object is usually the return value from a function in your package.</p>
 <p>All expectations have a similar structure:</p>
 <ul>
@@ -668,8 +700,8 @@ Important
 <li><p>Some expectations have additional arguments that control the finer points of comparing an actual and expected result.</p></li>
 </ul>
 <p>While you’ll normally put expectations inside tests inside files, you can also run them directly. This makes it easy to explore expectations interactively. There are more than 40 expectations in the testthat package, which can be explored in testthat’s <a href="https://testthat.r-lib.org/reference/index.html">reference index</a>. We’re only going to cover the most important expectations here.</p>
-<section id="testing-for-equality" class="level3" data-number="13.6.1"><h3 data-number="13.6.1" class="anchored" data-anchor-id="testing-for-equality">
-<span class="header-section-number">13.6.1</span> Testing for equality</h3>
+<section id="testing-for-equality" class="level3" data-number="13.5.1"><h3 data-number="13.5.1" class="anchored" data-anchor-id="testing-for-equality">
+<span class="header-section-number">13.5.1</span> Testing for equality</h3>
 <p><code><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal()</a></code> checks for equality, with some reasonable amount of numeric tolerance:</p>
 <div class="cell">
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span></span>
@@ -697,8 +729,8 @@ Important
 <span><span class="co">#&gt; `actual` is a double vector (2)</span></span>
 <span><span class="co">#&gt; `expected` is an integer vector (2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="testing-errors" class="level3" data-number="13.6.2"><h3 data-number="13.6.2" class="anchored" data-anchor-id="testing-errors">
-<span class="header-section-number">13.6.2</span> Testing errors</h3>
+</section><section id="testing-errors" class="level3" data-number="13.5.2"><h3 data-number="13.5.2" class="anchored" data-anchor-id="testing-errors">
+<span class="header-section-number">13.5.2</span> Testing errors</h3>
 <p>Use <code><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error()</a></code> to check whether an expression throws an error. It’s the most important expectation in a trio that also includes <code><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_warning()</a></code> and <code><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_message()</a></code>. We’re going to emphasize errors here, but most of this also applies to warnings and messages.</p>
 <p>Usually you care about two things when testing an error:</p>
 <ul>
@@ -748,17 +780,17 @@ Important
 I.e. I think he recommends using a classed condition only when there's a specific reason to.
 Then again, maybe the desire to test it is a legitimate reason? -->
 <p>If you have the choice, express your expectation in terms of the condition’s class, instead of its message. Often this is under your control, i.e.&nbsp;if your package signals the condition. If the condition originates from base R or another package, proceed with caution. This is often a good reminder to re-consider the wisdom of testing a condition that is not fully under your control in the first place.</p>
-<p>To check for the <em>absence</em> of an error, warning, or message, pass <code>NA</code> to the <code>regexp</code> argument:</p>
+<p>To check for the <em>absence</em> of an error, warning, or message, use <code><a href="https://testthat.r-lib.org/reference/expect_no_error.html">expect_no_error()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_error.html">expect_error</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span>, <span class="cn">NA</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/expect_no_error.html">expect_no_error</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">/</span> <span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Of course, this is functionally equivalent to simply executing <code>1 / 2</code> inside a test, but some developers find the explicit expectation expressive.</p>
 <p>If you genuinely care about the condition’s message, testthat 3e’s snapshot tests are the best approach, which we describe next.</p>
-</section><section id="snapshot-tests" class="level3" data-number="13.6.3"><h3 data-number="13.6.3" class="anchored" data-anchor-id="snapshot-tests">
-<span class="header-section-number">13.6.3</span> Snapshot tests</h3>
+</section><section id="sec-snapshot-tests" class="level3" data-number="13.5.3"><h3 data-number="13.5.3" class="anchored" data-anchor-id="sec-snapshot-tests">
+<span class="header-section-number">13.5.3</span> Snapshot tests</h3>
 <p>Sometimes it’s difficult or awkward to describe an expected result with code. Snapshot tests are a great solution to this problem and this is one of the main innovations in testthat 3e. The basic idea is that you record the expected result in a separate, human-readable file. Going forward, testthat alerts you when a newly computed result differs from the previously recorded snapshot. Snapshot tests are particularly suited to monitoring your package’s user interface, such as its informational messages and errors. Other use cases include testing images or other complicated objects.</p>
 <p>We’ll illustrate snapshot tests using the waldo package. Under the hood, testthat 3e uses waldo to do the heavy lifting of “actual vs.&nbsp;expected” comparisons, so it’s good for you to know a bit about waldo anyway. One of waldo’s main design goals is to present differences in a clear and actionable manner, as opposed to a frustrating declaration that “this differs from that and I know exactly how, but I won’t tell you”. Therefore, the formatting of output from <code><a href="https://waldo.r-lib.org/reference/compare.html">waldo::compare()</a></code> is very intentional and is well-suited to a snapshot test. The binary outcome of <code>TRUE</code> (actual == expected) vs.&nbsp;<code>FALSE</code> (actual != expected) is fairly easy to check and could get its own test. Here we’re concerned with writing a test to ensure that differences are reported to the user in the intended way.</p>
-<p>waldo uses a few different layouts for showing diffs, depending on various conditions. Here we deliberately constrain the width, in order to trigger a side-by-side layout.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> (We’ll talk more about the withr package below.)</p>
+<p>waldo uses a few different layouts for showing diffs, depending on various conditions. Here we deliberately constrain the width, in order to trigger a side-by-side layout.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> (We’ll talk more about the withr package below.)</p>
 <div class="cell">
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_options.html">with_options</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,</span>
@@ -852,8 +884,8 @@ and 3 more ...
 <li><p><code>variant</code>: Sometimes snapshots reflect the ambient conditions, such as the operating system or the version of R or one of your dependencies, and you need a different snapshot for each variant. This is an experimental and somewhat advanced feature, so if you can arrange things to use a single snapshot, you probably should.</p></li>
 </ul>
 <p>In typical usage, testthat will take care of managing the snapshot files below <code>tests/testthat/_snaps/</code>. This happens in the normal course of you running your tests and, perhaps, calling <code><a href="https://testthat.r-lib.org/reference/snapshot_accept.html">testthat::snapshot_accept()</a></code>.</p>
-</section><section id="shortcuts-for-other-common-patterns" class="level3" data-number="13.6.4"><h3 data-number="13.6.4" class="anchored" data-anchor-id="shortcuts-for-other-common-patterns">
-<span class="header-section-number">13.6.4</span> Shortcuts for other common patterns</h3>
+</section><section id="shortcuts-for-other-common-patterns" class="level3" data-number="13.5.4"><h3 data-number="13.5.4" class="anchored" data-anchor-id="shortcuts-for-other-common-patterns">
+<span class="header-section-number">13.5.4</span> Shortcuts for other common patterns</h3>
 <p>We conclude this section with a few more expectations that come up frequently. But remember that testthat has <a href="https://testthat.r-lib.org/reference/index.html">many more pre-built expectations</a> than we can demonstrate here.</p>
 <p>Several expectations can be described as “shortcuts”, i.e.&nbsp;they streamline a pattern that comes up often enough to deserve its own wrapper.</p>
 <ul>
@@ -891,8 +923,7 @@ and 3 more ...
 </section></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>The legacy function <code><a href="https://testthat.r-lib.org/reference/context.html">testthat::context()</a></code> is superseded now and its use in new or actively maintained code is discouraged. In testthat 3e, <code><a href="https://testthat.r-lib.org/reference/context.html">context()</a></code> is formally deprecated; you should just remove it. Once you adopt an intentional, synchronized approach to the organisation of files below <code>R/</code> and <code>tests/testthat/</code>, the necessary contextual information is right there in the file name, rendering the legacy <code><a href="https://testthat.r-lib.org/reference/context.html">context()</a></code> superfluous.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Note that we are building the book against a dev version of stringr.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3"><p>The actual waldo test that inspires this example targets an unexported helper function that produces the desired layout. But this example uses an exported waldo function for simplicity.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>The actual waldo test that inspires this example targets an unexported helper function that produces the desired layout. But this example uses an exported waldo function for simplicity.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -920,9 +951,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -934,17 +979,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-pkgs\.org\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -954,8 +1033,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -967,36 +1055,290 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./license.html" class="pagination-link">
+      <a href="./license.html" class="pagination-link" aria-label="Licensing">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Licensing</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./testing-design.html" class="pagination-link">
+      <a href="./testing-design.html" class="pagination-link" aria-label="Designing your test suite">
         <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Designing your test suite</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -1005,4 +1347,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hadley/r-pkgs/edit/main/testing-basics.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

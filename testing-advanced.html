@@ -2,8 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.4.553">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<meta name="description" content="Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.">
 <title>R Packages (2e) - 15&nbsp; Advanced testing techniques</title>
 <style>
 code{white-space: pre-wrap;}
@@ -14,11 +15,12 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -43,43 +45,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -91,6 +63,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <meta name="quarto:offset" content="./">
 <link href="./man.html" rel="next">
 <link href="./testing-design.html" rel="prev">
+<link href="./images/cover-2e-small.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -105,7 +78,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -114,28 +93,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script><script defer="" data-domain="r-pkgs.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }"><div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></h1>
-      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
-        <i class="bi bi-chevron-right"></i>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./testing-basics.html">Testing</a></li><li class="breadcrumb-item"><a href="./testing-advanced.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
       </button>
     </div>
   </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R Packages (2e)</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/hadley/r-pkgs/" title="Source Code" class="sidebar-tool px-1"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-reader-toggle sidebar-tool" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+    <a href="https://github.com/hadley/r-pkgs/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
   <i class="bi"></i>
   </div>
@@ -143,244 +129,298 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
     </div>
       </div>
-      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
         </div>
-      </div>
+        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Welcome!</a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome!</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Preface.html" class="sidebar-item-text sidebar-link">Preface</a>
+  <a href="./preface.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">Getting started</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Getting started</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Introduction.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></a>
+  <a href="./whole-game.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Whole Game</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Whole-game.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The whole game</span></a>
+  <a href="./setup.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">System setup</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">System setup</span></a>
+  <a href="./structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Package structure and state</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Structure.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Package structure and state</span></a>
+  <a href="./workflow101.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Fundamental development workflows</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Workflow101.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Fundamental development workflows</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./Package-within.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The package within</span></a>
+  <a href="./package-within.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">The package within</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">Package components</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Package components</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Code.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">R code</span></a>
+  <a href="./code.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R code</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Data</span></a>
+  <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Data</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./misc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Other components</span></a>
+  <a href="./misc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Other components</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">Package metadata</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Package metadata</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Metadata.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title"><code>DESCRIPTION</code> and <code>NAMESPACE</code></span></a>
+  <a href="./description.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><code>DESCRIPTION</code></span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./dependencies.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dependencies: What does your package need?</span></a>
+  <a href="./dependencies-mindset-background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Dependencies: Mindset and Background</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./license.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Licensing</span></a>
+  <a href="./dependencies-in-practice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Dependencies: In Practice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./license.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Licensing</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">Testing</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Testing</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./testing-basics.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></a>
+  <a href="./testing-basics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./testing-design.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Designing your test suite</span></a>
+  <a href="./testing-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Designing your test suite</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./testing-advanced.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></a>
+  <a href="./testing-advanced.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">Documentation</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Documentation</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./man.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Function documentation</span></a>
+  <a href="./man.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Function documentation</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./vignettes.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Vignettes</span></a>
+  <a href="./vignettes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Vignettes</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./other-markdown.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Other markdown files</span></a>
+  <a href="./other-markdown.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Other markdown files</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./website.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Website</span></a>
+  <a href="./website.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Website</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">Maintenance and distribution</a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Maintenance and distribution</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
 <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./check.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title"><code>R CMD check</code></span></a>
+  <a href="./software-development-practices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Software development practices</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./continuous-integration.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Continuous integration</span></a>
+  <a href="./lifecycle.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Lifecycle</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./release.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Releasing to CRAN</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./lifecycle.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Lifecycle</span></a>
+  <a href="./release.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Releasing to CRAN</span></span></a>
   </div>
 </li>
       </ul>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">References</span></a>
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">References</span></span></a>
   </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-CMD-check.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title"><code>R CMD check</code></span></span></a>
+  </div>
+</li>
+      </ul>
 </li>
     </ul>
 </div>
-</nav><!-- margin-sidebar --><div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
 <li>
-<a href="#test-fixtures" id="toc-test-fixtures" class="nav-link active" data-scroll-target="#test-fixtures"><span class="toc-section-number">15.1</span>  Test fixtures</a>
+<a href="#test-fixtures" id="toc-test-fixtures" class="nav-link active" data-scroll-target="#test-fixtures"><span class="header-section-number">15.1</span> Test fixtures</a>
   <ul class="collapse">
-<li><a href="#create-useful_things-with-a-helper-function" id="toc-create-useful_things-with-a-helper-function" class="nav-link" data-scroll-target="#create-useful_things-with-a-helper-function"><span class="toc-section-number">15.1.1</span>  Create <code>useful_thing</code>s with a helper function</a></li>
-  <li><a href="#create-and-destroy-a-local-useful_thing" id="toc-create-and-destroy-a-local-useful_thing" class="nav-link" data-scroll-target="#create-and-destroy-a-local-useful_thing"><span class="toc-section-number">15.1.2</span>  Create (and destroy) a “local” <code>useful_thing</code></a></li>
-  <li><a href="#store-a-concrete-useful_thing-persistently" id="toc-store-a-concrete-useful_thing-persistently" class="nav-link" data-scroll-target="#store-a-concrete-useful_thing-persistently"><span class="toc-section-number">15.1.3</span>  Store a concrete <code>useful_thing</code> persistently</a></li>
+<li><a href="#sec-testing-advanced-fixture-helper" id="toc-sec-testing-advanced-fixture-helper" class="nav-link" data-scroll-target="#sec-testing-advanced-fixture-helper"><span class="header-section-number">15.1.1</span> Create <code>useful_thing</code>s with a helper function</a></li>
+  <li><a href="#create-and-destroy-a-local-useful_thing" id="toc-create-and-destroy-a-local-useful_thing" class="nav-link" data-scroll-target="#create-and-destroy-a-local-useful_thing"><span class="header-section-number">15.1.2</span> Create (and destroy) a “local” <code>useful_thing</code></a></li>
+  <li><a href="#sec-testing-advanced-concrete-fixture" id="toc-sec-testing-advanced-concrete-fixture" class="nav-link" data-scroll-target="#sec-testing-advanced-concrete-fixture"><span class="header-section-number">15.1.3</span> Store a concrete <code>useful_thing</code> persistently</a></li>
   </ul>
 </li>
   <li>
-<a href="#building-your-own-testing-tools" id="toc-building-your-own-testing-tools" class="nav-link" data-scroll-target="#building-your-own-testing-tools"><span class="toc-section-number">15.2</span>  Building your own testing tools</a>
+<a href="#building-your-own-testing-tools" id="toc-building-your-own-testing-tools" class="nav-link" data-scroll-target="#building-your-own-testing-tools"><span class="header-section-number">15.2</span> Building your own testing tools</a>
   <ul class="collapse">
-<li><a href="#helper-defined-inside-a-test" id="toc-helper-defined-inside-a-test" class="nav-link" data-scroll-target="#helper-defined-inside-a-test"><span class="toc-section-number">15.2.1</span>  Helper defined inside a test</a></li>
-  <li><a href="#custom-expectations" id="toc-custom-expectations" class="nav-link" data-scroll-target="#custom-expectations"><span class="toc-section-number">15.2.2</span>  Custom expectations</a></li>
+<li><a href="#helper-defined-inside-a-test" id="toc-helper-defined-inside-a-test" class="nav-link" data-scroll-target="#helper-defined-inside-a-test"><span class="header-section-number">15.2.1</span> Helper defined inside a test</a></li>
+  <li><a href="#custom-expectations" id="toc-custom-expectations" class="nav-link" data-scroll-target="#custom-expectations"><span class="header-section-number">15.2.2</span> Custom expectations</a></li>
   </ul>
 </li>
   <li>
-<a href="#when-testing-gets-hard" id="toc-when-testing-gets-hard" class="nav-link" data-scroll-target="#when-testing-gets-hard"><span class="toc-section-number">15.3</span>  When testing gets hard</a>
+<a href="#when-testing-gets-hard" id="toc-when-testing-gets-hard" class="nav-link" data-scroll-target="#when-testing-gets-hard"><span class="header-section-number">15.3</span> When testing gets hard</a>
   <ul class="collapse">
-<li><a href="#tests-skipping" id="toc-tests-skipping" class="nav-link" data-scroll-target="#tests-skipping"><span class="toc-section-number">15.3.1</span>  Skipping a test</a></li>
-  <li><a href="#mocking" id="toc-mocking" class="nav-link" data-scroll-target="#mocking"><span class="toc-section-number">15.3.2</span>  Mocking</a></li>
-  <li><a href="#secrets" id="toc-secrets" class="nav-link" data-scroll-target="#secrets"><span class="toc-section-number">15.3.3</span>  Secrets</a></li>
+<li><a href="#tests-skipping" id="toc-tests-skipping" class="nav-link" data-scroll-target="#tests-skipping"><span class="header-section-number">15.3.1</span> Skipping a test</a></li>
+  <li><a href="#mocking" id="toc-mocking" class="nav-link" data-scroll-target="#mocking"><span class="header-section-number">15.3.2</span> Mocking</a></li>
+  <li><a href="#secrets" id="toc-secrets" class="nav-link" data-scroll-target="#secrets"><span class="header-section-number">15.3.3</span> Secrets</a></li>
   </ul>
 </li>
   <li>
-<a href="#special-considerations-for-cran-packages" id="toc-special-considerations-for-cran-packages" class="nav-link" data-scroll-target="#special-considerations-for-cran-packages"><span class="toc-section-number">15.4</span>  Special considerations for CRAN packages</a>
+<a href="#special-considerations-for-cran-packages" id="toc-special-considerations-for-cran-packages" class="nav-link" data-scroll-target="#special-considerations-for-cran-packages"><span class="header-section-number">15.4</span> Special considerations for CRAN packages</a>
   <ul class="collapse">
-<li><a href="#tests-cran-flavors-services" id="toc-tests-cran-flavors-services" class="nav-link" data-scroll-target="#tests-cran-flavors-services"><span class="toc-section-number">15.4.1</span>  CRAN check flavors and related services</a></li>
-  <li><a href="#testing-on-cran" id="toc-testing-on-cran" class="nav-link" data-scroll-target="#testing-on-cran"><span class="toc-section-number">15.4.2</span>  Testing on CRAN</a></li>
+<li><a href="#sec-testing-advanced-skip-on-cran" id="toc-sec-testing-advanced-skip-on-cran" class="nav-link" data-scroll-target="#sec-testing-advanced-skip-on-cran"><span class="header-section-number">15.4.1</span> Skip a test</a></li>
+  <li><a href="#speed" id="toc-speed" class="nav-link" data-scroll-target="#speed"><span class="header-section-number">15.4.2</span> Speed</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">15.4.3</span> Reproducibility</a></li>
+  <li><a href="#sec-testing-advanced-flaky-tests" id="toc-sec-testing-advanced-flaky-tests" class="nav-link" data-scroll-target="#sec-testing-advanced-flaky-tests"><span class="header-section-number">15.4.4</span> Flaky tests</a></li>
+  <li><a href="#process-and-file-system-hygiene" id="toc-process-and-file-system-hygiene" class="nav-link" data-scroll-target="#process-and-file-system-hygiene"><span class="header-section-number">15.4.5</span> Process and file system hygiene</a></li>
   </ul>
 </li>
-  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/hadley/r-pkgs/edit/main/testing-advanced.Rmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hadley/r-pkgs/edit/main/testing-advanced.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
-<h1 class="title"><span id="sec-testing-advanced" class="quarto-section-identifier d-none d-lg-block"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></span></h1>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./testing-basics.html">Testing</a></li><li class="breadcrumb-item"><a href="./testing-advanced.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></a></li></ol></nav><div class="quarto-title">
+<h1 class="title"><span id="sec-testing-advanced" class="quarto-section-identifier"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Advanced testing techniques</span></span></h1>
 </div>
 
 
@@ -388,19 +428,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
 
-</header><div class="cell">
 
-</div>
-<div class="callout-important callout callout-style-default callout-captioned">
+</header><div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Important
 </div>
 </div>
@@ -440,7 +479,7 @@ num_colors <- local({
     num_colors
   }
 })
---><section id="create-useful_things-with-a-helper-function" class="level3" data-number="15.1.1"><h3 data-number="15.1.1" class="anchored" data-anchor-id="create-useful_things-with-a-helper-function">
+--><section id="sec-testing-advanced-fixture-helper" class="level3" data-number="15.1.1"><h3 data-number="15.1.1" class="anchored" data-anchor-id="sec-testing-advanced-fixture-helper">
 <span class="header-section-number">15.1.1</span> Create <code>useful_thing</code>s with a helper function</h3>
 <p>Is it fiddly to create a <code>useful_thing</code>? Does it take several lines of code, but not much time or memory? In that case, write a helper function to create a <code>useful_thing</code> on-demand:</p>
 <div class="cell">
@@ -460,7 +499,7 @@ num_colors <- local({
 <span>  <span class="fu"><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal</a></span><span class="op">(</span><span class="fu">foofy</span><span class="op">(</span><span class="va">useful_thing2</span>, x <span class="op">=</span> <span class="st">"that"</span><span class="op">)</span>, <span class="va">EXPECTED_FOOFY_OUTPUT</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Where should the <code>new_useful_thing()</code> helper be defined? This comes back to what we outlined in <a href="testing-design.html#sec-tests-files-overview"><span>Section&nbsp;14.3</span></a>. Test helpers can be defined below <code>R/</code>, just like any other internal utility in your package. Another popular location is in a test helper file, e.g.&nbsp;<code>tests/testthat/helper.R</code>. A key feature of both options is that the helpers are made available to you during interactive maintenance via <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>.</p>
+<p>Where should the <code>new_useful_thing()</code> helper be defined? This comes back to what we outlined in <a href="testing-design.html#sec-tests-files-overview" class="quarto-xref"><span>Section 14.3</span></a>. Test helpers can be defined below <code>R/</code>, just like any other internal utility in your package. Another popular location is in a test helper file, e.g.&nbsp;<code>tests/testthat/helper.R</code>. A key feature of both options is that the helpers are made available to you during interactive maintenance via <code><a href="https://devtools.r-lib.org/reference/load_all.html">devtools::load_all()</a></code>.</p>
 <p>If it’s fiddly AND costly to create a <code>useful_thing</code>, your helper function could even use memoisation to avoid unnecessary re-computation. Once you have a helper like <code>new_useful_thing()</code>, you often discover that it has uses beyond testing, e.g.&nbsp;behind-the-scenes in a vignette. Sometimes you even realize you should just define it below <code>R/</code> and export and document it, so you can use it freely in documentation and tests.</p>
 </section><section id="create-and-destroy-a-local-useful_thing" class="level3" data-number="15.1.2"><h3 data-number="15.1.2" class="anchored" data-anchor-id="create-and-destroy-a-local-useful_thing">
 <span class="header-section-number">15.1.2</span> Create (and destroy) a “local” <code>useful_thing</code>
@@ -489,7 +528,7 @@ num_colors <- local({
 </div>
 <p>Where should the <code>local_useful_thing()</code> helper be defined? All the advice given above for <code>new_useful_thing()</code> applies: define it below <code>R/</code> or in a test helper file.</p>
 <p>To learn more about writing custom helpers like <code>local_useful_thing()</code>, see the <a href="https://testthat.r-lib.org/articles/test-fixtures.html">testthat vignette on test fixtures</a>.</p>
-</section><section id="store-a-concrete-useful_thing-persistently" class="level3" data-number="15.1.3"><h3 data-number="15.1.3" class="anchored" data-anchor-id="store-a-concrete-useful_thing-persistently">
+</section><section id="sec-testing-advanced-concrete-fixture" class="level3" data-number="15.1.3"><h3 data-number="15.1.3" class="anchored" data-anchor-id="sec-testing-advanced-concrete-fixture">
 <span class="header-section-number">15.1.3</span> Store a concrete <code>useful_thing</code> persistently</h3>
 <p>If a <code>useful_thing</code> is costly to create, in terms of time or memory, maybe you don’t actually need to re-create it for each test run. You could make the <code>useful_thing</code> once, store it as a static test fixture, and load it in the tests that need it. Here’s a sketch of how this could look:</p>
 <div class="cell">
@@ -686,7 +725,6 @@ num_colors <- local({
 </section><section id="dangers-of-skipping" class="level4" data-number="15.3.1.3"><h4 data-number="15.3.1.3" class="anchored" data-anchor-id="dangers-of-skipping">
 <span class="header-section-number">15.3.1.3</span> Dangers of skipping</h4>
 <p>One challenge with skips is that they are currently completely invisible in CI — if you automatically skip too many tests, it’s easy to fool yourself that all your tests are passing when in fact they’re just being skipped! In an ideal world, your CI/CD would make it easy to see how many tests are being skipped and how that changes over time.</p>
-<p><em>2022-06-01: Recent changes to GitHub Actions mean that we will likely have better test reporting before the second edition of this book is published. Stay tuned!</em></p>
 <p>It’s a good practice to regularly dig into the <code>R CMD check</code> results, especially on CI, and make sure the skips are as you expect. But this tends to be something you have to learn through experience.</p>
 </section></section><section id="mocking" class="level3" data-number="15.3.2"><h3 data-number="15.3.2" class="anchored" data-anchor-id="mocking">
 <span class="header-section-number">15.3.2</span> Mocking</h3>
@@ -705,53 +743,19 @@ num_colors <- local({
 </li>
 <li>webfakes: <a href="https://webfakes.r-lib.org" class="uri">https://webfakes.r-lib.org</a>
 </li>
-</ul></section><section id="secrets" class="level3" data-number="15.3.3"><h3 data-number="15.3.3" class="anchored" data-anchor-id="secrets">
+</ul>
+<p>Note also that, at the time of writing, it seems likely that the testthat package will re-introduce some mocking capabilities (after previously getting out of the mocking business once already). Version v3.1.7 has two new experimental functions, <code><a href="https://testthat.r-lib.org/reference/local_mocked_bindings.html">testthat::with_mocked_bindings()</a></code> and <code><a href="https://testthat.r-lib.org/reference/local_mocked_bindings.html">testthat::local_mocked_bindings()</a></code>.</p>
+</section><section id="secrets" class="level3" data-number="15.3.3"><h3 data-number="15.3.3" class="anchored" data-anchor-id="secrets">
 <span class="header-section-number">15.3.3</span> Secrets</h3>
 <p>Another common challenge for packages that wrap an external service is the need to manage credentials. Specifically, it is likely that you will need to provide a set of test credentials to fully test your package.</p>
-<p>Our main advice here is to design your package so that large parts of it can be tested without live, authenticated assess to the external service.</p>
+<p>Our main advice here is to design your package so that large parts of it can be tested without live, authenticated access to the external service.</p>
 <p>Of course, you will still want to be able to test your package against the actual service that it wraps, in environments that support secure environment variables. Since this is also a very specialized topic, we won’t go into more detail here. Instead we refer you to the <a href="https://httr2.r-lib.org/articles/wrapping-apis.html#secret-management">Wrapping APIs</a> vignette in the httr2 package, which offers substantial support for secret management.</p>
 </section></section><section id="special-considerations-for-cran-packages" class="level2" data-number="15.4"><h2 data-number="15.4" class="anchored" data-anchor-id="special-considerations-for-cran-packages">
 <span class="header-section-number">15.4</span> Special considerations for CRAN packages</h2>
-<section id="tests-cran-flavors-services" class="level3" data-number="15.4.1"><h3 data-number="15.4.1" class="anchored" data-anchor-id="tests-cran-flavors-services">
-<span class="header-section-number">15.4.1</span> CRAN check flavors and related services</h3>
-<p><em>This section will likely move to a different location, once we revise and expand the content elsewhere in the book on <code>R CMD check</code> and package release. But it can gestate here.</em></p>
-<p>CRAN runs <code>R CMD check</code> on all contributed packages on a regular basis, on multiple platforms or what they call “flavors”. This check includes, but is not limited to, your testthat tests. CRAN’s check flavors almost certainly include platforms other than your preferred development environment(s), so you must proactively plan ahead if you want your tests to pass there.</p>
-<p>You can see CRAN’s current check flavors here: <a href="https://cran.r-project.org/web/checks/check_flavors.html" class="uri">https://cran.r-project.org/web/checks/check_flavors.html</a>. There are various combinations of:</p>
-<ul>
-<li>Operating system and CPU: Windows, macOS (x86_64, arm64), Linux (various distributions)</li>
-<li>R version: r-devel, r-release, r-oldrel</li>
-<li>C, C++, FORTRAN compilers</li>
-<li>Locale, in the sense of the <code>LC_CTYPE</code> environment variable (this is about which human language is in use and character encoding)</li>
-</ul>
-<p>It would be impractical for individual package developers to personally maintain all of these testing platforms. Instead, we turn to various community- and CRAN-maintained resources to test our packages. In order of how often we use them:</p>
-<ul>
-<li>
-<p>GitHub Actions (GHA). Many R package developers host their source code on GitHub and use GHA to check their package, e.g., every time they push.</p>
-<p>The usethis package offers several functions to help you configure GHA workflows for checking your package. The most appropriate level of checking depends on the nature of your user base and how likely it is that your package could behave differently across the flavors (e.g.&nbsp;does it contain compiled code?)</p>
-<ul>
-<li>
-<code><a href="https://usethis.r-lib.org/reference/github_actions.html">usethis::use_github_action_check_release()</a></code>: an entry-level, bare-minimum workflow that checks with the latest release of R on Linux.</li>
-<li>
-<code><a href="https://usethis.r-lib.org/reference/github_actions.html">usethis::use_github_action_check_standard()</a></code>: Covers the three major operating systems and both the released and development versions of R. This is a good choice for a package that is (or aspires to be) on CRAN or Bioconductor.</li>
-<li>The tidyverse/r-lib team uses an even more extensive check matrix, which would be overkill for most other packages. It’s necessary in this case in order to meet our commitment to support the current version, the development version, and four previous versions of R.</li>
-</ul>
-</li>
-<li>
-<p>R-hub builder (R-hub). This is a service supported by the R Consortium where package developers can submit their package for checks that replicate various CRAN check flavors. This is useful when you’re doing the due diligence leading up to a CRAN submission.</p>
-<p>You can use R-hub via a web interface (<a href="https://builder.r-hub.io" class="uri">https://builder.r-hub.io</a>) or, as we recommend, through the <a href="https://r-hub.github.io/rhub/">rhub R package</a>.</p>
-<p>The <code>rhub::check_for_cran()</code> function is morally similar to the GHA workflow configured by <code><a href="https://usethis.r-lib.org/reference/github_actions.html">usethis::use_github_action_check_standard()</a></code>, i.e.&nbsp;it’s a good solution for a typical package heading to CRAN. rhub has many other functions for accessing individual check flavors.</p>
-</li>
-<li>
-<p>Win-Builder is a service maintained by the CRAN personnel who build the Windows binaries for CRAN packages. You use it in a similar way as R-hub, i.e.&nbsp;it’s a good check to run when preparing a CRAN submission. (Win-Builder is basically the inspiration for R-hub, i.e.&nbsp;Win-builder is such a convenient service that it makes sense to extend it for more flavors.)</p>
-<p>The Win-Builder homepage (<a href="https://win-builder.r-project.org" class="uri">https://win-builder.r-project.org</a>) explains how to upload a package via ftp, but we recommend using the convenience functions <code><a href="https://devtools.r-lib.org/reference/check_win.html">devtools::check_win_devel()</a></code> and friends.</p>
-</li>
-<li>
-<p>macOS builder is a service maintained by the CRAN personnel who build the macOS binaries for CRAN packages. This is a relatively new addition to the list and checks packages with “the same setup and available packages as the CRAN M1 build machine”.</p>
-<p>You can submit your package using the web interface (<a href="https://mac.r-project.org/macbuilder/submit.html" class="uri">https://mac.r-project.org/macbuilder/submit.html</a>) or with <code><a href="https://devtools.r-lib.org/reference/check_mac_release.html">devtools::check_mac_release()</a></code>.</p>
-</li>
-</ul></section><section id="testing-on-cran" class="level3" data-number="15.4.2"><h3 data-number="15.4.2" class="anchored" data-anchor-id="testing-on-cran">
-<span class="header-section-number">15.4.2</span> Testing on CRAN</h3>
-<p>The need to pass tests on all of CRAN’s flavors is not the only thing you need to think about. There are other considerations that will influence how you write your tests and how (or whether) they run on CRAN. When a package runs afoul of the CRAN Repository Policy (<a href="https://cran.r-project.org/web/packages/policies.html" class="uri">https://cran.r-project.org/web/packages/policies.html</a>), the test suite is very often the culprit (although not always).</p>
+<p>CRAN runs <code>R CMD check</code> on all contributed packages, both upon submission and on a regular basis after acceptance. This check includes, but is not limited to, your testthat tests. We discuss the general challenge of preparing your package to face all of CRAN’s check “flavors” in <a href="release.html#sec-cran-flavors-services" class="quarto-xref"><span>Section 22.4.1</span></a>. Here we focus on CRAN-specific considerations for your test suite.</p>
+<p>When a package runs afoul of the CRAN Repository Policy (<a href="https://cran.r-project.org/web/packages/policies.html" class="uri">https://cran.r-project.org/web/packages/policies.html</a>), the test suite is very often the culprit (although not always). If your package is destined for CRAN, this should influence how you write your tests and how (or whether) they will be run on CRAN.</p>
+<section id="sec-testing-advanced-skip-on-cran" class="level3" data-number="15.4.1"><h3 data-number="15.4.1" class="anchored" data-anchor-id="sec-testing-advanced-skip-on-cran">
+<span class="header-section-number">15.4.1</span> Skip a test</h3>
 <p>If a specific test simply isn’t appropriate to be run by CRAN, include <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> at the very start.</p>
 <div class="cell">
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_that.html">test_that</a></span><span class="op">(</span><span class="st">"some long-running thing works"</span>, <span class="op">{</span></span>
@@ -759,18 +763,17 @@ num_colors <- local({
 <span>  <span class="co"># test code that can potentially take "a while" to run  </span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Under the hood, <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> consults the <code>NOT_CRAN</code> environment variable. Such tests will only run when <code>NOT_CRAN</code> has been explicitly defined as <code>"true"</code>. This variable is set by devtools and testthat, allowing those tests to run in environments where you expect success (and where you can tolerate and troubleshoot occasional failure).</p>
-<p>In particular, the GitHub Actions workflows that we recommend elsewhere <strong>will</strong> run tests with <code>NOT_CRAN = "true"</code> call. For certain types of functionality, there is no practical way to test it on CRAN and your own checks, on GHA or an equivalent continuous integration service, are your best method of quality assurance.</p>
+<p>Under the hood, <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> consults the <code>NOT_CRAN</code> environment variable. Such a test will only run when <code>NOT_CRAN</code> has been explicitly defined as <code>"true"</code>. This variable is set by devtools and testthat, allowing those tests to run in environments where you expect success (and where you can tolerate and troubleshoot occasional failure).</p>
+<p>In particular, the GitHub Actions workflows that we recommend in <a href="software-development-practices.html#sec-sw-dev-practices-gha" class="quarto-xref"><span>Section 20.2.1</span></a> <strong>will</strong> run tests with <code>NOT_CRAN = "true"</code>. For certain types of functionality, there is no practical way to test it on CRAN and your own checks, on GitHub Actions or an equivalent continuous integration service, are your best method of quality assurance.</p>
 <p>There are even rare cases where it makes sense to maintain tests outside of your package altogether. The tidymodels team uses this strategy for integration-type tests of their whole ecosystem that would be impossible to host inside an individual CRAN package.</p>
-<p>The following subsections enumerate other thing to keep in mind for maximum success when testing on CRAN.</p>
-<section id="speed" class="level4" data-number="15.4.2.1"><h4 data-number="15.4.2.1" class="anchored" data-anchor-id="speed">
-<span class="header-section-number">15.4.2.1</span> Speed</h4>
+</section><section id="speed" class="level3" data-number="15.4.2"><h3 data-number="15.4.2" class="anchored" data-anchor-id="speed">
+<span class="header-section-number">15.4.2</span> Speed</h3>
 <p>Your tests need to run relatively quickly - ideally, less than a minute, in total. Use <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> in a test that is unavoidably long-running.</p>
-</section><section id="reproducibility" class="level4" data-number="15.4.2.2"><h4 data-number="15.4.2.2" class="anchored" data-anchor-id="reproducibility">
-<span class="header-section-number">15.4.2.2</span> Reproducibility</h4>
+</section><section id="reproducibility" class="level3" data-number="15.4.3"><h3 data-number="15.4.3" class="anchored" data-anchor-id="reproducibility">
+<span class="header-section-number">15.4.3</span> Reproducibility</h3>
 <p>Be careful about testing things that are likely to be variable on CRAN machines. It’s risky to test how long something takes (because CRAN machines are often heavily loaded) or to test parallel code (because CRAN runs multiple package tests in parallel, multiple cores will not always be available). Numerical precision can also vary across platforms, so use <code><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_equal()</a></code> unless you have a specific reason for using <code><a href="https://testthat.r-lib.org/reference/equality-expectations.html">expect_identical()</a></code>.</p>
-</section><section id="flaky-tests" class="level4" data-number="15.4.2.3"><h4 data-number="15.4.2.3" class="anchored" data-anchor-id="flaky-tests">
-<span class="header-section-number">15.4.2.3</span> Flaky tests</h4>
+</section><section id="sec-testing-advanced-flaky-tests" class="level3" data-number="15.4.4"><h3 data-number="15.4.4" class="anchored" data-anchor-id="sec-testing-advanced-flaky-tests">
+<span class="header-section-number">15.4.4</span> Flaky tests</h3>
 <p>Due to the scale at which CRAN checks packages, there is basically no latitude for a test that’s “just flaky”, i.e.&nbsp;sometimes fails for incidental reasons. CRAN does not process your package’s test results the way you do, where you can inspect each failure and exercise some human judgment about how concerning it is.</p>
 <p>It’s probably a good idea to eliminate flaky tests, just for your own sake! But if you have valuable, well-written tests that are prone to occasional nuisance failure, definitely put <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> at the start.</p>
 <p>The classic example is any test that accesses a website or web API. Given that any web resource in the world will experience occasional downtime, it’s best to not let such tests run on CRAN. The CRAN Repository Policy says:</p>
@@ -778,11 +781,11 @@ num_colors <- local({
 <p>Packages which use Internet resources should fail gracefully with an informative message if the resource is not available or has changed (and not give a check warning nor error).</p>
 </blockquote>
 <p>Often making such a failure “graceful” would run counter to the behaviour you actually want in practice, i.e.&nbsp;you would want your user to get an error if their request fails. This is why it is usually more practical to test such functionality elsewhere.</p>
-<p>Recall that snapshot tests, by default, are also skipped on CRAN. You typically use such tests to monitor, e.g., how various informational messages look. Slight changes in message formatting are something you want to be alerted to, but do not indicate a major defect in your package. This is the motivation for the default <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> behaviour of snapshot tests.</p>
+<p>Recall that snapshot tests (<a href="testing-basics.html" class="quarto-xref"><span>Chapter 13</span></a>), by default, are also skipped on CRAN. You typically use such tests to monitor, e.g., how various informational messages look. Slight changes in message formatting are something you want to be alerted to, but do not indicate a major defect in your package. This is the motivation for the default <code><a href="https://testthat.r-lib.org/reference/skip.html">skip_on_cran()</a></code> behaviour of snapshot tests.</p>
 <p>Finally, flaky tests cause problems for the maintainers of your dependencies. When the packages you depend on are updated, CRAN runs <code>R CMD check</code> on all reverse dependencies, including your package. If your package has flaky tests, your package can be the reason another package does not clear CRAN’s incoming checks and can delay its release.</p>
-</section><section id="process-and-file-system-hygiene" class="level4" data-number="15.4.2.4"><h4 data-number="15.4.2.4" class="anchored" data-anchor-id="process-and-file-system-hygiene">
-<span class="header-section-number">15.4.2.4</span> Process and file system hygiene</h4>
-<p>In <a href="testing-design.html#sec-tests-files-where-write"><span>Section&nbsp;14.3.7</span></a>, we urged you to only write into the session temp directory and to clean up after yourself. This practice makes your test suite much more maintainable and predictable. For packages that are (or aspire to be) on CRAN, this is absolutely required per the CRAN repository policy:</p>
+</section><section id="process-and-file-system-hygiene" class="level3" data-number="15.4.5"><h3 data-number="15.4.5" class="anchored" data-anchor-id="process-and-file-system-hygiene">
+<span class="header-section-number">15.4.5</span> Process and file system hygiene</h3>
+<p>In <a href="testing-design.html#sec-tests-files-where-write" class="quarto-xref"><span>Section 14.3.7</span></a>, we urged you to only write into the session temp directory and to clean up after yourself. This practice makes your test suite much more maintainable and predictable. For packages that are (or aspire to be) on CRAN, this is absolutely required per the CRAN repository policy:</p>
 <blockquote class="blockquote">
 <p>Packages should not write in the user’s home filespace (including clipboards), nor anywhere else on the file system apart from the R session’s temporary directory (or during installation in the location pointed to by TMPDIR: and such usage should be cleaned up)…. Limited exceptions may be allowed in interactive sessions if the package obtains confirmation from the user.</p>
 </blockquote>
@@ -802,31 +805,9 @@ Because they make up such a big part of engineers’ lives, Google puts a lot of
 
 https://abseil.io/resources/swe-book/html/ch12.html
 -->
-<!--
-Another important path-building function to know about is `fs::path_package()`.
-It is essentially `base::system.file()` with one very significant added feature:
-it produces the correct path for both an in-development or an installed package.
-
-```
 
 
-during development               after installation                             
-
-/path/to/local/package           /path/to/some/installed/package
-├── DESCRIPTION                  ├── DESCRIPTION
-├── ...                          ├── ...
-├── inst                         └── some-installed-file.txt
-│   └── some-installed-file.txt  
-└── ...
-```
-
-`fs::path_package("some-installed_file.txt")` builds the correct path in both cases.
-
-A common theme you've now encountered in multiple places is that devtools and related packages try to eliminate hard choices between having a smooth interactive development experience and arranging things correctly in your package.
--->
-
-
-</section></section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -853,9 +834,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -867,17 +862,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/r-pkgs\.org\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -887,8 +916,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -900,36 +938,290 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script><nav class="page-navigation"><div class="nav-page nav-page-previous">
-      <a href="./testing-design.html" class="pagination-link">
+      <a href="./testing-design.html" class="pagination-link" aria-label="Designing your test suite">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Designing your test suite</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./man.html" class="pagination-link">
+      <a href="./man.html" class="pagination-link" aria-label="Function documentation">
         <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Function documentation</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -938,4 +1230,4 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-</body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/hadley/r-pkgs/edit/main/testing-advanced.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
