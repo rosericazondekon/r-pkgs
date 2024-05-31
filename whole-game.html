@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.4.554">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
 <meta name="description" content="Learn how to create a package, the fundamental unit of shareable, reusable, and reproducible R code.">
-
 <title>R Packages (2e) - 1&nbsp; The Whole Game</title>
 <style>
 code{white-space: pre-wrap;}
@@ -57,7 +54,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="site_libs/quarto-nav/headroom.min.js"></script>
 <script src="site_libs/clipboard/clipboard.min.js"></script>
@@ -76,8 +72,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
   "collapse-after": 3,
@@ -103,18 +98,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-submit-button-title": "Submit",
     "search-label": "Search"
   }
-}</script>
-<script defer="" data-domain="r-pkgs.org" src="https://plausible.io/js/plausible.js"></script>
-
-
+}</script><script defer="" data-domain="r-pkgs.org" src="https://plausible.io/js/plausible.js"></script>
 </head>
-
 <body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
@@ -125,13 +114,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <i class="bi bi-search"></i>
       </button>
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">R Packages (2e)</a> 
         <div class="sidebar-tools-main">
@@ -151,7 +136,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Welcome!</span></a>
@@ -177,8 +162,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./whole-game.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Whole Game</span></span></a>
@@ -209,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
@@ -218,8 +203,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./code.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R code</span></span></a>
@@ -238,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
@@ -247,8 +232,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./description.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title"><code>DESCRIPTION</code></span></span></a>
@@ -273,7 +258,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
@@ -282,8 +267,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./testing-basics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Testing basics</span></span></a>
@@ -302,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
@@ -311,8 +296,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./man.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Function documentation</span></span></a>
@@ -337,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
@@ -346,8 +331,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./software-development-practices.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Software development practices</span></span></a>
@@ -366,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
       </ul>
-  </li>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -381,43 +366,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./R-CMD-check.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title"><code>R CMD check</code></span></span></a>
   </div>
 </li>
       </ul>
-  </li>
+</li>
     </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+</div>
+</nav><div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#load-devtools-and-friends" id="toc-load-devtools-and-friends" class="nav-link active" data-scroll-target="#load-devtools-and-friends"><span class="header-section-number">1.1</span> Load devtools and friends</a></li>
+<li><a href="#load-devtools-and-friends" id="toc-load-devtools-and-friends" class="nav-link active" data-scroll-target="#load-devtools-and-friends"><span class="header-section-number">1.1</span> Load devtools and friends</a></li>
   <li><a href="#toy-package-regexcite" id="toc-toy-package-regexcite" class="nav-link" data-scroll-target="#toy-package-regexcite"><span class="header-section-number">1.2</span> Toy package: regexcite</a></li>
   <li><a href="#preview-the-finished-product" id="toc-preview-the-finished-product" class="nav-link" data-scroll-target="#preview-the-finished-product"><span class="header-section-number">1.3</span> Preview the finished product</a></li>
   <li><a href="#create_package" id="toc-create_package" class="nav-link" data-scroll-target="#create_package"><span class="header-section-number">1.4</span> <code>create_package()</code></a></li>
   <li><a href="#use_git" id="toc-use_git" class="nav-link" data-scroll-target="#use_git"><span class="header-section-number">1.5</span> <code>use_git()</code></a></li>
   <li><a href="#write-the-first-function" id="toc-write-the-first-function" class="nav-link" data-scroll-target="#write-the-first-function"><span class="header-section-number">1.6</span> Write the first function</a></li>
   <li><a href="#use_r" id="toc-use_r" class="nav-link" data-scroll-target="#use_r"><span class="header-section-number">1.7</span> <code>use_r()</code></a></li>
-  <li><a href="#sec-whole-game-load-all" id="toc-sec-whole-game-load-all" class="nav-link" data-scroll-target="#sec-whole-game-load-all"><span class="header-section-number">1.8</span> <code>load_all()</code></a>
+  <li>
+<a href="#sec-whole-game-load-all" id="toc-sec-whole-game-load-all" class="nav-link" data-scroll-target="#sec-whole-game-load-all"><span class="header-section-number">1.8</span> <code>load_all()</code></a>
   <ul class="collapse">
-  <li><a href="#commit-strsplit1" id="toc-commit-strsplit1" class="nav-link" data-scroll-target="#commit-strsplit1"><span class="header-section-number">1.8.1</span> Commit <code>strsplit1()</code></a></li>
-  </ul></li>
+<li><a href="#commit-strsplit1" id="toc-commit-strsplit1" class="nav-link" data-scroll-target="#commit-strsplit1"><span class="header-section-number">1.8.1</span> Commit <code>strsplit1()</code></a></li>
+  </ul>
+</li>
   <li><a href="#check" id="toc-check" class="nav-link" data-scroll-target="#check"><span class="header-section-number">1.9</span> <code>check()</code></a></li>
   <li><a href="#edit-description" id="toc-edit-description" class="nav-link" data-scroll-target="#edit-description"><span class="header-section-number">1.10</span> Edit <code>DESCRIPTION</code></a></li>
   <li><a href="#use_mit_license" id="toc-use_mit_license" class="nav-link" data-scroll-target="#use_mit_license"><span class="header-section-number">1.11</span> <code>use_mit_license()</code></a></li>
-  <li><a href="#sec-whole-game-document" id="toc-sec-whole-game-document" class="nav-link" data-scroll-target="#sec-whole-game-document"><span class="header-section-number">1.12</span> <code>document()</code></a>
+  <li>
+<a href="#sec-whole-game-document" id="toc-sec-whole-game-document" class="nav-link" data-scroll-target="#sec-whole-game-document"><span class="header-section-number">1.12</span> <code>document()</code></a>
   <ul class="collapse">
-  <li><a href="#namespace-changes" id="toc-namespace-changes" class="nav-link" data-scroll-target="#namespace-changes"><span class="header-section-number">1.12.1</span> <code>NAMESPACE</code> changes</a></li>
-  </ul></li>
+<li><a href="#namespace-changes" id="toc-namespace-changes" class="nav-link" data-scroll-target="#namespace-changes"><span class="header-section-number">1.12.1</span> <code>NAMESPACE</code> changes</a></li>
+  </ul>
+</li>
   <li><a href="#check-again" id="toc-check-again" class="nav-link" data-scroll-target="#check-again"><span class="header-section-number">1.13</span> <code>check()</code> again</a></li>
   <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install"><span class="header-section-number">1.14</span> <code>install()</code></a></li>
   <li><a href="#use_testthat" id="toc-use_testthat" class="nav-link" data-scroll-target="#use_testthat"><span class="header-section-number">1.15</span> <code>use_testthat()</code></a></li>
@@ -426,14 +413,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#use_readme_rmd" id="toc-use_readme_rmd" class="nav-link" data-scroll-target="#use_readme_rmd"><span class="header-section-number">1.18</span> <code>use_readme_rmd()</code></a></li>
   <li><a href="#the-end-check-and-install" id="toc-the-end-check-and-install" class="nav-link" data-scroll-target="#the-end-check-and-install"><span class="header-section-number">1.19</span> The end: <code>check()</code> and <code>install()</code></a></li>
   <li><a href="#review" id="toc-review" class="nav-link" data-scroll-target="#review"><span class="header-section-number">1.20</span> Review</a></li>
-  </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/hadley/r-pkgs/edit/main/whole-game.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+  </ul><div class="toc-actions"><ul><li><a href="https://github.com/hadley/r-pkgs/edit/main/whole-game.Rmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/hadley/r-pkgs/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./whole-game.html">Getting started</a></li><li class="breadcrumb-item"><a href="./whole-game.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Whole Game</span></a></li></ol></nav>
-<div class="quarto-title">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./whole-game.html">Getting started</a></li><li class="breadcrumb-item"><a href="./whole-game.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Whole Game</span></a></li></ol></nav><div class="quarto-title">
 <h1 class="title"><span id="sec-whole-game" class="quarto-section-identifier"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Whole Game</span></span></h1>
 </div>
 
@@ -448,69 +431,67 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 
-</header>
-
-
-<p><em>Spoiler alert!</em></p>
+</header><p><em>Spoiler alert!</em></p>
 <p>This chapter runs through the development of a small toy package. It’s meant to paint the Big Picture and suggest a workflow, before we descend into the detailed treatment of the key components of an R package.</p>
 <p>To keep the pace brisk, we exploit the modern conveniences in the devtools package and the RStudio IDE. In later chapters, we are more explicit about what those helpers are doing for us.</p>
 <p>This chapter is self-contained, in that completing the exercise is not a strict requirement to continue with the rest of the book, however we strongly suggest you follow along and create this toy package with us.</p>
-<section id="load-devtools-and-friends" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="load-devtools-and-friends"><span class="header-section-number">1.1</span> Load devtools and friends</h2>
+<section id="load-devtools-and-friends" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="load-devtools-and-friends">
+<span class="header-section-number">1.1</span> Load devtools and friends</h2>
 <p>You can initiate your new package from any active R session. You don’t need to worry about whether you’re in an existing or new project or not. The functions we use ensure that we create a new clean project for the package.</p>
 <p>Load the devtools package, which is the public face of a set of packages that support various aspects of package development. The most obvious of these is the usethis package, which you’ll see is also being loaded.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Loading required package: usethis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: usethis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Do you have an old version of devtools? Compare your version against ours and upgrade if necessary.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">packageVersion</span>(<span class="st">"devtools"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] '2.4.5'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] '2.4.5'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="toy-package-regexcite" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="toy-package-regexcite"><span class="header-section-number">1.2</span> Toy package: regexcite</h2>
+</section><section id="toy-package-regexcite" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="toy-package-regexcite">
+<span class="header-section-number">1.2</span> Toy package: regexcite</h2>
 <p>To help walk you through the process, we use various functions from devtools to build a small toy package from scratch, with features commonly seen in released packages:</p>
 <ul>
 <li>Functions to address a specific need, in this case helpers for work with regular expressions.</li>
 <li>Version control and an open development process.
 <ul>
 <li>This is completely optional in your work, but highly recommended. You’ll see how Git and GitHub help us expose all the intermediate stages of our toy package.</li>
-</ul></li>
+</ul>
+</li>
 <li>Access to established workflows for installation, getting help, and checking quality.
 <ul>
 <li>Documentation for individual functions via <a href="https://roxygen2.r-lib.org">roxygen2</a>.</li>
 <li>Unit testing with <a href="https://testthat.r-lib.org">testthat</a>.</li>
 <li>Documentation for the package as a whole via an executable <code>README.Rmd</code>.</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 <p>We call the package <strong>regexcite</strong> and it contains a couple of functions that make common tasks with regular expressions easier. Please note that these functions are very simple and we’re only using them here as a means to guide you through the package development process. If you’re looking for actual helpers for work with regular expressions, there are several proper R packages that address this problem space:</p>
 <ul>
-<li><a href="https://stringr.tidyverse.org">stringr</a> (which uses stringi)</li>
+<li>
+<a href="https://stringr.tidyverse.org">stringr</a> (which uses stringi)</li>
 <li><a href="https://stringi.gagolewski.com/">stringi</a></li>
 <li><a href="https://cran.r-project.org/package=rex">rex</a></li>
 <li><a href="https://cran.r-project.org/package=rematch2">rematch2</a></li>
 </ul>
 <p>Again, the regexcite package itself is just a device for demonstrating a typical workflow for package development with devtools.</p>
-</section>
-<section id="preview-the-finished-product" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="preview-the-finished-product"><span class="header-section-number">1.3</span> Preview the finished product</h2>
+</section><section id="preview-the-finished-product" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="preview-the-finished-product">
+<span class="header-section-number">1.3</span> Preview the finished product</h2>
 <p>The regexcite package is tracked during its development with the Git version control system. This is purely optional and you can certainly follow along without implementing this. A nice side benefit is that we eventually connect it to a remote repository on GitHub, which means you can see the glorious result we are working towards by visiting regexcite on GitHub: <a href="https://github.com/jennybc/regexcite" class="uri">https://github.com/jennybc/regexcite</a>. By inspecting the <a href="https://github.com/jennybc/regexcite/commits/main">commit history</a> and especially the diffs, you can see exactly what changes at each step of the process laid out below.</p>
 <!-- TODO: I think these diffs are extremely useful and would like to surface them better here. -->
-</section>
-<section id="create_package" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="create_package"><span class="header-section-number">1.4</span> <code>create_package()</code></h2>
-<p>Call <code>create_package()</code> to initialize a new package in a directory on your computer. <code>create_package()</code> will automatically create that directory if it doesn’t exist yet (and that is usually the case). See <a href="workflow101.html#sec-workflow101-create-package" class="quarto-xref"><span>Section 4.1</span></a> for more on creating packages.</p>
+</section><section id="create_package" class="level2" data-number="1.4"><h2 data-number="1.4" class="anchored" data-anchor-id="create_package">
+<span class="header-section-number">1.4</span> <code>create_package()</code>
+</h2>
+<p>Call <code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code> to initialize a new package in a directory on your computer. <code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code> will automatically create that directory if it doesn’t exist yet (and that is usually the case). See <a href="workflow101.html#sec-workflow101-create-package" class="quarto-xref"><span>Section 4.1</span></a> for more on creating packages.</p>
 <p>Make a deliberate choice about where to create this package on your computer. It should probably be somewhere within your home directory, alongside your other R projects. It should not be nested inside another RStudio Project, R package, or Git repo. Nor should it be in an R package library, which holds packages that have already been built and installed. The conversion of the source package we create here into an installed package is part of what devtools facilitates. Don’t try to do devtools’ job for it!</p>
-<p>Once you’ve selected where to create this package, substitute your chosen path into a <code>create_package()</code> call like this:</p>
+<p>Once you’ve selected where to create this package, substitute your chosen path into a <code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code> call like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">create_package</span>(<span class="st">"~/path/to/regexcite"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/create_package.html">create_package</a></span><span class="op">(</span><span class="st">"~/path/to/regexcite"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For the creation of this book we have to work in a temporary directory, because the book is built non-interactively in the cloud. Behind the scenes, we’re executing our own <code>create_package()</code> command, but don’t be surprised if our output differs a bit from yours.</p>
+<p>For the creation of this book we have to work in a temporary directory, because the book is built non-interactively in the cloud. Behind the scenes, we’re executing our own <code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code> command, but don’t be surprised if our output differs a bit from yours.</p>
 <div class="cell">
-<pre><code>#&gt; ✔ Creating '/tmp/RtmpN70jJb/regexcite/'
-#&gt; ✔ Setting active project to '/tmp/RtmpN70jJb/regexcite'
+<pre><code>#&gt; ✔ Creating '/tmp/RtmpPqJeG7/regexcite/'
+#&gt; ✔ Setting active project to '/tmp/RtmpPqJeG7/regexcite'
 #&gt; ✔ Creating 'R/'
 #&gt; ✔ Writing 'DESCRIPTION'
 #&gt; Package: regexcite
@@ -532,20 +513,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 #&gt; ✔ Setting active project to '&lt;no active project&gt;'</code></pre>
 </div>
 <p>If you’re working in RStudio, you should find yourself in a new instance of RStudio, opened into your new regexcite package (and Project). If you somehow need to do this manually, navigate to the directory and double click on <code>regexcite.Rproj</code>. RStudio has special handling for packages and you should now see a <em>Build</em> tab in the same pane as <em>Environment</em> and <em>History</em>.</p>
-<p>You probably need to call <code>library(devtools)</code> again, because <code>create_package()</code> has probably dropped you into a fresh R session, in your new package.</p>
+<p>You probably need to call <code><a href="https://devtools.r-lib.org/">library(devtools)</a></code> again, because <code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code> has probably dropped you into a fresh R session, in your new package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(devtools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What’s in this new directory that is also an R package and, probably, an RStudio Project? Here’s a listing (locally, you can consult your <em>Files</em> pane):</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: left;">path</th>
 <th style="text-align: left;">type</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">.Rbuildignore</td>
@@ -589,63 +568,61 @@ RStudio
 </div>
 </div>
 <ul>
-<li><code>.Rbuildignore</code> lists files that we need to have around but that should not be included when building the R package from source. If you aren’t using RStudio, <code>create_package()</code> may not create this file (nor <code>.gitignore</code>) at first, since there’s no RStudio-related machinery that needs to be ignored. However, you will likely develop the need for <code>.Rbuildignore</code> at some point, regardless of what editor you are using. It is discussed in more detail in <a href="structure.html#sec-rbuildignore" class="quarto-xref"><span>Section 3.3.1</span></a>.</li>
-<li><code>.Rproj.user</code>, if you have it, is a directory used internally by RStudio.</li>
-<li><code>.gitignore</code> anticipates Git usage and tells Git to ignore some standard, behind-the-scenes files created by R and RStudio. Even if you do not plan to use Git, this is harmless.</li>
-<li><code>DESCRIPTION</code> provides metadata about your package. We edit this shortly and <a href="description.html" class="quarto-xref"><span>Chapter 9</span></a> covers the general topic of the <code>DESCRIPTION</code> file.</li>
-<li><code>NAMESPACE</code> declares the functions your package exports for external use and the external functions your package imports from other packages. At this point, it is empty, except for a comment declaring that this is a file you should not edit by hand.</li>
+<li>
+<code>.Rbuildignore</code> lists files that we need to have around but that should not be included when building the R package from source. If you aren’t using RStudio, <code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code> may not create this file (nor <code>.gitignore</code>) at first, since there’s no RStudio-related machinery that needs to be ignored. However, you will likely develop the need for <code>.Rbuildignore</code> at some point, regardless of what editor you are using. It is discussed in more detail in <a href="structure.html#sec-rbuildignore" class="quarto-xref"><span>Section 3.3.1</span></a>.</li>
+<li>
+<code>.Rproj.user</code>, if you have it, is a directory used internally by RStudio.</li>
+<li>
+<code>.gitignore</code> anticipates Git usage and tells Git to ignore some standard, behind-the-scenes files created by R and RStudio. Even if you do not plan to use Git, this is harmless.</li>
+<li>
+<code>DESCRIPTION</code> provides metadata about your package. We edit this shortly and <a href="description.html" class="quarto-xref"><span>Chapter 9</span></a> covers the general topic of the <code>DESCRIPTION</code> file.</li>
+<li>
+<code>NAMESPACE</code> declares the functions your package exports for external use and the external functions your package imports from other packages. At this point, it is empty, except for a comment declaring that this is a file you should not edit by hand.</li>
 <li>The <code>R/</code> directory is the “business end” of your package. It will soon contain <code>.R</code> files with function definitions.</li>
-<li><code>regexcite.Rproj</code> is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with <code>create_package(..., rstudio = FALSE)</code>. More in <a href="workflow101.html#sec-workflow101-rstudio-projects" class="quarto-xref"><span>Section 4.2</span></a>.</li>
-</ul>
-</section>
-<section id="use_git" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="use_git"><span class="header-section-number">1.5</span> <code>use_git()</code></h2>
-<p>The regexcite directory is an R source package and an RStudio Project. Now we make it also a Git repository, with <code>use_git()</code>. (By the way, <code>use_git()</code> works in any project, regardless of whether it’s an R package.)</p>
+<li>
+<code>regexcite.Rproj</code> is the file that makes this directory an RStudio Project. Even if you don’t use RStudio, this file is harmless. Or you can suppress its creation with <code>create_package(..., rstudio = FALSE)</code>. More in <a href="workflow101.html#sec-workflow101-rstudio-projects" class="quarto-xref"><span>Section 4.2</span></a>.</li>
+</ul></section><section id="use_git" class="level2" data-number="1.5"><h2 data-number="1.5" class="anchored" data-anchor-id="use_git">
+<span class="header-section-number">1.5</span> <code>use_git()</code>
+</h2>
+<p>The regexcite directory is an R source package and an RStudio Project. Now we make it also a Git repository, with <code><a href="https://usethis.r-lib.org/reference/use_git.html">use_git()</a></code>. (By the way, <code><a href="https://usethis.r-lib.org/reference/use_git.html">use_git()</a></code> works in any project, regardless of whether it’s an R package.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_git</span>()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Initialising Git repo</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding '.Rhistory', '.Rdata', '.httr-oauth', '.DS_Store', '.quarto' to '.gitignore'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_git.html">use_git</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Initialising Git repo</span></span>
+<span><span class="co">#&gt; ✔ Adding '.Rhistory', '.Rdata', '.httr-oauth', '.DS_Store', '.quarto' to '.gitignore'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In an interactive session, you will be asked if you want to commit some files here and you should accept the offer. Behind the scenes, we’ll also commit those same files.</p>
 <p>So what has changed in the package? Only the creation of a <code>.git</code> directory, which is hidden in most contexts, including the RStudio file browser. Its existence is evidence that we have indeed initialized a Git repo here.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: left;">path</th>
 <th style="text-align: left;">type</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
+</tr></thead>
+<tbody><tr class="odd">
 <td style="text-align: left;">.git</td>
 <td style="text-align: left;">directory</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 </div>
 <p>If you’re using RStudio, it probably requested permission to relaunch itself in this Project, which you should do. You can do so manually by quitting, then relaunching RStudio by double clicking on <code>regexcite.Rproj</code>. Now, in addition to package development support, you have access to a basic Git client in the <em>Git</em> tab of the <em>Environment/History/Build</em> pane.</p>
 <!-- TODO: good place for a screenshot. -->
-<p>Click on History (the clock icon in the Git pane) and, if you consented, you will see an initial commit made via <code>use_git()</code>:</p>
+<p>Click on History (the clock icon in the Git pane) and, if you consented, you will see an initial commit made via <code><a href="https://usethis.r-lib.org/reference/use_git.html">use_git()</a></code>:</p>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th style="text-align: left;">commit</th>
 <th style="text-align: left;">author</th>
 <th style="text-align: left;">message</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">0bc7993eb3…</td>
-<td style="text-align: left;">rosericazondekon <a href="mailto:rosericazondekon@users.noreply.github.com" class="email">rosericazondekon@users.noreply.github.com</a></td>
+</tr></thead>
+<tbody><tr class="odd">
+<td style="text-align: left;">13c40c96e2…</td>
+<td style="text-align: left;">rosericazondekon <a href="mailto:rosericazondekon@users.noreply.github.com" class="email">rosericazondekon@users.noreply.github.com</a>
+</td>
 <td style="text-align: left;">Initial commit</td>
-</tr>
-</tbody>
+</tr></tbody>
 </table>
 </div>
 </div>
@@ -662,37 +639,36 @@ RStudio
 <p>RStudio can initialize a Git repository, in any Project, even if it’s not an R package, as long you’ve set up RStudio + Git integration. Do <em>Tools &gt; Version Control &gt; Project Setup</em>. Then choose <em>Version control system: Git</em> and <em>initialize a new git repository for this project</em>.</p>
 </div>
 </div>
-</section>
-<section id="write-the-first-function" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="write-the-first-function"><span class="header-section-number">1.6</span> Write the first function</h2>
-<p>A fairly common task when dealing with strings is the need to split a single string into many parts. The <code>strsplit()</code> function in base R does exactly this.</p>
+</section><section id="write-the-first-function" class="level2" data-number="1.6"><h2 data-number="1.6" class="anchored" data-anchor-id="write-the-first-function">
+<span class="header-section-number">1.6</span> Write the first function</h2>
+<p>A fairly common task when dealing with strings is the need to split a single string into many parts. The <code><a href="https://rdrr.io/r/base/strsplit.html">strsplit()</a></code> function in base R does exactly this.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="st">"alfa,bravo,charlie,delta"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa,bravo,charlie,delta"</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(x, <span class="at">split =</span> <span class="st">","</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"alfa,bravo,charlie,delta"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "alfa,bravo,charlie,delta"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Take a close look at the return value.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(<span class="fu">strsplit</span>(x, <span class="at">split =</span> <span class="st">","</span>))</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; List of 1</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  $ : chr [1:4] "alfa" "bravo" "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; List of 1</span></span>
+<span><span class="co">#&gt;  $ : chr [1:4] "alfa" "bravo" "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The shape of this return value often surprises people or, at least, inconveniences them. The input is a character vector of length one and the output is a list of length one. This makes total sense in light of R’s fundamental tendency towards vectorization. But sometimes it’s still a bit of a bummer. Often you know that your input is morally a scalar, i.e.&nbsp;it’s just a single string, and really want the output to be the character vector of its parts.</p>
 <p>This leads R users to employ various methods of “unlist”-ing the result:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">strsplit</span>(x, <span class="at">split =</span> <span class="st">","</span>))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit</span>(x, <span class="at">split =</span> <span class="st">","</span>)[[<span class="dv">1</span>]]</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The second, safer solution is the basis for the inaugural function of regexcite: <code>strsplit1()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>strsplit1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, split) {</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strsplit</span>(x, <span class="at">split =</span> split)[[<span class="dv">1</span>]]</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">strsplit1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">split</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="va">split</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This book does not teach you how to write functions in R. To learn more about that take a look at the <a href="https://r4ds.hadley.nz/functions.html">Functions chapter</a> of R for Data Science and the <a href="https://adv-r.hadley.nz/functions.html">Functions chapter</a> of Advanced R.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -705,53 +681,53 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The name of <code>strsplit1()</code> is a nod to the very handy <code>paste0()</code>, which first appeared in R 2.15.0 in 2012. <code>paste0()</code> was created to address the extremely common use case of <code>paste()</code>-ing strings together <em>without</em> a separator. <code>paste0()</code> has been lovingly described as <a href="https://simplystatistics.org/posts/2013-01-31-paste0-is-statistical-computings-most-influential-contribution-of-the-21st-century/">“statistical computing’s most influential contribution of the 21st century”</a>.</p>
-<p>The <code>strsplit1()</code> function was so inspiring that it’s now a real function in the stringr package: <code>stringr::str_split_1()</code>!</p>
+<p>The name of <code>strsplit1()</code> is a nod to the very handy <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code>, which first appeared in R 2.15.0 in 2012. <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> was created to address the extremely common use case of <code><a href="https://rdrr.io/r/base/paste.html">paste()</a></code>-ing strings together <em>without</em> a separator. <code><a href="https://rdrr.io/r/base/paste.html">paste0()</a></code> has been lovingly described as <a href="https://simplystatistics.org/posts/2013-01-31-paste0-is-statistical-computings-most-influential-contribution-of-the-21st-century/">“statistical computing’s most influential contribution of the 21st century”</a>.</p>
+<p>The <code>strsplit1()</code> function was so inspiring that it’s now a real function in the stringr package: <code><a href="https://stringr.tidyverse.org/reference/str_split.html">stringr::str_split_1()</a></code>!</p>
 </div>
 </div>
-</section>
-<section id="use_r" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="use_r"><span class="header-section-number">1.7</span> <code>use_r()</code></h2>
+</section><section id="use_r" class="level2" data-number="1.7"><h2 data-number="1.7" class="anchored" data-anchor-id="use_r">
+<span class="header-section-number">1.7</span> <code>use_r()</code>
+</h2>
 <p>Where should you put the definition of <code>strsplit1()</code>? Save it in a <code>.R</code> file, in the <code>R/</code> subdirectory of your package. A reasonable starting position is to make a new <code>.R</code> file for each user-facing function in your package and name the file after the function. As you add more functions, you’ll want to relax this and begin to group related functions together. We’ll save the definition of <code>strsplit1()</code> in the file <code>R/strsplit1.R</code>.</p>
-<p>The helper <code>use_r()</code> creates and/or opens a script below <code>R/</code>. It really shines in a more mature package, when navigating between <code>.R</code> files and the associated test file. But, even here, it’s useful to keep yourself from getting too carried away while working in <code>Untitled4</code>.</p>
+<p>The helper <code><a href="https://usethis.r-lib.org/reference/use_r.html">use_r()</a></code> creates and/or opens a script below <code>R/</code>. It really shines in a more mature package, when navigating between <code>.R</code> files and the associated test file. But, even here, it’s useful to keep yourself from getting too carried away while working in <code>Untitled4</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_r</span>(<span class="st">"strsplit1"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Edit 'R/strsplit1.R'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html">use_r</a></span><span class="op">(</span><span class="st">"strsplit1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; • Edit 'R/strsplit1.R'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Put the definition of <code>strsplit1()</code> <strong>and only the definition of <code>strsplit1()</code></strong> in <code>R/strsplit1.R</code> and save it. The file <code>R/strsplit1.R</code> should NOT contain any of the other top-level code we have recently executed, such as the definition of our practice input <code>x</code>, <code>library(devtools)</code>, or <code>use_git()</code>. This foreshadows an adjustment you’ll need to make as you transition from writing R scripts to R packages. Packages and scripts use different mechanisms to declare their dependency on other packages and to store example or test code. We explore this further in <a href="code.html" class="quarto-xref"><span>Chapter 6</span></a>.</p>
-</section>
-<section id="sec-whole-game-load-all" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="sec-whole-game-load-all"><span class="header-section-number">1.8</span> <code>load_all()</code></h2>
+<p>Put the definition of <code>strsplit1()</code> <strong>and only the definition of <code>strsplit1()</code></strong> in <code>R/strsplit1.R</code> and save it. The file <code>R/strsplit1.R</code> should NOT contain any of the other top-level code we have recently executed, such as the definition of our practice input <code>x</code>, <code><a href="https://devtools.r-lib.org/">library(devtools)</a></code>, or <code><a href="https://usethis.r-lib.org/reference/use_git.html">use_git()</a></code>. This foreshadows an adjustment you’ll need to make as you transition from writing R scripts to R packages. Packages and scripts use different mechanisms to declare their dependency on other packages and to store example or test code. We explore this further in <a href="code.html" class="quarto-xref"><span>Chapter 6</span></a>.</p>
+</section><section id="sec-whole-game-load-all" class="level2" data-number="1.8"><h2 data-number="1.8" class="anchored" data-anchor-id="sec-whole-game-load-all">
+<span class="header-section-number">1.8</span> <code>load_all()</code>
+</h2>
 <p>How do we test drive <code>strsplit1()</code>? If this were a regular R script, we might use RStudio to send the function definition to the R Console and define <code>strsplit1()</code> in the global environment. Or maybe we’d call <code>source("R/strsplit1.R")</code>. For package development, however, devtools offers a more robust approach.</p>
-<p>Call <code>load_all()</code> to make <code>strsplit1()</code> available for experimentation.</p>
+<p>Call <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> to make <code>strsplit1()</code> available for experimentation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_all</span>()</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Loading regexcite</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Loading regexcite</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now call <code>strsplit1(x)</code> to see how it works.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(x <span class="ot">&lt;-</span> <span class="st">"alfa,bravo,charlie,delta"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa,bravo,charlie,delta"</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit1</span>(x, <span class="at">split =</span> <span class="st">","</span>)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"alfa,bravo,charlie,delta"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "alfa,bravo,charlie,delta"</span></span>
+<span><span class="fu">strsplit1</span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Note that <code>load_all()</code> has made the <code>strsplit1()</code> function available, although it does not exist in the global environment.</p>
+<p>Note that <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> has made the <code>strsplit1()</code> function available, although it does not exist in the global environment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exists</span>(<span class="st">"strsplit1"</span>, <span class="at">where =</span> <span class="fu">globalenv</span>(), <span class="at">inherits =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/exists.html">exists</a></span><span class="op">(</span><span class="st">"strsplit1"</span>, where <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html">globalenv</a></span><span class="op">(</span><span class="op">)</span>, inherits <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] FALSE</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>If you see <code>TRUE</code> instead of <code>FALSE</code>, that indicates you’re still using a script-oriented workflow and sourcing your functions. Here’s how to get back on track:</p>
 <ul>
 <li>Clean out the global environment and restart R.</li>
-<li>Re-attach devtools with <code>library(devtools)</code> and re-load regexcite with <code>load_all()</code>.</li>
+<li>Re-attach devtools with <code><a href="https://devtools.r-lib.org/">library(devtools)</a></code> and re-load regexcite with <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code>.</li>
 <li>Redefine the test input <code>x</code> and call <code>strsplit1(x, split = ",")</code> again. This should work!</li>
 <li>Run <code>exists("strsplit1", where = globalenv(), inherits = FALSE)</code> again and you should see <code>FALSE</code>.</li>
 </ul>
-<p><code>load_all()</code> simulates the process of building, installing, and attaching the regexcite package. As your package accumulates more functions, some exported, some not, some of which call each other, some of which call functions from packages you depend on, <code>load_all()</code> gives you a much more accurate sense of how the package is developing than test driving functions defined in the global environment. Also <code>load_all()</code> allows much faster iteration than actually building, installing, and attaching the package. See <a href="workflow101.html#sec-workflow101-load-all" class="quarto-xref"><span>Section 4.4</span></a> for more about <code>load_all()</code>.</p>
+<p><code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> simulates the process of building, installing, and attaching the regexcite package. As your package accumulates more functions, some exported, some not, some of which call each other, some of which call functions from packages you depend on, <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> gives you a much more accurate sense of how the package is developing than test driving functions defined in the global environment. Also <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> allows much faster iteration than actually building, installing, and attaching the package. See <a href="workflow101.html#sec-workflow101-load-all" class="quarto-xref"><span>Section 4.4</span></a> for more about <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code>.</p>
 <p>To review what we’ve done so far:</p>
 <ul>
 <li>We wrote our first function, <code>strsplit1()</code>, to split a string into a character vector (not a list containing a character vector).</li>
-<li>We used <code>load_all()</code> to quickly make this function available for interactive use, as if we’d built and installed regexcite and attached it via <code>library(regexcite)</code>.</li>
+<li>We used <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> to quickly make this function available for interactive use, as if we’d built and installed regexcite and attached it via <code><a href="https://rdrr.io/r/base/library.html">library(regexcite)</a></code>.</li>
 </ul>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -763,11 +739,12 @@ RStudio
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>RStudio exposes <code>load_all()</code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>More &gt; Load All</em>, and in keyboard shortcuts Ctrl + Shift + L (Windows &amp; Linux) or Cmd + Shift + L (macOS).</p>
+<p>RStudio exposes <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>More &gt; Load All</em>, and in keyboard shortcuts Ctrl + Shift + L (Windows &amp; Linux) or Cmd + Shift + L (macOS).</p>
 </div>
 </div>
-<section id="commit-strsplit1" class="level3" data-number="1.8.1">
-<h3 data-number="1.8.1" class="anchored" data-anchor-id="commit-strsplit1"><span class="header-section-number">1.8.1</span> Commit <code>strsplit1()</code></h3>
+<section id="commit-strsplit1" class="level3" data-number="1.8.1"><h3 data-number="1.8.1" class="anchored" data-anchor-id="commit-strsplit1">
+<span class="header-section-number">1.8.1</span> Commit <code>strsplit1()</code>
+</h3>
 <p>If you’re using Git, use your preferred method to commit the new <code>R/strsplit1.R</code> file. We do so behind the scenes here and here’s the associated diff.</p>
 <div class="cell">
 <pre><code>diff --git a/R/strsplit1.R b/R/strsplit1.R
@@ -781,19 +758,18 @@ index 0000000..29efb88
 +}</code></pre>
 </div>
 <p>From this point on, we commit after each step. Remember <a href="https://github.com/jennybc/regexcite/commits/main">these commits</a> are available in the public repository.</p>
-</section>
-</section>
-<section id="check" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="check"><span class="header-section-number">1.9</span> <code>check()</code></h2>
+</section></section><section id="check" class="level2" data-number="1.9"><h2 data-number="1.9" class="anchored" data-anchor-id="check">
+<span class="header-section-number">1.9</span> <code>check()</code>
+</h2>
 <p>We have informal, empirical evidence that <code>strsplit1()</code> works. But how can we be sure that all the moving parts of the regexcite package still work? This may seem silly to check, after such a small addition, but it’s good to establish the habit of checking this often.</p>
-<p><code>R CMD check</code>, executed in the shell, is the gold standard for checking that an R package is in full working order. <code>check()</code> is a convenient way to run this without leaving your R session.</p>
-<p>Note that <code>check()</code> produces rather voluminous output, optimized for interactive consumption. We intercept that here and just reveal a summary. Your local <code>check()</code> output will be different.</p>
+<p><code>R CMD check</code>, executed in the shell, is the gold standard for checking that an R package is in full working order. <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> is a convenient way to run this without leaving your R session.</p>
+<p>Note that <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> produces rather voluminous output, optimized for interactive consumption. We intercept that here and just reveal a summary. Your local <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> output will be different.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html">check</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <pre><code>── R CMD check results ─────────────────── regexcite 0.0.0.9000 ────
-Duration: 6.7s
+Duration: 7s
 
 ❯ checking DESCRIPTION meta-information ... WARNING
   Non-standard license specification:
@@ -808,7 +784,7 @@ Duration: 6.7s
 <pre><code>Non-standard license specification:
   `use_mit_license()`, `use_gpl3_license()` or friends to pick a
   license</code></pre>
-<p>We’ll address that soon, by doing exactly what it says. You can learn more about <code>check()</code> in <a href="workflow101.html#sec-workflow101-r-cmd-check" class="quarto-xref"><span>Section 4.5</span></a>.</p>
+<p>We’ll address that soon, by doing exactly what it says. You can learn more about <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> in <a href="workflow101.html#sec-workflow101-r-cmd-check" class="quarto-xref"><span>Section 4.5</span></a>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -819,12 +795,12 @@ RStudio
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>RStudio exposes <code>check()</code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>Check</em>, and in keyboard shortcuts Ctrl + Shift + E (Windows &amp; Linux) or Cmd + Shift + E (macOS).</p>
+<p>RStudio exposes <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>Check</em>, and in keyboard shortcuts Ctrl + Shift + E (Windows &amp; Linux) or Cmd + Shift + E (macOS).</p>
 </div>
 </div>
-</section>
-<section id="edit-description" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="edit-description"><span class="header-section-number">1.10</span> Edit <code>DESCRIPTION</code></h2>
+</section><section id="edit-description" class="level2" data-number="1.10"><h2 data-number="1.10" class="anchored" data-anchor-id="edit-description">
+<span class="header-section-number">1.10</span> Edit <code>DESCRIPTION</code>
+</h2>
 <p>The <code>DESCRIPTION</code> file provides metadata about your package and is covered fully in <a href="description.html" class="quarto-xref"><span>Chapter 9</span></a>. This is a good time to have a look at regexcite’s current <code>DESCRIPTION</code>. You’ll see it’s populated with boilerplate content, which needs to be replaced.</p>
 <p>To add your own metadata, make these edits:</p>
 <ul>
@@ -860,61 +836,61 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2</code></pre>
 </div>
-</section>
-<section id="use_mit_license" class="level2" data-number="1.11">
-<h2 data-number="1.11" class="anchored" data-anchor-id="use_mit_license"><span class="header-section-number">1.11</span> <code>use_mit_license()</code></h2>
+</section><section id="use_mit_license" class="level2" data-number="1.11"><h2 data-number="1.11" class="anchored" data-anchor-id="use_mit_license">
+<span class="header-section-number">1.11</span> <code>use_mit_license()</code>
+</h2>
 <blockquote class="blockquote">
 <p><a href="https://blog.codinghorror.com/pick-a-license-any-license/">Pick a License, Any License. – Jeff Atwood</a></p>
 </blockquote>
 <p>We currently have a placeholder in the <code>License</code> field of <code>DESCRIPTION</code> that’s deliberately invalid and suggests a resolution.</p>
 <pre><code>License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license</code></pre>
-<p>To configure a valid license for the package, call <code>use_mit_license()</code>.</p>
+<p>To configure a valid license for the package, call <code><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_mit_license</span>()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding 'MIT + file LICENSE' to License</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Writing 'LICENSE'</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Writing 'LICENSE.md'</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Adding 'MIT + file LICENSE' to License</span></span>
+<span><span class="co">#&gt; ✔ Writing 'LICENSE'</span></span>
+<span><span class="co">#&gt; ✔ Writing 'LICENSE.md'</span></span>
+<span><span class="co">#&gt; ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This configures the <code>License</code> field correctly for the MIT license, which promises to name the copyright holders and year in a <code>LICENSE</code> file. Open the newly created <code>LICENSE</code> file and confirm it looks something like this:</p>
 <div class="cell">
 <pre><code>YEAR: 2024
 COPYRIGHT HOLDER: regexcite authors</code></pre>
 </div>
-<p>Like other license helpers, <code>use_mit_license()</code> also puts a copy of the full license in <code>LICENSE.md</code> and adds this file to <code>.Rbuildignore</code>. It’s considered a best practice to include a full license in your package’s source, such as on GitHub, but CRAN disallows the inclusion of this file in a package tarball. You can learn more about licensing in <a href="license.html" class="quarto-xref"><span>Chapter 12</span></a>.</p>
-</section>
-<section id="sec-whole-game-document" class="level2" data-number="1.12">
-<h2 data-number="1.12" class="anchored" data-anchor-id="sec-whole-game-document"><span class="header-section-number">1.12</span> <code>document()</code></h2>
+<p>Like other license helpers, <code><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license()</a></code> also puts a copy of the full license in <code>LICENSE.md</code> and adds this file to <code>.Rbuildignore</code>. It’s considered a best practice to include a full license in your package’s source, such as on GitHub, but CRAN disallows the inclusion of this file in a package tarball. You can learn more about licensing in <a href="license.html" class="quarto-xref"><span>Chapter 12</span></a>.</p>
+</section><section id="sec-whole-game-document" class="level2" data-number="1.12"><h2 data-number="1.12" class="anchored" data-anchor-id="sec-whole-game-document">
+<span class="header-section-number">1.12</span> <code>document()</code>
+</h2>
 <p>Wouldn’t it be nice to get help on <code>strsplit1()</code>, just like we do with other R functions? This requires that your package have a special R documentation file, <code>man/strsplit1.Rd</code>, written in an R-specific markup language that is sort of like LaTeX. Luckily we don’t necessarily have to author that directly.</p>
 <p>We write a specially formatted comment right above <code>strsplit1()</code>, in its source file, and then let a package called <a href="https://roxygen2.r-lib.org">roxygen2</a> handle the creation of <code>man/strsplit1.Rd</code>. The motivation and mechanics of roxygen2 are covered in <a href="man.html" class="quarto-xref"><span>Chapter 16</span></a>.</p>
 <p>If you use RStudio, open <code>R/strsplit1.R</code> in the source editor and put the cursor somewhere in the <code>strsplit1()</code> function definition. Now do <em>Code &gt; Insert roxygen skeleton</em>. A very special comment should appear above your function, in which each line begins with <code>#'</code>. RStudio only inserts a barebones template, so you will need to edit it to look something like that below.</p>
 <p>If you don’t use RStudio, create the comment yourself. Regardless, you should modify it to look something like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Split a string</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param x A character vector with one element.</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param split What to split on.</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return A character vector.</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @examples</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' x &lt;- "alfa,bravo,charlie,delta"</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' strsplit1(x, split = ",")</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>strsplit1 <span class="ot">&lt;-</span> <span class="cf">function</span>(x, split) {</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">strsplit</span>(x, <span class="at">split =</span> split)[[<span class="dv">1</span>]]</span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Split a string</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @param x A character vector with one element.</span></span>
+<span><span class="co">#' @param split What to split on.</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @return A character vector.</span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @examples</span></span>
+<span><span class="co">#' x &lt;- "alfa,bravo,charlie,delta"</span></span>
+<span><span class="co">#' strsplit1(x, split = ",")</span></span>
+<span><span class="va">strsplit1</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">split</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/strsplit.html">strsplit</a></span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="va">split</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <!-- TODO: mention how RStudio helps you execute examples here? -->
-<p>But we’re not done yet! We still need to trigger the conversion of this new roxygen comment into <code>man/strsplit1.Rd</code> with <code>document()</code>:</p>
+<p>But we’re not done yet! We still need to trigger the conversion of this new roxygen comment into <code>man/strsplit1.Rd</code> with <code><a href="https://devtools.r-lib.org/reference/document.html">document()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">document</span>()</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Updating regexcite documentation</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Setting `RoxygenNote` to "7.3.1"</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Loading regexcite</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Writing 'NAMESPACE'</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Writing 'strsplit1.Rd'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Updating regexcite documentation</span></span>
+<span><span class="co">#&gt; Setting `RoxygenNote` to "7.3.1"</span></span>
+<span><span class="co">#&gt; ℹ Loading regexcite</span></span>
+<span><span class="co">#&gt; Writing 'NAMESPACE'</span></span>
+<span><span class="co">#&gt; Writing 'strsplit1.Rd'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -926,56 +902,54 @@ RStudio
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>RStudio exposes <code>document()</code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>More &gt; Document</em>, and in keyboard shortcuts Ctrl + Shift + D (Windows &amp; Linux) or Cmd + Shift + D (macOS).</p>
+<p>RStudio exposes <code><a href="https://devtools.r-lib.org/reference/document.html">document()</a></code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>More &gt; Document</em>, and in keyboard shortcuts Ctrl + Shift + D (Windows &amp; Linux) or Cmd + Shift + D (macOS).</p>
 </div>
 </div>
 <p>You should now be able to preview your help file like so:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>?strsplit1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">strsplit1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You’ll see a message like “Rendering development documentation for ‘strsplit1’”, which reminds that you are basically previewing draft documentation. That is, this documentation is present in your package’s source, but is not yet present in an installed package. In fact, we haven’t installed regexcite yet, but we will soon. If <code>?strsplit1</code> doesn’t work for you, you may need to call <code>load_all()</code> first, then try again.</p>
+<p>You’ll see a message like “Rendering development documentation for ‘strsplit1’”, which reminds that you are basically previewing draft documentation. That is, this documentation is present in your package’s source, but is not yet present in an installed package. In fact, we haven’t installed regexcite yet, but we will soon. If <code>?strsplit1</code> doesn’t work for you, you may need to call <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code> first, then try again.</p>
 <p>Note also that your package’s documentation won’t be properly wired up until it has been formally built and installed. This polishes off niceties like the links between help files and the creation of a package index.</p>
-<section id="namespace-changes" class="level3" data-number="1.12.1">
-<h3 data-number="1.12.1" class="anchored" data-anchor-id="namespace-changes"><span class="header-section-number">1.12.1</span> <code>NAMESPACE</code> changes</h3>
-<p>In addition to converting <code>strsplit1()</code>’s special comment into <code>man/strsplit1.Rd</code>, the call to <code>document()</code> updates the <code>NAMESPACE</code> file, based on <code>@export</code> tags found in roxygen comments. Open <code>NAMESPACE</code> for inspection. The contents should be:</p>
+<section id="namespace-changes" class="level3" data-number="1.12.1"><h3 data-number="1.12.1" class="anchored" data-anchor-id="namespace-changes">
+<span class="header-section-number">1.12.1</span> <code>NAMESPACE</code> changes</h3>
+<p>In addition to converting <code>strsplit1()</code>’s special comment into <code>man/strsplit1.Rd</code>, the call to <code><a href="https://devtools.r-lib.org/reference/document.html">document()</a></code> updates the <code>NAMESPACE</code> file, based on <code>@export</code> tags found in roxygen comments. Open <code>NAMESPACE</code> for inspection. The contents should be:</p>
 <!-- OK to use this approach here because I actively do not want a copy button. NAMESPACE should be managed by roxygen and I don't want to tempt anyone to edit it by hand. -->
 <div class="cell" data-asis="true">
 <pre><code># Generated by roxygen2: do not edit by hand
 
 export(strsplit1)</code></pre>
 </div>
-<p>The export directive in <code>NAMESPACE</code> is what makes <code>strsplit1()</code> available to a user after attaching regexcite via <code>library(regexcite)</code>. Just as it is entirely possible to author <code>.Rd</code> files “by hand”, you can manage <code>NAMESPACE</code> explicitly yourself. But we choose to delegate this to devtools (and roxygen2).</p>
-</section>
-</section>
-<section id="check-again" class="level2" data-number="1.13">
-<h2 data-number="1.13" class="anchored" data-anchor-id="check-again"><span class="header-section-number">1.13</span> <code>check()</code> again</h2>
+<p>The export directive in <code>NAMESPACE</code> is what makes <code>strsplit1()</code> available to a user after attaching regexcite via <code><a href="https://rdrr.io/r/base/library.html">library(regexcite)</a></code>. Just as it is entirely possible to author <code>.Rd</code> files “by hand”, you can manage <code>NAMESPACE</code> explicitly yourself. But we choose to delegate this to devtools (and roxygen2).</p>
+</section></section><section id="check-again" class="level2" data-number="1.13"><h2 data-number="1.13" class="anchored" data-anchor-id="check-again">
+<span class="header-section-number">1.13</span> <code>check()</code> again</h2>
 <p>regexcite should pass <code>R CMD check</code> cleanly now and forever more: 0 errors, 0 warnings, 0 notes.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html">check</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <pre><code>── R CMD check results ─────────────────── regexcite 0.0.0.9000 ────
-Duration: 8.2s
+Duration: 8.5s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
 </div>
-</section>
-<section id="install" class="level2" data-number="1.14">
-<h2 data-number="1.14" class="anchored" data-anchor-id="install"><span class="header-section-number">1.14</span> <code>install()</code></h2>
-<p>Now that we know we have a minimum viable product, let’s install the regexcite package into your library via <code>install()</code>:</p>
+</section><section id="install" class="level2" data-number="1.14"><h2 data-number="1.14" class="anchored" data-anchor-id="install">
+<span class="header-section-number">1.14</span> <code>install()</code>
+</h2>
+<p>Now that we know we have a minimum viable product, let’s install the regexcite package into your library via <code><a href="https://devtools.r-lib.org/reference/install.html">install()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/install.html">install</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <pre><code>── R CMD build ─────────────────────────────────────────────────────
-* checking for file ‘/tmp/RtmpN70jJb/regexcite/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/RtmpPqJeG7/regexcite/DESCRIPTION’ ... OK
 * preparing ‘regexcite’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
 * checking for empty or unneeded directories
 * building ‘regexcite_0.0.0.9000.tar.gz’
 Running /opt/R/4.4.0/lib/R/bin/R CMD INSTALL \
-  /tmp/RtmpN70jJb/regexcite_0.0.0.9000.tar.gz --install-tests 
+  /tmp/RtmpPqJeG7/regexcite_0.0.0.9000.tar.gz --install-tests 
 * installing to library ‘/home/runner/work/_temp/Library’
 * installing *source* package ‘regexcite’ ...
 ** using staged installation
@@ -1004,54 +978,54 @@ RStudio
 </div>
 <p>After installation is complete, we can attach and use regexcite like any other package. Let’s revisit our small example from the top. This is also a good time to restart your R session and ensure you have a clean workspace.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(regexcite)</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">"alfa,bravo,charlie,delta"</span></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">strsplit1</span>(x, <span class="at">split =</span> <span class="st">","</span>)</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">regexcite</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"alfa,bravo,charlie,delta"</span></span>
+<span><span class="fu">strsplit1</span><span class="op">(</span><span class="va">x</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "alfa"    "bravo"   "charlie" "delta"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Success!</p>
-</section>
-<section id="use_testthat" class="level2" data-number="1.15">
-<h2 data-number="1.15" class="anchored" data-anchor-id="use_testthat"><span class="header-section-number">1.15</span> <code>use_testthat()</code></h2>
+</section><section id="use_testthat" class="level2" data-number="1.15"><h2 data-number="1.15" class="anchored" data-anchor-id="use_testthat">
+<span class="header-section-number">1.15</span> <code>use_testthat()</code>
+</h2>
 <p>We’ve tested <code>strsplit1()</code> informally, in a single example. We can formalize this as a unit test. This means we express a concrete expectation about the correct <code>strsplit1()</code> result for a specific input.</p>
-<p>First, we declare our intent to write unit tests and to use the testthat package for this, via <code>use_testthat()</code>:</p>
+<p>First, we declare our intent to write unit tests and to use the testthat package for this, via <code><a href="https://usethis.r-lib.org/reference/use_testthat.html">use_testthat()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_testthat</span>()</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding 'testthat' to Suggests field in DESCRIPTION</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding '3' to Config/testthat/edition</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Creating 'tests/testthat/'</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Writing 'tests/testthat.R'</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Call `use_test()` to initialize a basic test file and open it for editing.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_testthat.html">use_testthat</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Adding 'testthat' to Suggests field in DESCRIPTION</span></span>
+<span><span class="co">#&gt; ✔ Adding '3' to Config/testthat/edition</span></span>
+<span><span class="co">#&gt; ✔ Creating 'tests/testthat/'</span></span>
+<span><span class="co">#&gt; ✔ Writing 'tests/testthat.R'</span></span>
+<span><span class="co">#&gt; • Call `use_test()` to initialize a basic test file and open it for editing.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This initializes the unit testing machinery for your package. It adds <code>Suggests: testthat</code> to <code>DESCRIPTION</code>, creates the directory <code>tests/testthat/</code>, and adds the script <code>tests/testthat.R</code>. You’ll notice that testthat is probably added with a minimum version of 3.0.0 and a second DESCRIPTION field, <code>Config/testthat/edition: 3</code>. We’ll talk more about those details in <a href="testing-basics.html" class="quarto-xref"><span>Chapter 13</span></a>.</p>
 <p>However, it’s still up to YOU to write the actual tests!</p>
-<p>The helper <code>use_test()</code> opens and/or creates a test file. You can provide the file’s basename or, if you are editing the relevant source file in RStudio, it will be automatically generated. For many of you, if <code>R/strsplit1.R</code> is the active file in RStudio, you can just call <code>use_test()</code>. However, since this book is built non-interactively, we must provide the basename explicitly:</p>
+<p>The helper <code><a href="https://usethis.r-lib.org/reference/use_r.html">use_test()</a></code> opens and/or creates a test file. You can provide the file’s basename or, if you are editing the relevant source file in RStudio, it will be automatically generated. For many of you, if <code>R/strsplit1.R</code> is the active file in RStudio, you can just call <code><a href="https://usethis.r-lib.org/reference/use_r.html">use_test()</a></code>. However, since this book is built non-interactively, we must provide the basename explicitly:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_test</span>(<span class="st">"strsplit1"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Writing 'tests/testthat/test-strsplit1.R'</span></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Edit 'tests/testthat/test-strsplit1.R'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_r.html">use_test</a></span><span class="op">(</span><span class="st">"strsplit1"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Writing 'tests/testthat/test-strsplit1.R'</span></span>
+<span><span class="co">#&gt; • Edit 'tests/testthat/test-strsplit1.R'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This creates the file <code>tests/testthat/test-strsplit1.R</code>. If it had already existed, <code>use_test()</code> would have just opened it. You will notice that there is an example test in the newly created file - delete that code and replace it with this content:</p>
+<p>This creates the file <code>tests/testthat/test-strsplit1.R</code>. If it had already existed, <code><a href="https://usethis.r-lib.org/reference/use_r.html">use_test()</a></code> would have just opened it. You will notice that there is an example test in the newly created file - delete that code and replace it with this content:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"strsplit1() splits a string"</span>, {</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">strsplit1</span>(<span class="st">"a,b,c"</span>, <span class="at">split =</span> <span class="st">","</span>), <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"strsplit1() splits a string"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">strsplit1</span><span class="op">(</span><span class="st">"a,b,c"</span>, split <span class="op">=</span> <span class="st">","</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This tests that <code>strsplit1()</code> gives the expected result when splitting a string.</p>
-<p>Run this test interactively, as you will when you write your own. If <code>test_that()</code> or <code>strsplit1()</code> can’t be found, that suggests that you probably need to call <code>load_all()</code>.</p>
-<p>Going forward, your tests will mostly run <em>en masse</em> and at arm’s length via <code>test()</code>:</p>
+<p>Run this test interactively, as you will when you write your own. If <code>test_that()</code> or <code>strsplit1()</code> can’t be found, that suggests that you probably need to call <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code>.</p>
+<p>Going forward, your tests will mostly run <em>en masse</em> and at arm’s length via <code><a href="https://devtools.r-lib.org/reference/test.html">test()</a></code>:</p>
 <!-- TODO: I have no idea why I have to disable crayon here, but if I don't, I guess raw ANSI escapes. Other chunks seem to work fine with downlig. It would also be nice to not see evidence of progress reporting, but the previous approach to turning that off keeps this chunk from showing any output at all :( The previous approach was `R.options = list(testthat.default_reporter = testthat::ProgressReporter$new(update_interval = Inf))`. -->
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test</span>()</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Testing regexcite</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ | F W  S  OK | Context</span></span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ⠏ |          0 | strsplit1                                          </span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ |          1 | strsplit1</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ══ Results ═════════════════════════════════════════════════════════</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/test.html">test</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Testing regexcite</span></span>
+<span><span class="co">#&gt; ✔ | F W  S  OK | Context</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ⠏ |          0 | strsplit1                                          </span></span>
+<span><span class="co">#&gt; ✔ |          1 | strsplit1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; ══ Results ═════════════════════════════════════════════════════════</span></span>
+<span><span class="co">#&gt; [ FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1063,141 +1037,142 @@ RStudio
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>RStudio exposes <code>test()</code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>More &gt; Test package</em>, and in keyboard shortcuts Ctrl + Shift + T (Windows &amp; Linux) or Cmd + Shift + T (macOS).</p>
+<p>RStudio exposes <code><a href="https://devtools.r-lib.org/reference/test.html">test()</a></code> in the <em>Build</em> menu, in the <em>Build</em> pane via <em>More &gt; Test package</em>, and in keyboard shortcuts Ctrl + Shift + T (Windows &amp; Linux) or Cmd + Shift + T (macOS).</p>
 </div>
 </div>
-<p>Your tests are also run whenever you <code>check()</code> the package. In this way, you basically augment the standard checks with some of your own, that are specific to your package. It is a good idea to use the <a href="https://covr.r-lib.org">covr package</a> to track what proportion of your package’s source code is exercised by the tests. More details can be found in <a href="testing-design.html#sec-testing-design-coverage" class="quarto-xref"><span>Section 14.1.1</span></a>.</p>
-</section>
-<section id="use_package" class="level2" data-number="1.16">
-<h2 data-number="1.16" class="anchored" data-anchor-id="use_package"><span class="header-section-number">1.16</span> <code>use_package()</code></h2>
-<p>You will inevitably want to use a function from another package in your own package. We will need to use package-specific methods for declaring the other packages we need (i.e.&nbsp;our dependencies) and for using these packages in ours. If you plan to submit a package to CRAN, note that this even applies to functions in packages that you think of as “always available”, such as <code>stats::median()</code> or <code>utils::head()</code>.</p>
+<p>Your tests are also run whenever you <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> the package. In this way, you basically augment the standard checks with some of your own, that are specific to your package. It is a good idea to use the <a href="https://covr.r-lib.org">covr package</a> to track what proportion of your package’s source code is exercised by the tests. More details can be found in <a href="testing-design.html#sec-testing-design-coverage" class="quarto-xref"><span>Section 14.1.1</span></a>.</p>
+</section><section id="use_package" class="level2" data-number="1.16"><h2 data-number="1.16" class="anchored" data-anchor-id="use_package">
+<span class="header-section-number">1.16</span> <code>use_package()</code>
+</h2>
+<p>You will inevitably want to use a function from another package in your own package. We will need to use package-specific methods for declaring the other packages we need (i.e.&nbsp;our dependencies) and for using these packages in ours. If you plan to submit a package to CRAN, note that this even applies to functions in packages that you think of as “always available”, such as <code><a href="https://rdrr.io/r/stats/median.html">stats::median()</a></code> or <code><a href="https://rdrr.io/r/utils/head.html">utils::head()</a></code>.</p>
 <p>One common dilemma when using R’s regular expression functions is uncertainty about whether to request <code>perl = TRUE</code> or <code>perl = FALSE</code>. And then there are often, but not always, other arguments that alter how patterns are matched, such as <code>fixed</code>, <code>ignore.case</code>, and <code>invert</code>. It can be hard to keep track of which functions use which arguments and how the arguments interact, so many users never get to the point where they retain these details without rereading the docs.</p>
 <p>The stringr package “provides a cohesive set of functions designed to make working with strings as easy as possible”. In particular, stringr uses one regular expression system everywhere (ICU regular expressions) and uses the same interface in every function for controlling matching behaviors, such as case sensitivity. Some people find this easier to internalize and program around. Let’s imagine you decide you’d rather build regexcite based on stringr (and stringi) than base R’s regular expression functions.</p>
-<p>First, declare your general intent to use some functions from the stringr namespace with <code>use_package()</code>:</p>
+<p>First, declare your general intent to use some functions from the stringr namespace with <code><a href="https://usethis.r-lib.org/reference/use_package.html">use_package()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_package</span>(<span class="st">"stringr"</span>)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding 'stringr' to Imports field in DESCRIPTION</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Refer to functions with `stringr::fun()`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_package.html">use_package</a></span><span class="op">(</span><span class="st">"stringr"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Adding 'stringr' to Imports field in DESCRIPTION</span></span>
+<span><span class="co">#&gt; • Refer to functions with `stringr::fun()`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This adds the stringr package to the <code>Imports</code> field of <code>DESCRIPTION</code>. And that is all it does.</p>
 <p>Let’s revisit <code>strsplit1()</code> to make it more stringr-like. Here’s a new take on it<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>str_split_one <span class="ot">&lt;-</span> <span class="cf">function</span>(string, pattern, <span class="at">n =</span> <span class="cn">Inf</span>) {</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.character</span>(string), <span class="fu">length</span>(string) <span class="sc">&lt;=</span> <span class="dv">1</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(string) <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    stringr<span class="sc">::</span><span class="fu">str_split</span>(<span class="at">string =</span> string, <span class="at">pattern =</span> pattern, <span class="at">n =</span> n)[[<span class="dv">1</span>]]</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">character</span>()</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">str_split_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span>, <span class="va">pattern</span>, <span class="va">n</span> <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">string</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">string</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">string</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">string</span>, pattern <span class="op">=</span> <span class="va">pattern</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notice that we:</p>
 <ul>
-<li>Rename the function to <code>str_split_one()</code>, to signal that it is a wrapper around <code>stringr::str_split()</code>.</li>
-<li>Adopt the argument names from <code>stringr::str_split()</code>. Now we have <code>string</code> and <code>pattern</code> (and <code>n</code>), instead of <code>x</code> and <code>split</code>.</li>
-<li>Introduce a bit of argument checking and edge case handling. This is unrelated to the switch to stringr and would be equally beneficial in the version built on <code>strsplit()</code>.</li>
-<li>Use the <code>package::function()</code> form when calling <code>stringr::str_split()</code>. This specifies that we want to call the <code>str_split()</code> function from the stringr namespace. There is more than one way to call a function from another package and the one we endorse here is explained fully in <a href="dependencies-in-practice.html" class="quarto-xref"><span>Chapter 11</span></a>.</li>
+<li>Rename the function to <code>str_split_one()</code>, to signal that it is a wrapper around <code><a href="https://stringr.tidyverse.org/reference/str_split.html">stringr::str_split()</a></code>.</li>
+<li>Adopt the argument names from <code><a href="https://stringr.tidyverse.org/reference/str_split.html">stringr::str_split()</a></code>. Now we have <code>string</code> and <code>pattern</code> (and <code>n</code>), instead of <code>x</code> and <code>split</code>.</li>
+<li>Introduce a bit of argument checking and edge case handling. This is unrelated to the switch to stringr and would be equally beneficial in the version built on <code><a href="https://rdrr.io/r/base/strsplit.html">strsplit()</a></code>.</li>
+<li>Use the <code>package::function()</code> form when calling <code><a href="https://stringr.tidyverse.org/reference/str_split.html">stringr::str_split()</a></code>. This specifies that we want to call the <code>str_split()</code> function from the stringr namespace. There is more than one way to call a function from another package and the one we endorse here is explained fully in <a href="dependencies-in-practice.html" class="quarto-xref"><span>Chapter 11</span></a>.</li>
 </ul>
-<p>Where should we write this new function definition? If we want to keep following the convention where we name the <code>.R</code> file after the function it defines, we now need to do some fiddly file shuffling. Because this comes up fairly often in real life, we have the <code>rename_files()</code> function, which choreographs the renaming of a file in <code>R/</code> and its associated companion files below <code>test/</code>.</p>
+<p>Where should we write this new function definition? If we want to keep following the convention where we name the <code>.R</code> file after the function it defines, we now need to do some fiddly file shuffling. Because this comes up fairly often in real life, we have the <code><a href="https://usethis.r-lib.org/reference/rename_files.html">rename_files()</a></code> function, which choreographs the renaming of a file in <code>R/</code> and its associated companion files below <code>test/</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rename_files</span>(<span class="st">"strsplit1"</span>, <span class="st">"str_split_one"</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Moving 'R/strsplit1.R' to 'R/str_split_one.R'</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Moving 'tests/testthat/test-strsplit1.R' to 'tests/testthat/test-str_split_one.R'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/rename_files.html">rename_files</a></span><span class="op">(</span><span class="st">"strsplit1"</span>, <span class="st">"str_split_one"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Moving 'R/strsplit1.R' to 'R/str_split_one.R'</span></span>
+<span><span class="co">#&gt; ✔ Moving 'tests/testthat/test-strsplit1.R' to 'tests/testthat/test-str_split_one.R'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Remember: the file name work is purely aspirational. We still need to update the contents of these files!</p>
 <p>Here are the updated contents of <code>R/str_split_one.R</code>. In addition to changing the function definition, we’ve also updated the roxygen header to reflect the new arguments and to include examples that show off the stringr features.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Split a string</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param string A character vector with, at most, one element.</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @inheritParams stringr::str_split</span></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return A character vector.</span></span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#' @export</span></span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @examples</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' x &lt;- "alfa,bravo,charlie,delta"</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co">#' str_split_one(x, pattern = ",")</span></span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="co">#' str_split_one(x, pattern = ",", n = 2)</span></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="co">#'</span></span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co">#' y &lt;- "192.168.0.1"</span></span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="co">#' str_split_one(y, pattern = stringr::fixed("."))</span></span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>str_split_one <span class="ot">&lt;-</span> <span class="cf">function</span>(string, pattern, <span class="at">n =</span> <span class="cn">Inf</span>) {</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="fu">is.character</span>(string), <span class="fu">length</span>(string) <span class="sc">&lt;=</span> <span class="dv">1</span>)</span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(string) <span class="sc">==</span> <span class="dv">1</span>) {</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    stringr<span class="sc">::</span><span class="fu">str_split</span>(<span class="at">string =</span> string, <span class="at">pattern =</span> pattern, <span class="at">n =</span> n)[[<span class="dv">1</span>]]</span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">character</span>()</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#' Split a string</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @param string A character vector with, at most, one element.</span></span>
+<span><span class="co">#' @inheritParams stringr::str_split</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @return A character vector.</span></span>
+<span><span class="co">#' @export</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' @examples</span></span>
+<span><span class="co">#' x &lt;- "alfa,bravo,charlie,delta"</span></span>
+<span><span class="co">#' str_split_one(x, pattern = ",")</span></span>
+<span><span class="co">#' str_split_one(x, pattern = ",", n = 2)</span></span>
+<span><span class="co">#'</span></span>
+<span><span class="co">#' y &lt;- "192.168.0.1"</span></span>
+<span><span class="co">#' str_split_one(y, pattern = stringr::fixed("."))</span></span>
+<span><span class="va">str_split_one</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">string</span>, <span class="va">pattern</span>, <span class="va">n</span> <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/stopifnot.html">stopifnot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">is.character</a></span><span class="op">(</span><span class="va">string</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">string</span><span class="op">)</span> <span class="op">&lt;=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">string</span><span class="op">)</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/str_split.html">str_split</a></span><span class="op">(</span>string <span class="op">=</span> <span class="va">string</span>, pattern <span class="op">=</span> <span class="va">pattern</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Don’t forget to also update the test file!</p>
 <p>Here are the updated contents of <code>tests/testthat/test-str_split_one.R</code>. In addition to the change in the function’s name and arguments, we’ve added a couple more tests.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"str_split_one() splits a string"</span>, {</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">str_split_one</span>(<span class="st">"a,b,c"</span>, <span class="st">","</span>), <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>))</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"str_split_one() errors if input length &gt; 1"</span>, {</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_error</span>(<span class="fu">str_split_one</span>(<span class="fu">c</span>(<span class="st">"a,b"</span>,<span class="st">"c,d"</span>), <span class="st">","</span>))</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">test_that</span>(<span class="st">"str_split_one() exposes features of stringr::str_split()"</span>, {</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">str_split_one</span>(<span class="st">"a,b,c"</span>, <span class="st">","</span>, <span class="at">n =</span> <span class="dv">2</span>), <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b,c"</span>))</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expect_equal</span>(<span class="fu">str_split_one</span>(<span class="st">"a.b"</span>, stringr<span class="sc">::</span><span class="fu">fixed</span>(<span class="st">"."</span>)), <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>))</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"str_split_one() splits a string"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">str_split_one</span><span class="op">(</span><span class="st">"a,b,c"</span>, <span class="st">","</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">test_that</span><span class="op">(</span><span class="st">"str_split_one() errors if input length &gt; 1"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">expect_error</span><span class="op">(</span><span class="fu">str_split_one</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a,b"</span>,<span class="st">"c,d"</span><span class="op">)</span>, <span class="st">","</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">test_that</span><span class="op">(</span><span class="st">"str_split_one() exposes features of stringr::str_split()"</span>, <span class="op">{</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">str_split_one</span><span class="op">(</span><span class="st">"a,b,c"</span>, <span class="st">","</span>, n <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b,c"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_equal</span><span class="op">(</span><span class="fu">str_split_one</span><span class="op">(</span><span class="st">"a.b"</span>, <span class="fu">stringr</span><span class="fu">::</span><span class="fu"><a href="https://stringr.tidyverse.org/reference/modifiers.html">fixed</a></span><span class="op">(</span><span class="st">"."</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Before we take the new <code>str_split_one()</code> out for a test drive, we need to call <code>document()</code>. Why? Remember that <code>document()</code> does two main jobs:</p>
+<p>Before we take the new <code>str_split_one()</code> out for a test drive, we need to call <code><a href="https://devtools.r-lib.org/reference/document.html">document()</a></code>. Why? Remember that <code><a href="https://devtools.r-lib.org/reference/document.html">document()</a></code> does two main jobs:</p>
 <ol type="1">
 <li>Converts our roxygen comments into proper R documentation.</li>
 <li>(Re)generates <code>NAMESPACE</code>.</li>
 </ol>
 <p>The second job is especially important here, since we will no longer export <code>strsplit1()</code> and we will newly export <code>str_split_one()</code>. Don’t be dismayed by the warning about <code>"Objects listed as exports, but not present in namespace: strsplit1"</code>. That always happens when you remove something from the namespace.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">document</span>()</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Updating regexcite documentation</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Loading regexcite</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning: Objects listed as exports, but not present in namespace:</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • strsplit1</span></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Writing 'NAMESPACE'</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Writing 'str_split_one.Rd'</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Deleting 'strsplit1.Rd'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/document.html">document</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Updating regexcite documentation</span></span>
+<span><span class="co">#&gt; ℹ Loading regexcite</span></span>
+<span><span class="co">#&gt; Warning: Objects listed as exports, but not present in namespace:</span></span>
+<span><span class="co">#&gt; • strsplit1</span></span>
+<span><span class="co">#&gt; Writing 'NAMESPACE'</span></span>
+<span><span class="co">#&gt; Writing 'str_split_one.Rd'</span></span>
+<span><span class="co">#&gt; Deleting 'strsplit1.Rd'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Try out the new <code>str_split_one()</code> function by simulating package installation via <code>load_all()</code>:</p>
+<p>Try out the new <code>str_split_one()</code> function by simulating package installation via <code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load_all</span>()</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Loading regexcite</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_split_one</span>(<span class="st">"a, b, c"</span>, <span class="at">pattern =</span> <span class="st">", "</span>)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "a" "b" "c"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html">load_all</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Loading regexcite</span></span>
+<span><span class="fu">str_split_one</span><span class="op">(</span><span class="st">"a, b, c"</span>, pattern <span class="op">=</span> <span class="st">", "</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "a" "b" "c"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="use_github" class="level2" data-number="1.17">
-<h2 data-number="1.17" class="anchored" data-anchor-id="use_github"><span class="header-section-number">1.17</span> <code>use_github()</code></h2>
+</section><section id="use_github" class="level2" data-number="1.17"><h2 data-number="1.17" class="anchored" data-anchor-id="use_github">
+<span class="header-section-number">1.17</span> <code>use_github()</code>
+</h2>
 <p>You’ve seen us making commits during the development process for regexcite. You can see an indicative history at <a href="https://github.com/jennybc/regexcite" class="uri">https://github.com/jennybc/regexcite</a>. Our use of version control and the decision to expose the development process means you can inspect the state of the regexcite source at each developmental stage. By looking at so-called diffs, you can see exactly how each devtools helper function modifies the source files that constitute the regexcite package.</p>
 <p>How would you connect your local regexcite package and Git repository to a companion repository on GitHub? Here are three approaches:</p>
 <ol type="1">
-<li><a href="https://usethis.r-lib.org/reference/use_github.html"><code>use_github()</code></a> is a helper that we recommend for the long-term. We won’t demonstrate it here because it requires some credential setup on your end. We also don’t want to tear down and rebuild the public regexcite package every time we build this book.</li>
+<li>
+<a href="https://usethis.r-lib.org/reference/use_github.html"><code>use_github()</code></a> is a helper that we recommend for the long-term. We won’t demonstrate it here because it requires some credential setup on your end. We also don’t want to tear down and rebuild the public regexcite package every time we build this book.</li>
 <li>Set up the GitHub repo first! It sounds counter-intuitive, but the easiest way to get your work onto GitHub is to initiate there, then use RStudio to start working in a synced local copy. This approach is described in Happy Git’s workflows <a href="https://happygitwithr.com/new-github-first.html">New project, GitHub first</a> and <a href="https://happygitwithr.com/existing-github-first.html">Existing project, GitHub first</a>.</li>
 <li>Command line Git can always be used to add a remote repository <em>post hoc</em>. This is described in the Happy Git workflow <a href="https://happygitwithr.com/existing-github-last.html">Existing project, GitHub last</a>.</li>
 </ol>
 <p>Any of these approaches will connect your local regexcite project to a GitHub repo, public or private, which you can push to or pull from using the Git client built into RStudio. In <a href="software-development-practices.html" class="quarto-xref"><span>Chapter 20</span></a>, we elaborate on why version control (e.g., Git) and, specifically, hosted version control (e.g.&nbsp;GitHub) is worth incorporating into your package development process.</p>
-</section>
-<section id="use_readme_rmd" class="level2" data-number="1.18">
-<h2 data-number="1.18" class="anchored" data-anchor-id="use_readme_rmd"><span class="header-section-number">1.18</span> <code>use_readme_rmd()</code></h2>
+</section><section id="use_readme_rmd" class="level2" data-number="1.18"><h2 data-number="1.18" class="anchored" data-anchor-id="use_readme_rmd">
+<span class="header-section-number">1.18</span> <code>use_readme_rmd()</code>
+</h2>
 <p>Now that your package is on GitHub, the <code>README.md</code> file matters. It is the package’s home page and welcome mat, at least until you decide to give it a website (see <a href="website.html" class="quarto-xref"><span>Chapter 19</span></a>), add a vignette (see <a href="vignettes.html" class="quarto-xref"><span>Chapter 17</span></a>), or submit it to CRAN (see <a href="release.html" class="quarto-xref"><span>Chapter 22</span></a>).</p>
-<p>The <code>use_readme_rmd()</code> function initializes a basic, executable <code>README.Rmd</code> ready for you to edit:</p>
+<p>The <code><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd()</a></code> function initializes a basic, executable <code>README.Rmd</code> ready for you to edit:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">use_readme_rmd</span>()</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Writing 'README.Rmd'</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Adding '^README\\.Rmd$' to '.Rbuildignore'</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; • Update 'README.Rmd' to include installation instructions.</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ Writing '.git/hooks/pre-commit'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ✔ Writing 'README.Rmd'</span></span>
+<span><span class="co">#&gt; ✔ Adding '^README\\.Rmd$' to '.Rbuildignore'</span></span>
+<span><span class="co">#&gt; • Update 'README.Rmd' to include installation instructions.</span></span>
+<span><span class="co">#&gt; ✔ Writing '.git/hooks/pre-commit'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>In addition to creating <code>README.Rmd</code>, this adds some lines to <code>.Rbuildignore</code>, and creates a Git pre-commit hook to help you keep <code>README.Rmd</code> and <code>README.md</code> in sync.</p>
 <p><code>README.Rmd</code> already has sections that prompt you to:</p>
 <ul>
 <li>Describe the purpose of the package.</li>
-<li>Provide installation instructions. If a GitHub remote is detected when <code>use_readme_rmd()</code> is called, this section is pre-filled with instructions on how to install from GitHub.</li>
+<li>Provide installation instructions. If a GitHub remote is detected when <code><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd()</a></code> is called, this section is pre-filled with instructions on how to install from GitHub.</li>
 <li>Show a bit of usage.</li>
 </ul>
 <p>How to populate this skeleton? Copy stuff liberally from <code>DESCRIPTION</code> and any formal and informal tests or examples you have. Anything is better than nothing. This is helpful because people probably won’t install your package and comb through individual help files to figure out how to use it.</p>
@@ -1276,34 +1251,34 @@ str_split_one(y, pattern = stringr::fixed("."))
 ```</code></pre>
 </div>
 <p>Don’t forget to render it to make <code>README.md</code>! The pre-commit hook should remind you if you try to commit <code>README.Rmd</code>, but not <code>README.md</code>, and also when <code>README.md</code> appears to be out-of-date.</p>
-<p>The very best way to render <code>README.Rmd</code> is with <code>build_readme()</code>, because it takes care to render with the most current version of your package, i.e.&nbsp;it installs a temporary copy from the current source.</p>
+<p>The very best way to render <code>README.Rmd</code> is with <code><a href="https://devtools.r-lib.org/reference/build_rmd.html">build_readme()</a></code>, because it takes care to render with the most current version of your package, i.e.&nbsp;it installs a temporary copy from the current source.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">build_readme</span>()</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Installing regexcite in temporary library</span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Building '/tmp/RtmpN70jJb/regexcite/README.Rmd'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/build_rmd.html">build_readme</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ℹ Installing regexcite in temporary library</span></span>
+<span><span class="co">#&gt; ℹ Building '/tmp/RtmpPqJeG7/regexcite/README.Rmd'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can see the rendered <code>README.md</code> simply by <a href="https://github.com/jennybc/regexcite#readme">visiting regexcite on GitHub</a>.</p>
 <p>Finally, don’t forget to do one last commit. And push, if you’re using GitHub.</p>
-</section>
-<section id="the-end-check-and-install" class="level2" data-number="1.19">
-<h2 data-number="1.19" class="anchored" data-anchor-id="the-end-check-and-install"><span class="header-section-number">1.19</span> The end: <code>check()</code> and <code>install()</code></h2>
-<p>Let’s run <code>check()</code> again to make sure all is still well.</p>
+</section><section id="the-end-check-and-install" class="level2" data-number="1.19"><h2 data-number="1.19" class="anchored" data-anchor-id="the-end-check-and-install">
+<span class="header-section-number">1.19</span> The end: <code>check()</code> and <code>install()</code>
+</h2>
+<p>Let’s run <code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code> again to make sure all is still well.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html">check</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <pre><code>── R CMD check results ─────────────────── regexcite 0.0.0.9000 ────
-Duration: 9.4s
+Duration: 9.6s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔</code></pre>
 </div>
 <p>regexcite should have no errors, warnings or notes. This would be a good time to re-build and install it properly. And celebrate!</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://devtools.r-lib.org/reference/install.html">install</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <pre><code>── R CMD build ─────────────────────────────────────────────────────
-* checking for file ‘/tmp/RtmpN70jJb/regexcite/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/RtmpPqJeG7/regexcite/DESCRIPTION’ ... OK
 * preparing ‘regexcite’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
@@ -1311,7 +1286,7 @@ Duration: 9.4s
 Removed empty directory ‘regexcite/tests/testthat/_snaps’
 * building ‘regexcite_0.0.0.9000.tar.gz’
 Running /opt/R/4.4.0/lib/R/bin/R CMD INSTALL \
-  /tmp/RtmpN70jJb/regexcite_0.0.0.9000.tar.gz --install-tests 
+  /tmp/RtmpPqJeG7/regexcite_0.0.0.9000.tar.gz --install-tests 
 * installing to library ‘/home/runner/work/_temp/Library’
 * installing *source* package ‘regexcite’ ...
 ** using staged installation
@@ -1327,59 +1302,50 @@ Running /opt/R/4.4.0/lib/R/bin/R CMD INSTALL \
 * DONE (regexcite)</code></pre>
 </div>
 <p>Feel free to visit the <a href="https://github.com/jennybc/regexcite">regexcite package</a> on GitHub, which appears exactly as developed here. The commit history reflects each individual step, so use the diffs to see the addition and modification of files, as the package evolved. The rest of this book goes in greater detail for each step you’ve seen here and much more.</p>
-</section>
-<section id="review" class="level2" data-number="1.20">
-<h2 data-number="1.20" class="anchored" data-anchor-id="review"><span class="header-section-number">1.20</span> Review</h2>
+</section><section id="review" class="level2" data-number="1.20"><h2 data-number="1.20" class="anchored" data-anchor-id="review">
+<span class="header-section-number">1.20</span> Review</h2>
 <p>This chapter is meant to give you a sense of the typical package development workflow, summarized as a diagram in <a href="#fig-package-dev-workflow" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>. Everything you see here has been touched on in this chapter, with the exception of GitHub Actions, which you will learn more about in <a href="software-development-practices.html#sec-sw-dev-practices-gha" class="quarto-xref"><span>Section 20.2.1</span></a>.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-package-dev-workflow" class="quarto-figure quarto-figure-center quarto-float anchored" alt="Diagram featuring 4 key functions in the devtools workflow: load_all(), test(), document(), and check(). Each is part of one or more loops indicated by arrows, depicting the typical process of editing code or tests or documentation, then test driving that code, running tests, or previewing documentation. check() connects externally to `git commit`, `git push`, and GitHub Actions.">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-package-dev-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figure class="quarto-float quarto-float-fig figure"><div aria-describedby="fig-package-dev-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="diagrams/workflow.png" class="img-fluid figure-img" alt="Diagram featuring 4 key functions in the devtools workflow: load_all(), test(), document(), and check(). Each is part of one or more loops indicated by arrows, depicting the typical process of editing code or tests or documentation, then test driving that code, running tests, or previewing documentation. check() connects externally to `git commit`, `git push`, and GitHub Actions.">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-package-dev-workflow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1.1: The devtools package development workflow.
-</figcaption>
-</figure>
+</figcaption></figure>
 </div>
 </div>
 </div>
 <p>Here is a review of the key functions you’ve seen in this chapter, organized roughly by their role in the development process.</p>
 <p>These functions setup parts of the package and are typically called once per package:</p>
 <ul>
-<li><code>create_package()</code></li>
-<li><code>use_git()</code></li>
-<li><code>use_mit_license()</code></li>
-<li><code>use_testthat()</code></li>
-<li><code>use_github()</code></li>
-<li><code>use_readme_rmd()</code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/create_package.html">create_package()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_git.html">use_git()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/licenses.html">use_mit_license()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_testthat.html">use_testthat()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_github.html">use_github()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_readme_rmd.html">use_readme_rmd()</a></code></li>
 </ul>
 <p>You will call these functions on a regular basis, as you add functions and tests or take on dependencies:</p>
 <ul>
-<li><code>use_r()</code></li>
-<li><code>use_test()</code></li>
-<li><code>use_package()</code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_r.html">use_r()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_r.html">use_test()</a></code></li>
+<li><code><a href="https://usethis.r-lib.org/reference/use_package.html">use_package()</a></code></li>
 </ul>
 <p>You will call these functions multiple times per day or per hour, during development:</p>
 <ul>
-<li><code>load_all()</code></li>
-<li><code>document()</code></li>
-<li><code>test()</code></li>
-<li><code>check()</code></li>
+<li><code><a href="https://devtools.r-lib.org/reference/load_all.html">load_all()</a></code></li>
+<li><code><a href="https://devtools.r-lib.org/reference/document.html">document()</a></code></li>
+<li><code><a href="https://devtools.r-lib.org/reference/test.html">test()</a></code></li>
+<li><code><a href="https://devtools.r-lib.org/reference/check.html">check()</a></code></li>
 </ul>
 
 
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
+</section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><hr>
 <ol>
 <li id="fn1"><p>Recall that this example was so inspiring that it’s now a real function in the stringr package: `stringr::str_split_1()`!<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-
-</main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
+</ol></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
     const mode = bsSheetEl.getAttribute("data-mode");
@@ -1787,9 +1753,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>
-<nav class="page-navigation">
-  <div class="nav-page nav-page-previous">
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
       <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction</span>
       </a>          
@@ -1801,7 +1765,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 
