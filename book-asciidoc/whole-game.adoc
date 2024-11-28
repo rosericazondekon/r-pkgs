@@ -71,15 +71,15 @@ create_package("~/path/to/regexcite")
 For the creation of this book we have to work in a temporary directory, because the book is built non-interactively in the cloud. Behind the scenes, we’re executing our own `+create_package()+` command, but don’t be surprised if our output differs a bit from yours.
 
 ....
-#> ✔ Creating '/tmp/Rtmpr7jH54/regexcite/'.
-#> ✔ Setting active project to "/tmp/Rtmpr7jH54/regexcite".
+#> ✔ Creating '/tmp/Rtmpc692Hk/regexcite/'.
+#> ✔ Setting active project to "/tmp/Rtmpc692Hk/regexcite".
 #> ✔ Creating 'R/'.
 #> ✔ Writing 'DESCRIPTION'.
 #> Package: regexcite
 #> Title: What the Package Does (One Line, Title Case)
 #> Version: 0.0.0.9000
 #> Authors@R (parsed):
-#>     * First Last <first.last@example.com> [aut, cre] (YOUR-ORCID-ID)
+#>     * First Last <first.last@example.com> [aut, cre]
 #> Description: What the package does (one paragraph).
 #> License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
 #>     license
@@ -159,7 +159,7 @@ Click on History (the clock icon in the Git pane) and, if you consented, you wil
 [width="100%",cols="<17%,<67%,<16%",options="header",]
 |===
 |commit |author |message
-|e502dae563… |rosericazondekon rosericazondekon@users.noreply.github.com |Initial commit
+|806fab9bea… |rosericazondekon rosericazondekon@users.noreply.github.com |Initial commit
 |===
 
 [TIP]
@@ -512,14 +512,14 @@ install()
 
 ....
 ── R CMD build ─────────────────────────────────────────────────────
-* checking for file ‘/tmp/Rtmpr7jH54/regexcite/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/Rtmpc692Hk/regexcite/DESCRIPTION’ ... OK
 * preparing ‘regexcite’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
 * checking for empty or unneeded directories
 * building ‘regexcite_0.0.0.9000.tar.gz’
 Running /opt/R/4.4.2/lib/R/bin/R CMD INSTALL \
-  /tmp/Rtmpr7jH54/regexcite_0.0.0.9000.tar.gz --install-tests 
+  /tmp/Rtmpc692Hk/regexcite_0.0.0.9000.tar.gz --install-tests 
 * installing to library ‘/home/runner/work/_temp/Library’
 * installing *source* package ‘regexcite’ ...
 ** using staged installation
@@ -874,7 +874,7 @@ The very best way to render `+README.Rmd+` is with `+build_readme()+`, because i
 ----
 build_readme()
 #> ℹ Installing regexcite in temporary library
-#> ℹ Building '/tmp/Rtmpr7jH54/regexcite/README.Rmd'
+#> ℹ Building '/tmp/Rtmpc692Hk/regexcite/README.Rmd'
 ----
 
 You can see the rendered `+README.md+` simply by https://github.com/jennybc/regexcite#readme[visiting regexcite on GitHub].
@@ -892,7 +892,7 @@ check()
 
 ....
 ── R CMD check results ─────────────────── regexcite 0.0.0.9000 ────
-Duration: 9.5s
+Duration: 9.6s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ....
@@ -906,7 +906,7 @@ install()
 
 ....
 ── R CMD build ─────────────────────────────────────────────────────
-* checking for file ‘/tmp/Rtmpr7jH54/regexcite/DESCRIPTION’ ... OK
+* checking for file ‘/tmp/Rtmpc692Hk/regexcite/DESCRIPTION’ ... OK
 * preparing ‘regexcite’:
 * checking DESCRIPTION meta-information ... OK
 * checking for LF line-endings in source and make files and shell scripts
@@ -914,7 +914,7 @@ install()
 Removed empty directory ‘regexcite/tests/testthat/_snaps’
 * building ‘regexcite_0.0.0.9000.tar.gz’
 Running /opt/R/4.4.2/lib/R/bin/R CMD INSTALL \
-  /tmp/Rtmpr7jH54/regexcite_0.0.0.9000.tar.gz --install-tests 
+  /tmp/Rtmpc692Hk/regexcite_0.0.0.9000.tar.gz --install-tests 
 * installing to library ‘/home/runner/work/_temp/Library’
 * installing *source* package ‘regexcite’ ...
 ** using staged installation
